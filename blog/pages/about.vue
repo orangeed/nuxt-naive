@@ -1,20 +1,10 @@
-<template>
-  <NuxtLayout name="header">
-    <template> 这是首页头部 </template>
-  </NuxtLayout>
-  首页
-  <NuxtLink to="/about"> 关于</NuxtLink>
-</template>
-<script>
-export default {
-  layout: 'header'
-}
-</script>
+<!--  -->
+<template>关于</template>
 
 <script lang="ts">
 import { defineComponent, reactive, toRefs } from 'vue'
 export default defineComponent({
-  name: '',
+  name: 'about',
   components: {},
   setup() {
     const data = reactive({})
