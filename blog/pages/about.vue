@@ -1,18 +1,12 @@
 <!--  -->
-<template>关于</template>
-
-<script lang="ts">
-import { defineComponent, reactive, toRefs } from 'vue'
-export default defineComponent({
-  name: 'about',
-  components: {},
-  setup() {
-    const data = reactive({})
-    return {
-      ...toRefs(data)
-    }
-  }
-})
+<template>
+  <NuxtLayout name="header">
+    <template> <div>this is about page</div> </template>
+  </NuxtLayout>
+  关于
+</template>
+<script>
+export default {
+  layout: false
+}
 </script>
-
-<style lang="scss" scoped></style>
