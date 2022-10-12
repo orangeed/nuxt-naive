@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@nuxtjs/style-resources": "^1.2.1",
+    "@vicons/ionicons5": "^0.12.0",
     "sass": "^1.55.0",
     "sass-loader": "^13.1.0",
     "unplugin-vue-components": "^0.22.8"

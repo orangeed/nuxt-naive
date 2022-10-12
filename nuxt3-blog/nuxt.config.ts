@@ -37,5 +37,5 @@ export default defineNuxtConfig({
     ],
   },
   buildModules: ["@nuxtjs/style-resources"],
-  css: ["~/styles/tailwind.css","~/styles/index.scss"],
+  css: ["~/styles/tailwind.css", "~/styles/index.scss"],
 });
