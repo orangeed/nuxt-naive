@@ -1,26 +1,14 @@
+<!-- App.vue -->
 <template>
-  <n-config-provider
-    :theme="theme.naiveTheme"
-    :theme-overrides="theme.naiveThemeOverrides"
-    :locale="zhCN"
-    :date-locale="dateZhCN"
-    class="h-full"
-  >
-    <naive-provider>
-      <router-view />
-    </naive-provider>
-  </n-config-provider>
+  <el-config-provider :size="size" :z-index="zIndex">
+    <router-view />
+  </el-config-provider>
 </template>
 
 <script setup lang="ts">
-import { dateZhCN, zhCN } from 'naive-ui';
-import { subscribeStore, useThemeStore } from '@/store';
-import { useGlobalEvents } from '@/composables';
+import { defineComponent } from "vue";
+import { ElConfigProvider } from "element-plus";
 
-const theme = useThemeStore();
-
-subscribeStore();
-useGlobalEvents();
+const zIndex = 3000;
+const size = "small";
 </script>
-
-<style scoped></style>

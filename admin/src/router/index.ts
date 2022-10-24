@@ -1,29 +1,150 @@
-import type { App } from 'vue';
-import { createRouter, createWebHashHistory, createWebHistory } from 'vue-router';
-import { transformAuthRoutesToVueRoutes, transformRouteNameToRoutePath } from '@/utils';
-import { constantRoutes } from './routes';
-import { scrollBehavior } from './helpers';
-import { createRouterGuard } from './guard';
+import { createRouter, createWebHistory } from "vue-router";
+import Layout from "../layout/index.vue";
 
-const { VITE_HASH_ROUTE = 'N', VITE_BASE_URL } = import.meta.env;
+export const basisRoutes = [
+  {
+    path: "/login",
+    component: () => import("../views/login/index.vue"),
+    name: "login",
+    meta: {
+      hidden: true,
+      affix: false,
+    },
+  },
+  {
+    path: "/",
+    component: Layout,
+    name: "index",
+    meta: {
+      hidden: false,
+      affix: false,
+    },
+    redirect: "/dashboard",
+    children: [
+      {
+        path: "/dashboard",
+        name: "dashboard",
+        component: () => import("../views/dashboard/index.vue"),
+        meta: {
+          hidden: false,
+          affix: true, //是否显示在tagsview
+          title: "dashboard",
+        },
+      },
+      {
+        path: "categreg",
+        name: "categreg",
+        component: () => import("../views/home/index.vue"),
+        meta: {
+          hidden: false,
+          affix: false,
+          title: "多级菜单",
+        },
+        children: [
+          {
+            path: "/categregChild",
+            name: "categregChild",
+            component: () => import("../views/dashboard/index.vue"),
+            meta: {
+              hidden: false,
+              affix: false, //是否显示在tagsview
+              title: "三级菜单",
+            },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "/404",
+    component: () => import("../views/error-page/404.vue"),
+    name: "404",
+    meta: {
+      hidden: true,
+      affix: false,
+    },
+  },
+  {
+    path: "/401",
+    component: () => import("../views/error-page/401.vue"),
+    name: "401",
+    meta: {
+      hidden: true,
+      affix: false,
+    },
+  },
 
-export const router = createRouter({
-  history: VITE_HASH_ROUTE === 'Y' ? createWebHashHistory(VITE_BASE_URL) : createWebHistory(VITE_BASE_URL),
-  routes: transformAuthRoutesToVueRoutes(constantRoutes),
-  scrollBehavior
+  // {
+  //   path: "*",
+  //   redirect: "/404",
+  //   name: "404",
+  //   meta: {
+  //     hidden: true,
+  //     affix: false,
+  //   },
+  // },
+];
+
+export const asyncRoute = [
+  {
+    path: "/",
+    component: Layout,
+    name: "index",
+    meta: {
+      hidden: false,
+      affix: false,
+    },
+    redirect: "/dashboard",
+    children: [
+      {
+        path: "/dashboard",
+        name: "dashboard",
+        component: () => import("../views/dashboard/index.vue"),
+        meta: {
+          hidden: false,
+          affix: true, //是否显示在tagsview
+          title: "dashboard",
+        },
+      },
+      {
+        path: "categreg",
+        name: "categreg",
+        component: () => import("../views/home/index.vue"),
+        meta: {
+          hidden: false,
+          affix: false,
+          title: "多级菜单",
+        },
+        children: [
+          {
+            path: "/categregChild",
+            name: "categregChild",
+            component: () => import("../views/dashboard/index.vue"),
+            meta: {
+              hidden: false,
+              affix: false, //是否固定在tagsview
+              title: "三级菜单",
+            },
+          },
+        ],
+      },
+    ],
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "404",
+    meta: {
+      hidden: true,
+      affix: false,
+    },
+  },
+];
+
+
+const router = createRouter({
+  history: createWebHistory(),
+  routes: basisRoutes,
 });
 
-/** setup vue router. - [安装vue路由] */
-export async function setupRouter(app: App) {
-  app.use(router);
-  createRouterGuard(router);
-  await router.isReady();
-}
 
-/** 路由名称 */
-export const routeName = (key: AuthRoute.RouteKey) => key;
-/** 路由路径 */
-export const routePath = (key: Exclude<AuthRoute.RouteKey, 'not-found-page'>) => transformRouteNameToRoutePath(key);
-
-export * from './routes';
-export * from './modules';
+export default router;

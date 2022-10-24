@@ -1,27 +1,15 @@
-import { createApp } from 'vue';
-import App from './App.vue';
-import { setupDirectives } from './directives';
-import { setupRouter } from './router';
-import { setupAssets } from './plugins';
-import { setupStore } from './store';
+import { createApp } from "vue";
+import App from "./App.vue";
+import router from "./router";
+import "./styles/tailwind.css";
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import 'element-plus/theme-chalk/dark/css-vars.css'
+import './styles/index.scss'
 
-async function setupApp() {
-  // import assets: js、css
-  setupAssets();
+const app = createApp(App);
 
-  const app = createApp(App);
-
-  // store plugin: pinia
-  setupStore(app);
-
-  // vue custom directives
-  setupDirectives(app);
-
-  // vue router
-  await setupRouter(app);
-
-  // mount app
-  app.mount('#app');
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
 }
-
-setupApp();
+app.use(router);
+app.mount("#app");
