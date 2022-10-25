@@ -1,5 +1,0 @@
-.vscode
-.idea
-.local
-!.env-config.ts
-components.d.ts

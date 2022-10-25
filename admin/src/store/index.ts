@@ -1,14 +1,23 @@
-import type { App } from 'vue';
-import { createPinia } from 'pinia';
-import { resetSetupStore } from './plugins';
+import Vue from "vue";
+import Vuex from "vuex";
+import getters from "./getters";
+import app from "./modules/app";
+import permission from "./modules/permission";
+// import settings from "./modules/settings";
+import tagsView from "./modules/tagsView";
+// import user from "./modules/user";
 
-/** setup vue store plugin: pinia. - [安装vue状态管理插件：pinia] */
-export function setupStore(app: App) {
-  const store = createPinia();
-  store.use(resetSetupStore);
+Vue.use(Vuex);
 
-  app.use(store);
-}
+const store = new Vuex.Store({
+  getters,
+  modules: {
+    app,
+    permission,
+    // settings,
+    tagsView,
+    // user,
+  },
+});
 
-export * from './modules';
-export * from './subscribe';
+export default store;
