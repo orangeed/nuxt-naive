@@ -12,7 +12,11 @@
           ]"
           @click="handleClickMenu(item.id)"
         >
-          {{ item.name }}
+          <NuxtLink :to="item.path" v-if="item.path">{{ item.name }}</NuxtLink>
+        </span>
+        <span>
+          <n-icon :component="Moon" @click="handleChangeTheme" />
+          <n-icon :component="SunnyOutline" @click="handleChangeTheme" />
         </span>
       </div>
       <div class="flex-1 flex justify-center">
@@ -35,7 +39,8 @@
 </template>
 
 <script setup lang="ts">
-import { SearchOutline } from "@vicons/ionicons5";
+import { SearchOutline, SunnyOutline } from "@vicons/ionicons5";
+import { Moon } from "@vicons/fa";
 import { ref, reactive } from "vue";
 const search = ref("");
 
@@ -46,11 +51,16 @@ const headerData = reactive({
     {
       id: 0,
       name: "首页",
+      path: "/",
     },
     {
       id: 1,
       name: "关于",
+      path: "/about",
     },
+
+    // Moon,
+    // SunnyOutline,
   ],
 });
 // 点击菜单按钮
@@ -59,6 +69,11 @@ const currentIndex = ref(0);
 const handleClickMenu = (id) => {
   console.log(id);
   currentIndex.value = id;
+};
+
+// 切换晚上和白天模式
+const handleChangeTheme = (theme: string) => {
+  console.log("切换晚上和白天模式", theme);
 };
 </script>
 

@@ -1,6 +1,5 @@
 <template>
-  <div>
+  <div class="pl-40 pr-40">
     <h1>about</h1>
-    <NuxtLink to="/"> 首页</NuxtLink>
   </div>
 </template>
