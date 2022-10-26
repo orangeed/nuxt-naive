@@ -687,6 +687,11 @@
     "resolve-from" "^5.0.0"
     "rollup-pluginutils" "^2.8.2"
 
+"@vicons/fa@^0.12.0":
+  "integrity" "sha512-g2PIeJLsTHUjt6bK63LxqC0uYQB7iu+xViJOxvp1s8b9/akpXVPVWjDTTsP980/0KYyMMe4U7F/aUo7wY+MsXA=="
+  "resolved" "https://registry.npmjs.org/@vicons/fa/-/fa-0.12.0.tgz"
+  "version" "0.12.0"
+
 "@vicons/ionicons5@^0.12.0":
   "integrity" "sha512-Iy1EUVRpX0WWxeu1VIReR1zsZLMc4fqpt223czR+Rpnrwu7pt46nbnC2ycO7ItI/uqDLJxnbcMC7FujKs9IfFA=="
   "resolved" "https://registry.npmjs.org/@vicons/ionicons5/-/ionicons5-0.12.0.tgz"
