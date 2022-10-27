@@ -39,28 +39,34 @@
           :on-update:value="handleChangeTabs"
         >
           <n-tab-pane name="all" tab="全部">
-            <ArtCard
+            <div
               v-for="item in data.artData"
               :key="item.id"
-              :item="item"
               class="mt-4 mb-4"
-            />
+              @click="handleGotoDetail(item.id)"
+            >
+              <ArtCard :item="item" />
+            </div>
           </n-tab-pane>
           <n-tab-pane name="JavaScript" tab="JavaScript">
-            <ArtCard
+            <div
               v-for="item in data.artData"
               :key="item.id"
-              :item="item"
               class="mt-4 mb-4"
-            />
+              @click="handleGotoDetail(item.id)"
+            >
+              <ArtCard :item="item" />
+            </div>
           </n-tab-pane>
           <n-tab-pane name="Vue" tab="Vue">
-            <ArtCard
+            <div
               v-for="item in data.artData"
               :key="item.id"
-              :item="item"
               class="mt-4 mb-4"
-            />
+              @click="handleGotoDetail(item.id)"
+            >
+              <ArtCard :item="item" />
+            </div>
           </n-tab-pane>
         </n-tabs>
       </div>
@@ -79,8 +85,20 @@ const handleChangeTabs = (val: string) => {
   handleGetTabsData(val);
 };
 
+interface ArtDara {
+  id: number;
+  img: string;
+  title: string;
+  tag: string[];
+  updataTime: string;
+}
+
+interface Data {
+  artData: ArtDara[];
+}
+
 // 获取tabs下面的数据
-const data = reactive({ artData: [] });
+const data: Data = reactive({ artData: [] });
 const handleGetTabsData = (val: string) => {
   data.artData = [];
   console.log("获取tabs下面的数据", val);
@@ -308,6 +326,14 @@ const handleGetTabsData = (val: string) => {
 };
 
 handleGetTabsData("all");
+
+// 跳转至详情
+const router = useRouter();
+const handleGotoDetail = (id: number) => {
+  console.log("跳转至详情", id);
+  console.log("router", router);
+  router.push({ path: "/details", query: { name: id } });
+};
 </script>
 
 <style lang="scss" scoped></style>
