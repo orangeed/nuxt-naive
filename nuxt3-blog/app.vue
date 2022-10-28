@@ -25,14 +25,14 @@ const theme = ref<typeof darkTheme | null>(null);
 
 // 白天
 const lightThemeOverrides = {
-  textColor: "#474747",
+  color: "#474747",
   backgroundColor: "#ffffff",
 };
 
 // 夜间
 const darkThemeOverrides = {
-  textColor: "#ccc",
-  backgroundColor: "#000000",
+  color: "#474747",
+  backgroundColor: "#101014",
 };
 
 // 默认白天
@@ -69,7 +69,6 @@ emitter.on("theme", (themeItem: any) => {
   font-family: Roboto Mono-Regular, Roboto Mono;
   max-width: 1680px;
   margin: 0 auto;
-
   a {
     text-decoration: none;
   }

@@ -22,29 +22,47 @@
           ]"
           @click="handleClickMenu(item.id)"
         >
-          <!-- <NuxtLink :to="item.path" v-if="item.path">
-          </NuxtLink> -->
           <span v-if="item.path" @click="$router.push(item.path)">{{
             item.name
           }}</span>
         </span>
-        <span>
-          <n-icon :component="Moon" @click="handleChangeTheme(darkTheme)" />
-          <n-icon :component="SunnyOutline" @click="handleChangeTheme(null)" />
-        </span>
       </div>
-      <div class="flex-1 flex justify-center">
-        <div class="w-1/2">
+      <div class="flex-1 flex">
+        <div class="flex-1 flex justify-end items-end">
           <n-input-group>
             <n-input
               v-model:value="search"
               placeholder="搜索"
               size="medium"
             ></n-input>
-            <n-input-group-label class="bg-orange-300 text-white border-none">
+            <n-input-group-label
+              class="bg-orange-300 text-white border-none cursor-pointer"
+              @click="handleSubmit()"
+            >
               <n-icon :component="SearchOutline" />
             </n-input-group-label>
           </n-input-group>
+        </div>
+        <div class="flex-1 flex items-center justify-center">
+          <n-switch
+            size="medium"
+            v-model:value="active"
+            @update:value="handleChangeTheme"
+            :rail-style="railStyle"
+          >
+            <!-- <template #checked-icon #checked>
+              <n-icon :component="Moon" size="20" />
+            </template>
+            <template #unchecked-icon #unchecked>
+              <n-icon
+                :component="SunnyOutline"
+                size="=20"
+                class="text-orange-500"
+              />
+            </template> -->
+            <template #checked>浅</template>
+            <template #unchecked>深</template>
+          </n-switch>
         </div>
       </div>
     </div>
@@ -55,7 +73,7 @@
 <script setup lang="ts">
 import { SearchOutline, SunnyOutline } from "@vicons/ionicons5";
 import { Moon } from "@vicons/fa";
-import { ref, reactive } from "vue";
+import { ref, reactive, CSSProperties } from "vue";
 import { darkTheme } from "naive-ui";
 import { emitter } from "../utils/mitt";
 
@@ -89,12 +107,57 @@ const handleClickMenu = (id: number) => {
 };
 
 // 切换晚上和白天模式
+const active = ref(false);
 const theme = ref<typeof darkTheme | null>(null);
-const handleChangeTheme = (themeItem: typeof darkTheme | null) => {
-  console.log("切换晚上和白天模式", themeItem);
-  theme.value = themeItem;
-  emitter.emit("theme", themeItem);
+const handleChangeTheme = () => {
+  console.log("切换晚上和白天模式", active.value);
+  if (active.value) {
+    theme.value = darkTheme;
+  } else {
+    theme.value = null;
+  }
+  emitter.emit("theme", theme.value);
 };
+
+// 切换夜晚和白天的轨道样式
+const railStyle = ({
+  focused,
+  checked,
+}: {
+  focused: boolean;
+  checked: boolean;
+}) => {
+  const style: CSSProperties = {};
+  if (checked) {
+    style.background = "#ffa500";
+    if (focused) {
+      style.boxShadow = "0 0 0 2px #d0305040";
+    }
+  } else {
+    style.background = "#101014";
+    if (focused) {
+      style.boxShadow = "0 0 0 2px #2080f040";
+    }
+  }
+  return style;
+};
+
+// 查询
+const handleSubmit = () => {
+  console.log("查询", search.value);
+};
+
+const route = useRoute();
+watch(route, (val) => {
+  if (val) {
+    headerData.menuList.forEach((v: any, i: number) => {
+      if (v.path === val.path) {
+        console.log(111);
+        currentIndex.value = v.id;
+      } 
+    });
+  }
+});
 </script>
 
 <style lang="scss" scoped>

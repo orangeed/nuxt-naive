@@ -3,16 +3,12 @@
     <div class="flex">
       <div class="flex-1 about-me text-center">
         <!-- <p class="text-2xl text-left">个人简介</p> -->
-        <n-image
-          src="https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
-        />
+        <n-image src="../assets/img/header.jpg" />
         <p class="text-xl">橘子</p>
         <p class="text-left">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-          aliquet, orci in bibendum luctus, turpis ante pretium velit, eu rutrum
-          augue erat ac eros. Cras ultricies mattis convallis.
+          菜鸡小前端一个，本科毕业，现在就职于一个中小企业。这里的文章主要是记录工作或者学习或者生活。还有个公众号：【橘子的分享】
         </p>
-        <div class="text-left">
+        <div class="text-left text-gray-500">
           <n-icon
             :component="Zhihu"
             size="40"
@@ -42,8 +38,8 @@
             <div
               v-for="item in data.artData"
               :key="item.id"
-              class="mt-4 mb-4"
-              @click="handleGotoDetail(item.id)"
+              class="mt-4 mb-4 cursor-pointer"
+              @click.stop="handleGotoDetail(item.id)"
             >
               <ArtCard :item="item" />
             </div>
@@ -52,7 +48,7 @@
             <div
               v-for="item in data.artData"
               :key="item.id"
-              class="mt-4 mb-4"
+              class="mt-4 mb-4 cursor-pointer"
               @click="handleGotoDetail(item.id)"
             >
               <ArtCard :item="item" />
@@ -62,7 +58,17 @@
             <div
               v-for="item in data.artData"
               :key="item.id"
-              class="mt-4 mb-4"
+              class="mt-4 mb-4 cursor-pointer"
+              @click="handleGotoDetail(item.id)"
+            >
+              <ArtCard :item="item" />
+            </div>
+          </n-tab-pane>
+          <n-tab-pane name="Left" tab="生活">
+            <div
+              v-for="item in data.artData"
+              :key="item.id"
+              class="mt-4 mb-4 cursor-pointer"
               @click="handleGotoDetail(item.id)"
             >
               <ArtCard :item="item" />
@@ -249,7 +255,7 @@ const handleGetTabsData = (val: string) => {
         updataTime: "2022-10-26",
       },
     ];
-  } else {
+  } else if(val === 'Vue') {
     data.artData = [
       {
         id: 0,
@@ -322,6 +328,79 @@ const handleGetTabsData = (val: string) => {
         updataTime: "2022-10-26",
       },
     ];
+  }else{
+    data.artData = [
+      {
+        id: 0,
+        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+        title: "这是第一个标题",
+        tag: ["生活"],
+        updataTime: "2022-10-26",
+      },
+      {
+        id: 1,
+        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+        title: "这是第一个标题",
+        tag: ["生活"],
+        updataTime: "2022-10-26",
+      },
+      {
+        id: 2,
+        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+        title: "这是第一个标题",
+        tag: ["生活"],
+        updataTime: "2022-10-26",
+      },
+      {
+        id: 3,
+        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+        title: "这是第一个标题",
+        tag: ["生活"],
+        updataTime: "2022-10-26",
+      },
+      {
+        id: 4,
+        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+        title: "这是第一个标题",
+        tag: ["生活"],
+        updataTime: "2022-10-26",
+      },
+      {
+        id: 5,
+        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+        title: "这是第一个标题",
+        tag: ["生活"],
+        updataTime: "2022-10-26",
+      },
+      {
+        id: 6,
+        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+        title: "这是第一个标题",
+        tag: ["生活"],
+        updataTime: "2022-10-26",
+      },
+      {
+        id: 7,
+        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+        title: "这是第一个标题",
+        tag: ["生活"],
+        updataTime: "2022-10-26",
+      },
+      {
+        id: 8,
+        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+        title: "这是第一个标题",
+        tag: ["生活"],
+        updataTime: "2022-10-26",
+      },
+      {
+        id: 9,
+        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+        title: "这是第一个标题",
+        tag: ["生活"],
+        updataTime: "2022-10-26",
+      },
+    ];
   }
 };
 
@@ -332,7 +411,7 @@ const router = useRouter();
 const handleGotoDetail = (id: number) => {
   console.log("跳转至详情", id);
   console.log("router", router);
-  router.push({ path: "/details", query: { name: id } });
+  router.push({ path: "/details", query: { id } });
 };
 </script>
 
