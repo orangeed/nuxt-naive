@@ -1,3 +1,13 @@
+/*
+ * @Author: orange
+ * @Date: 2022-11-06 22:28:08
+ * @LastEditors: orange
+ * @LastEditTime: 2022-11-20 10:54:18
+ * @FilePath: \nuxt-naive\nuxt3-blog\utils\storage.ts
+ * @Description:
+ *
+ * Copyright (c) 2022 by orange, All Rights Reserved.
+ */
 /**
  * 获取缓存
  * @param key
@@ -5,11 +15,12 @@
  * @returns
  */
 export const getStorage = (key: string) => {
-  if (!key) throwError("没有key！");
-  if (!window.localStorage.getItem(key)) throwError("没有获取到数据！");
+  if (!key) Promise.reject("没有key！");
+  if (!window.localStorage.getItem(key)) return null;
   const value = window.localStorage.getItem(key) as string;
   console.log("value", value);
-  return JSON.parse(value);
+  if (value.includes("{")) return JSON.parse(value);
+  return value;
 };
 
 /**
@@ -19,8 +30,8 @@ export const getStorage = (key: string) => {
  * @returns
  */
 export const setStorage = (key: string, value: any) => {
-  if (!key) throwError("没有key！");
-  if (!value) throwError("没有value！");
+  if (!key) Promise.reject("没有key！");
+  if (!value) Promise.reject("没有value！");
   window.localStorage.setItem(key, value);
 };
 
@@ -30,7 +41,7 @@ export const setStorage = (key: string, value: any) => {
  * @returns
  */
 export const removeStorage = (key: string) => {
-  if (!key) throwError("没有key！");
+  if (!key) Promise.reject("没有key！");
   window.localStorage.removeItem(key);
 };
 

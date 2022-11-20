@@ -48,8 +48,10 @@
 </template>
 <script lang="ts" setup>
 import { reactive } from "vue";
+import { useRouter } from 'vue-router'
 import { Zhihu, Weixin, Github } from "@vicons/fa";
 import ArtCard from "../components/artCard.vue";
+
 
 // 切换tabs的事件
 const handleChangeTabs = (val: string) => {

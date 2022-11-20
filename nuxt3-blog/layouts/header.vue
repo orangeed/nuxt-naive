@@ -12,8 +12,8 @@ currentIndex = 0;
         <span v-for="item in headerData.menuList" :key="item.id" :class="[
           'ml-6 mr-6 cursor-pointer',
           currentIndex === item.id ? 'active' : '',
-        ]" @click="handleClickMenu(item.id)">
-          <span v-if="item.path" @click="$router.push(item.path)">{{
+        ]" @click="handleClickMenu(item.id, item.lock)">
+          <span v-if="item.path" @click="handleGotoPage(item.path, item.lock)">{{
               item.name
           }}</span>
         </span>
@@ -46,16 +46,38 @@ currentIndex = 0;
       </div>
     </div>
     <slot name="header" />
+
+    <!-- 密码输入框 -->
+    <n-modal v-model:show="showPasswordModel">
+      <n-card style="width: 600px" title="密码" :bordered="false" size="huge" role="dialog" aria-modal="true">
+        <n-input type="password" show-password-on="click" placeholder="请输入密码" v-model:value="password">
+          <template #password-visible-icon>
+            <n-icon :size="16" :component="GlassesOutline" />
+          </template>
+          <template #password-invisible-icon>
+            <n-icon :size="16" :component="Glasses" />
+          </template>
+        </n-input>
+        <template #footer>
+          <div class="text-right">
+            <n-button @click="showPasswordModel = false; password = ''"> 关闭</n-button>
+            <n-button type="primary" class="ml-3" @click="handlePass">
+              确定
+            </n-button>
+          </div>
+        </template>
+      </n-card>
+    </n-modal>
   </header>
 </template>
 
 <script setup lang="ts">
-import { SearchOutline, SunnyOutline } from "@vicons/ionicons5";
-import { Moon } from "@vicons/fa";
-import { ref, reactive, CSSProperties } from "vue";
-import { darkTheme } from "naive-ui";
+import { SearchOutline, GlassesOutline, Glasses } from "@vicons/ionicons5";
+import { ref, reactive, CSSProperties, watch, Ref } from "vue";
+import { darkTheme, useMessage } from "naive-ui";
 import { emitter } from "../utils/mitt";
 import { setStorage } from "~~/utils/storage";
+import { useRouter, useRoute } from "vue-router";
 
 const search = ref("");
 
@@ -67,39 +89,38 @@ const headerData = reactive({
       id: 0,
       name: "首页",
       path: "/",
+      lock: false
     },
     {
       id: 1,
       name: "关于",
       path: "/about",
+      lock: false
     },
     {
       id: 2,
       name: "相册",
-      path: "/album"
+      path: "/album",
+      lock: true
     },
     {
       id: 3,
-      name: '阅读',
-      path: '/read'
+      name: "阅读",
+      path: "/read",
+      lock: false
     },
     {
       id: 4,
-      name: '影视',
-      path: '/movies'
-    }
+      name: "影视",
+      path: "/movies",
+      lock: false
+    },
 
     // Moon,
     // SunnyOutline,
   ],
 });
-// 点击菜单按钮
-// 当前选中的按钮索引
-const currentIndex = ref(0);
-const handleClickMenu = (id: number) => {
-  console.log(id);
-  currentIndex.value = id;
-};
+
 
 // 切换晚上和白天模式
 const active = ref(false);
@@ -111,11 +132,11 @@ const handleChangeTheme = () => {
   } else {
     theme.value = null;
   }
-  console.log('theme.value ',theme.value );
+  console.log("theme.value ", theme.value);
   if (theme.value) {
-    setStorage('THEME', 'null')
+    setStorage("THEME", "dark");
   } else {
-    setStorage('THEME', 'light')
+    setStorage("THEME", "light");
   }
   emitter.emit("theme", theme.value);
 };
@@ -148,8 +169,48 @@ const handleSubmit = () => {
   console.log("查询", search.value);
 };
 
+
+
+// 点击菜单按钮
+// 当前选中的按钮索引
+const currentIndex: Ref<number> = ref(0);
+let idNumber: number
+const handleClickMenu = (id: number, lock: boolean) => {
+  console.log(id);
+  if (lock) {
+    idNumber = id
+  } else {
+    currentIndex.value = id;
+  }
+};
+
+// 跳转页面
+const router = useRouter()
+const showPasswordModel: Ref<boolean> = ref(false)
+let pathStr: string = ''
+const handleGotoPage = (path: string, lock: boolean) => {
+  if (lock) {
+    pathStr = path
+    showPasswordModel.value = true
+  } else {
+    router.push(path)
+  }
+}
+
+// 确定密码
+const password: Ref<string> = ref('')
+const message = useMessage()
+const handlePass = () => {
+  if (!password.value) return message.error("请输入密码!")
+  // TODO 如果输入密码的话,调用接口判断密码输入的是否正确,正确的跳转页面,不正确提示密码不正确.
+  currentIndex.value = idNumber
+  router.push(pathStr)
+  showPasswordModel.value = false
+  password.value = ''
+}
+
 const route = useRoute();
-watch(route, (val) => {
+watch(route, (val: any) => {
   if (val) {
     headerData.menuList.forEach((v: any, i: number) => {
       if (v.path === val.path) {
@@ -158,6 +219,9 @@ watch(route, (val) => {
       }
     });
   }
+}, {
+  immediate: true,
+  deep: true
 });
 </script>
 

@@ -2,6 +2,27 @@
   // https://v3.nuxtjs.org/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
   "compilerOptions": {
-    "strict": true
-  }
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true,
+    "allowSyntheticDefaultImports": true,
+    "types": ["node"]
+  },
+  "include": [
+    "./**/*.ts",
+    "./**/*.d.ts",
+    "./**/*.tsx",
+    "./**/*.vue",
+    "tailwind.config.js"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
 }

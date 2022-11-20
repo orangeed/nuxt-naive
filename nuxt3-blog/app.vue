@@ -1,12 +1,35 @@
+<!--
+ * @Author: orange
+ * @Date: 2022-10-11 21:56:20
+ * @LastEditors: orange
+ * @LastEditTime: 2022-11-20 21:25:40
+ * @FilePath: \nuxt-naive\nuxt3-blog\app.vue
+ * @Description: 
+ * 
+ * Copyright (c) 2022 by orange, All Rights Reserved. 
+-->
+
 <template>
-  <n-config-provider :theme="theme" :theme-overrides="theme === null ? lightThemeOverrides : darkThemeOverrides">
+  <n-config-provider :theme="theme" :locale="zhCN" :date-locale="dateZhCN"
+    :theme-overrides="theme === null ? lightThemeOverrides : darkThemeOverrides">
     <n-global-style />
-    <div id="app-nuxt">
-      <NuxtLayout name="header"> </NuxtLayout>
-      <NuxtPage :key="$route.fullPath"></NuxtPage>
-      <NuxtLayout name="footer"> </NuxtLayout>
-      <n-back-top :right="100" />
-    </div>
+    <n-message-provider>
+      <div id="app-nuxt">
+        <NuxtLayout name="header"> </NuxtLayout>
+        <NuxtPage :key="$route.fullPath"></NuxtPage>
+        <NuxtLayout name="footer"> </NuxtLayout>
+        <n-back-top :right="100" />
+        <div>
+
+          <Head>
+            <Title>
+              {{ title }}
+            </Title>
+            <Meta name="description" :content="title" />
+          </Head>
+        </div>
+      </div>
+    </n-message-provider>
   </n-config-provider>
 </template>
 <script lang="ts">
@@ -15,9 +38,11 @@ export default {
 };
 </script>
 <script lang="ts" setup>
-import { darkTheme } from "naive-ui";
+import { darkTheme, zhCN, dateZhCN } from "naive-ui";
 import { emitter } from "./utils/mitt";
 import { getStorage } from "./utils/storage";
+import { ref, reactive, onMounted, nextTick } from 'vue'
+const title = '橘子的分享'
 
 
 const theme = ref<typeof darkTheme | null>(null);
@@ -42,7 +67,7 @@ let themeList = reactive({
 
 
 emitter.on("theme", (themeItem: any) => {
-  console.log("themeItem", themeItem);
+  console.log("emitterTheme", themeItem);
   theme.value = themeItem;
   if (themeItem) {
     themeList = { ...darkThemeOverrides };
@@ -51,11 +76,9 @@ emitter.on("theme", (themeItem: any) => {
   }
 });
 
-
+// TODO 缓存当前模式
 onMounted(() => {
-  console.log(1111);
-  // theme.value = getStorage('THEME')
-  if (getStorage('THEME')) {
+  if (getStorage('THEME') === 'dark') {
     themeList = { ...darkThemeOverrides };
   } else {
     themeList = { ...lightThemeOverrides };
