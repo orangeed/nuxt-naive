@@ -2,12 +2,13 @@
  * @Author: orange
  * @Date: 2022-10-25 20:40:23
  * @LastEditors: orange
- * @LastEditTime: 2022-11-26 23:35:30
+ * @LastEditTime: 2022-11-29 20:57:25
  * @FilePath: \nuxt-naive\admin\src\layout\index.vue
- * @Description: layout
+ * @Description: 
  * 
  * Copyright (c) 2022 by orange, All Rights Reserved. 
 -->
+<!-- layout -->
 <template>
   <div>
     <el-header class="flex items-center bg-color text-color" :style="{ height: headerHight, }">
@@ -31,6 +32,8 @@
         </div>
         <el-dropdown trigger="click">
           <div class="flex items-center">
+            <img src="https://img2.woyaogexing.com/2020/06/19/02d268db09ff4e8e9608fd64adbbeed8!400x400.jpeg"
+              class="w-8 rounded" />
             <img src="https://img2.woyaogexing.com/2020/06/19/02d268db09ff4e8e9608fd64adbbeed8!400x400.jpeg"
               class="w-8 rounded" />
             <span class="basis-text-color">orange</span>
@@ -73,6 +76,7 @@
   min-height: 400px;
 }
 
+
 .asideWidth {
   overflow: hidden;
   transition: 0.35s all;
@@ -81,6 +85,7 @@
 .el-menu {
   border: none;
 }
+
 
 .el-main {
   padding: 0;
