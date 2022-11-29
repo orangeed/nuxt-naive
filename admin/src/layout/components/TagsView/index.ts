@@ -1,7 +1,23 @@
 import { defineComponent, reactive, toRefs, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-
 import { basisRoutes } from "../../../router/index";
+import {
+  LocationQueryRaw,
+  RouteLocationPathRaw,
+  RouteLocationNamedRaw,
+} from "vue-router";
+
+interface visitedViews {
+  path: string;
+  query: LocationQueryRaw;
+  fullPath: RouteLocationPathRaw | RouteLocationNamedRaw;
+  title: string;
+}
+interface Data {
+  visitedViews: visitedViews[];
+  cachedViews: [];
+  affixTags: [];
+}
 
 export default defineComponent({
   name: "TagsView",
@@ -15,7 +31,7 @@ export default defineComponent({
   setup(prop) {
     const router = useRouter();
     const route = useRoute();
-    const data = reactive({
+    const data: Data = reactive({
       visitedViews: [],
       cachedViews: [],
       affixTags: [],
@@ -65,8 +81,8 @@ export default defineComponent({
       return tags;
     };
     const isActive = (routeItem: any) => {
-      console.log("route.path", routeItem.path);
-      console.log("root.$route.path", route.path);
+      // console.log("route.path", routeItem.path);
+      // console.log("root.$route.path", route.path);
       // return routeItem.path === route.path;
       return route.path === routeItem.path;
     };

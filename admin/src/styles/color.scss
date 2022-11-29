@@ -1,0 +1,21 @@
+@import "./theme.scss";
+
+// 页面背景色
+.bg-color {
+  @include background_color("bgColor");
+}
+
+// 字体颜色
+.text-color {
+  @include font_color("textColor");
+}
+
+// 导航卡片的颜色
+.card-color {
+  @include background_color("cardBgColor");
+}
+
+// main的背景色
+.main-color {
+  @include background_color("mainColor");
+}

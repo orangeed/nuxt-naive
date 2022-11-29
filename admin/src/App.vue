@@ -6,7 +6,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent } from "vue";
 import { ElConfigProvider } from "element-plus";
 
 const zIndex = 3000;

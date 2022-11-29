@@ -1,5 +1,14 @@
-// @import './color.scss';
-html.dark {
-  /* 自定义深色背景颜色 */
-  --el-bg-color: #626aef;
-}
+@import "./var.scss";
+@import "./color.scss";
+// html.dark {
+//   /* 自定义深色背景颜色 */
+//   --el-bg-color: #626aef;
+// }
+
+// .bg-light-black {
+//   background-color: $bg-black;
+// }
+
+// .bg-grey {
+//   background-color: $bg-grey;
+// }
