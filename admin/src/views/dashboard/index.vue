@@ -1,19 +1,25 @@
 <!--
  * @Author: orange
- * @Date: 2022-10-25 20:40:23
+ * @Date: 2022-10-24 15:56:57
  * @LastEditors: orange
- * @LastEditTime: 2022-11-25 21:54:12
+ * @LastEditTime: 2022-11-29 22:21:17
  * @FilePath: \nuxt-naive\admin\src\views\dashboard\index.vue
- * @Description: 
+ * @Description: 首页
  * 
  * Copyright (c) 2022 by orange, All Rights Reserved. 
 -->
-<!-- dashboard -->
 <template>
-  <div>
-    <!-- <div :class="[isDark ? 'bg-grey' : 'bg-white']">
-    </div> -->
-    {{ theme }}
+  <div class="bg-white shadow-lg">
+    <div class="flex items-center">
+      <img src="https://img2.woyaogexing.com/2020/06/19/02d268db09ff4e8e9608fd64adbbeed8!400x400.jpeg"
+        class="w-20 rounded" />
+      <p class="ml-3">
+        {{ timeText }}，orange，开始您一天的工作吧！
+      </p>
+      <div>
+        {{ weather }}
+      </div>
+    </div>
   </div>
 </template>
 

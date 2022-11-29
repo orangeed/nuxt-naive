@@ -55,9 +55,7 @@
       </el-aside>
       <el-main class="main-color">
         <TagsView :themeData="isDark" />
-        <router-view :key="key" class="m-3 p-2 text-color" :style="{
-          height: `calc(100vh - ${headerHight} - 60px)`,
-        }" v-slot="{ Component }">
+        <router-view :key="key" class="m-3 p-2 text-color" v-slot="{ Component }">
           <transition name="fade-transform" mode="out-in">
             <keep-alive>
               <component :is="Component" />
