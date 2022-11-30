@@ -1,8 +1,8 @@
 <!--
  * @Author: orange
- * @Date: 2022-10-24 15:56:57
+ * @Date: 2022-10-25 20:40:23
  * @LastEditors: orange
- * @LastEditTime: 2022-11-29 15:30:52
+ * @LastEditTime: 2022-11-30 13:51:45
  * @FilePath: \nuxt-naive\admin\src\layout\index.vue
  * @Description: 
  * 
@@ -11,12 +11,7 @@
 <!-- layout -->
 <template>
   <div>
-    <el-header :class="[
-      'flex items-center page-bgColor border-b',
-      isDark ? 'border-stone-500' : '',
-    ]" :style="{
-  height: headerHight,
-}">
+    <el-header class="flex items-center bg-color text-color" :style="{ height: headerHight, }">
       <div class="flex-1 basis-text-color flex items-center">
         <img src="../assets/logo.png" :style="{
           height: `calc(${headerHight} - 10px)`,
@@ -29,7 +24,7 @@
         </el-icon>
       </div>
       <div class="flex-1 flex justify-end items-end basis-text-color">
-        <div class="tool mr-2 cursor-pointer" @click="toggleDark()">
+        <div class="tool mr-2 cursor-pointer" @click="handleChangeThemes()">
           <el-icon>
             <Sunny v-if="isDark" />
             <Moon v-else />
@@ -49,19 +44,16 @@
       </div>
     </el-header>
     <el-container :style="{ height: `calc(100vh - ${headerHight})` }">
-      <el-aside :width="asideWidth" :class="[
-        'asideWidth shadow-lg shadow-gray-400 border-r ',
-        isDark ? 'border-stone-500' : '',
-      ]">
+      <el-aside :width="asideWidth" class="asideWidth bg-color text-color ">
         <el-menu :default-active="activeMenu" :collapse="isCollapse" :unique-opened="false" :collapse-transition="false"
-          class="el-menu-vertical-demo">
+          class="el-menu-vertical-demo bg-color">
           <SidebarItem v-for="route in permission_routes" :key="route.path" :item="route" :base-path="route.path"
-            :isCollapse="isCollapse" />
+            :isCollapse="isCollapse" class="bg-color ml-2 mr-2" />
         </el-menu>
       </el-aside>
-      <el-main class="bg-gray-100">
+      <el-main class="main-color">
         <TagsView :themeData="isDark" />
-        <router-view :key="key" class="m-3 p-2 basis-text-color page-bgColor" v-slot="{ Component }">
+        <router-view :key="key" class="m-3 p-2 text-color" v-slot="{ Component }">
           <transition name="fade-transform" mode="out-in">
             <keep-alive>
               <component :is="Component" />
@@ -80,6 +72,7 @@
   min-height: 400px;
 }
 
+
 .asideWidth {
   overflow: hidden;
   transition: 0.35s all;
@@ -87,6 +80,10 @@
 
 .el-menu {
   border: none;
+  height: 100vh;
+  :hover{
+    background-color: #bd9eb1;
+  }
 }
 
 .el-main {

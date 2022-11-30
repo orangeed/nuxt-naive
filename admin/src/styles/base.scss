@@ -1,0 +1,19 @@
+// 主题
+$themes: (
+  // 白天模式
+  light:
+    (
+      bgColor: #fff,
+      textColor: #121212,
+      cardBgColor: #ffffff,
+      mainColor: #ebeaea,
+    ),
+  // 夜间模式
+  dark:
+    (
+      bgColor: #3b3b3b,
+      textColor: #ebeaea,
+      cardBgColor: #3a3a3a,
+      mainColor: #202020,
+    )
+);

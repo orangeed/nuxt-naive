@@ -1,7 +1,7 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
 import Layout from "../layout/index.vue";
 
-export const basisRoutes = [
+export const basisRoutes: RouteRecordRaw[] = [
   {
     path: "/login",
     component: () => import("../views/login/index.vue"),
@@ -140,11 +140,9 @@ export const asyncRoute = [
   },
 ];
 
-
 const router = createRouter({
   history: createWebHistory(),
   routes: basisRoutes,
 });
-
 
 export default router;

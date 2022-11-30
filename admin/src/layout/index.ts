@@ -3,8 +3,11 @@ import {
   reactive,
   toRefs,
   ref,
+  watch,
   computed,
   onMounted,
+  provide,
+  Ref,
 } from "vue";
 
 import SidebarItem from "./components/SidebarItem/index.vue";
@@ -13,15 +16,18 @@ import TagsView from "./components/TagsView/index.vue";
 
 import { setting } from "../settings";
 import { useRoute } from "vue-router";
-import { useDark, useToggle } from "@vueuse/core";
+// import { useDark, useToggle } from "@vueuse/core";
+import { getStorge } from "../utils/storage";
+import { emitter } from "../utils/mitt";
+import { changeTheme } from "../utils/changeTheme";
 
 export default defineComponent({
   name: "",
   components: { SidebarItem, TagsView },
   setup() {
-    const isDark = useDark();
-    // 切换夜间和白天模式
-    const toggleDark = useToggle(isDark);
+    // const isDark = useDark();
+    // // 切换夜间和白天模式
+    // const toggleDark = useToggle(isDark);
     const route = useRoute();
     // 这个菜单是后端返回的
     const permission_routes = [
@@ -99,6 +105,21 @@ export default defineComponent({
       return path;
     });
 
+    // watch(
+    //   isDark,
+    //   (val: any) => {
+    //     console.log("vueuse-color-scheme", val);
+    //     emitter.emit("THEME", val);
+    //   },
+    //   {
+    //     deep: true,
+    //     immediate: true,
+    //   }
+    // );
+
+    // 切换显示模式
+    const { themeData, handleChangeThemes } = changeTheme();
+
     return {
       isCollapse,
       asideWidth,
@@ -111,8 +132,10 @@ export default defineComponent({
       activeMenu,
       headerHight,
       setting,
-      isDark,
-      toggleDark,
+      // isDark,
+      // toggleDark,
+      ...toRefs(themeData),
+      handleChangeThemes,
     };
   },
 });
