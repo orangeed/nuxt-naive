@@ -10,10 +10,12 @@
  */
 import axios from "axios";
 import { defineComponent, reactive, Ref, toRefs } from "vue";
-import { TimeArr, Weather } from "./interface";
+import { getHomeProjectList, getProjectListAnalyse } from "../../server/home";
+import { lineEcharts } from "../../utils/echarts";
+import { TimeArr, Dashboard } from "../../types/views/dashboard.typs";
 
 export default defineComponent({
-  name: "",
+  name: "Dashboard",
   components: {},
   setup() {
     const timeArr: TimeArr[] = [
@@ -52,51 +54,119 @@ export default defineComponent({
     handleGetTime();
 
     // 获取天气信息
-    const weather: Weather = reactive({
-      updateTime: "",
-      temp: "",
-      feelsLike: "",
-      icon: "",
-      text: "",
-      humidity: "",
-      vis: "",
+    // const weather: Weather = reactive({
+    //   updateTime: "",
+    //   temp: "",
+    //   feelsLike: "",
+    //   icon: "",
+    //   text: "",
+    //   humidity: "",
+    //   vis: "",
+    // });
+    const data: Dashboard = reactive({
+      weather: {
+        updateTime: "",
+        temp: "",
+        feelsLike: "",
+        icon: "",
+        text: "",
+        humidity: "",
+        vis: "",
+      },
+      projectList: [],
     });
     const handleGetWeather = () => {
-      // axios({
-      //   url: "https://geoapi.qweather.com/v2/city/lookup?location=chengdu&key=d855604542724045b8514b85c4859f33",
-      //   method: "GET",
-      // }).then((res) => {
-      //   console.log("获取天气信息", res);
-      //   const location = res.data.location.filter((v: any) => {
-      //     return v.name === "双流";
-      //   });
-      //   console.log("location", location[0]);
-      //   axios({
-      //     url: `https://api.qweather.com/v7/weather/now?location=${location[0].lon},${location[0].lat}&key=d855604542724045b8514b85c4859f33`,
-      //     method:'GET'
-      //     // url: `https://api.qweather.com/v7/weather/now?location=101270106&key=d855604542724045b8514b85c4859f33`,
-      //   }).then((response) => {
-      //     console.log("response", response);
-      //   });
-      // });
       axios({
-        url: "https://devapi.qweather.com/v7/weather/now?location=101270106&key=d855604542724045b8514b85c4859f33",
+        url: import.meta.env.VITE_WEATHER_URL,
         method: "GET",
-      }).then((response) => {
+      }).then((response: any) => {
         console.log("response", response.data.now);
-        weather.updateTime = response.data.updateTime;
-        weather.temp = response.data.now.temp;
-        weather.feelsLike = response.data.now.feelsLike;
-        weather.icon = response.data.now.icon;
-        weather.text = response.data.now.text;
-        weather.humidity = response.data.now.humidity;
-        weather.vis = response.data.now.vis;
+        data.weather.updateTime = response.data.updateTime;
+        data.weather.temp = response.data.now.temp;
+        data.weather.feelsLike = response.data.now.feelsLike;
+        data.weather.icon = response.data.now.icon;
+        data.weather.text = response.data.now.text;
+        data.weather.humidity = response.data.now.humidity;
+        data.weather.vis = response.data.now.vis;
       });
     };
     handleGetWeather();
 
+    // 获取个人项目信息
+    const handleGetProjectList = () => {
+      getHomeProjectList().then((res: any[]) => {
+        console.log("获取个人项目信息", res);
+        data.projectList = res;
+      });
+    };
+    handleGetProjectList();
+
+    // 获取项目访问量数据统计
+    const line = ref(null);
+    const handleGetProjectAnalyse = () => {
+      getProjectListAnalyse({ time: "2022-12-18" }).then((resss: any[]) => {
+        console.log("获取项目访问量数据统计", resss);
+        const res = [
+          {
+            projectName: "员光重还已",
+            projectId: "88",
+            time: "2010-11-01 11:50:24",
+            num: 68,
+          },
+          {
+            projectName: "的结则点",
+            projectId: "52",
+            time: "1990-11-25 05:00:58",
+            num: 4,
+          },
+          {
+            projectName: "本月布象活",
+            projectId: "70",
+            time: "1979-12-19 19:11:25",
+            num: 83,
+          },
+          {
+            projectName: "员光重还已",
+            projectId: "88",
+            time: "2010-11-02 11:50:24",
+            num: 200,
+          },
+          {
+            projectName: "的结则点",
+            projectId: "52",
+            time: "1990-11-03 05:00:58",
+            num: 44,
+          },
+          {
+            projectName: "本月布象活",
+            projectId: "70",
+            time: "1979-12-04 19:11:25",
+            num: 111,
+          },
+        ];
+        const xAxisData = res.map((v) => {
+          return v.time;
+        });
+        let series: any = [];
+        res.forEach((v) => {
+          series.push({
+            name: v.projectName,
+            type: "line",
+            data: res
+              .filter((item) => item.projectName === v.projectName)
+              .map((ele) => {
+                return ele.num;
+              }),
+          });
+        });
+        console.log("series", series);
+        lineEcharts(line.value, xAxisData, series);
+      });
+    };
+    handleGetProjectAnalyse();
+
     watch(
-      () => weather,
+      () => data.weather,
       (val) => {
         if (val) {
           console.log("val", val);
@@ -107,6 +177,6 @@ export default defineComponent({
         immediate: true,
       }
     );
-    return { timeText, weather };
+    return { timeText, ...toRefs(data), line };
   },
 });

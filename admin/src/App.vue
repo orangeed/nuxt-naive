@@ -9,14 +9,15 @@
  * Copyright (c) 2022 by orange, All Rights Reserved. 
 -->
 <template>
-  <el-config-provider :size="size" :z-index="zIndex">
+  <el-config-provider :z-index="zIndex" :locale="locale">
     <router-view />
   </el-config-provider>
 </template>
 
 <script setup lang="ts">
 import { ElConfigProvider } from "element-plus";
+import zhCn from "element-plus/dist/locale/zh-cn.mjs";
 
 const zIndex = 3000;
-const size = "small";
+const locale = zhCn;
 </script>

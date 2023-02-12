@@ -1,15 +1,22 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from "axios";
 import { ElMessage } from "element-plus";
+import { storageEnum } from "./enum";
+import { getStorge } from "./storage";
 
 const service = axios.create({
   // baseURL: import.meta.env.VITE_GLOB_API_URL,
-  baseURL: "/apis",
+  // baseURL: "/apis",
+  baseURL: "http://127.0.0.1:3000",
   withCredentials: true,
   timeout: 30000,
 });
 
 service.interceptors.request.use(
   (config: AxiosRequestConfig) => {
+    // @ts-ignore
+    config.headers["Authorization"] = `Bearer ${getStorge(
+      storageEnum.Authorization
+    )}`;
     return config;
   },
   (error) => {
@@ -19,7 +26,6 @@ service.interceptors.request.use(
 
 service.interceptors.response.use(
   (response: AxiosResponse) => {
-    console.log("response", response);
     if (response.data.code === 200) {
       return Promise.resolve(response.data.data);
     } else {
@@ -28,6 +34,11 @@ service.interceptors.response.use(
     }
   },
   (error) => {
+    ElMessage.error(
+      error.response.data.message
+        ? error.response.data.message
+        : error.response.statusText
+    );
     return Promise.reject(error);
   }
 );

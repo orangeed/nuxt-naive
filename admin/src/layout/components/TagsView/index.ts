@@ -62,7 +62,6 @@ export default defineComponent({
     const filterAffixTags = (routes: any, basePath = "/") => {
       let tags: any = [];
       routes.forEach((route: any) => {
-        console.log("route", route);
         if (route.meta && route.meta.affix) {
           tags.push({
             fullPath: route.path,

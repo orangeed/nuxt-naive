@@ -13,7 +13,8 @@
   <div v-if="!item.meta.hidden">
     <template v-if="!item.children || item.children.length === 0">
       <router-link :to="resolvePath(item.path)">
-        <el-menu-item :index="resolvePath(item.path)" class="w-full rounded text-color">
+        <el-menu-item :index="resolvePath(item.path)" class="w-full rounded text-color"
+          :style="resolvePath(item.path) === route.path ? 'backgroundColor:#9b9a9a' : ''">
           <el-icon>
             <component :is="item.meta && item.meta.icon" />
           </el-icon>
@@ -24,8 +25,7 @@
       </router-link>
     </template>
 
-    <el-sub-menu v-else ref="subMenu" :index="resolvePath(item.path)" popper-append-to-body=""
-      class="bg-color w-full rounded">
+    <el-sub-menu v-else ref="subMenu" :index="resolvePath(item.path)" class="bg-color w-full rounded">
       <template #title>
         <div class="rounded text-color">
           <el-icon>
@@ -71,14 +71,14 @@ const prop = defineProps({
 })
 
 const resolvePath = (routePath: string) => {
-  console.log("routePath", routePath);
-  console.log("route", route.path);
-  if (routePath === route.path) {
-    // activeColor.value = '#fde9ce';
-    activeColor.value = '#9b9a9a';
-  } else {
-    activeColor.value = ''
-  }
+  // console.log("routePath", routePath);
+  // console.log("route", route.path);
+  // if (routePath === route.path) {
+  //   // activeColor.value = '#fde9ce';
+  //   activeColor.value = '#9b9a9a';
+  // } else {
+  //   activeColor.value = ''
+  // }
   if (isExternal(routePath)) {
     return routePath;
   }
@@ -99,6 +99,6 @@ const resolvePath = (routePath: string) => {
 
 .el-menu-item {
   min-width: 184px !important;
-  background-color: v-bind('activeColor');
+  // background-color: v-bind('activeColor');
 }
 </style>

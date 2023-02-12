@@ -10,11 +10,11 @@
  */
 export const getStorge = (key: string) => {
   const value: any = localStorage.getItem(key);
-  console.log("value", value);
   if (value) {
-    return Object.prototype.toString.call(value).slice(8, -1) === "String"
-      ? value
-      : JSON.parse(value);
+    // return Object.prototype.toString.call(value).slice(8, -1) === "String"
+    //   ? value
+    //   : JSON.parse(value);
+    return JSON.parse(value);
   } else {
     return "";
   }

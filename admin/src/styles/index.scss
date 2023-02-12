@@ -1,5 +1,25 @@
 @import "./var.scss";
 @import "./color.scss";
+@import "./change.scss";
+
+.content {
+  &-search {
+    @apply h-16 flex items-center rounded-lg pl-3 pr-3 bg-white card-color shadow-lg;
+  }
+  &-table {
+    height: calc(100vh - 126px - 64px - 30px);
+    @apply rounded-lg mt-4 p-10 bg-white card-color shadow-lg;
+  }
+  &-card {
+    @apply bg-white card-color shadow-lg rounded-lg p-10;
+  }
+}
+
+.deleteConfirm {
+  background-color: $light-red !important;
+  border-color: $light-red !important;
+}
+
 // html.dark {
 //   /* 自定义深色背景颜色 */
 //   --el-bg-color: #626aef;

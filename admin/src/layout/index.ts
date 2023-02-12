@@ -15,9 +15,9 @@ import SidebarItem from "./components/SidebarItem/index.vue";
 import TagsView from "./components/TagsView/index.vue";
 
 import { setting } from "../settings";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 // import { useDark, useToggle } from "@vueuse/core";
-import { getStorge } from "../utils/storage";
+import { getStorge, clearStorge } from "../utils/storage";
 import { emitter } from "../utils/mitt";
 import { changeTheme } from "../utils/changeTheme";
 
@@ -43,25 +43,23 @@ export default defineComponent({
         path: "/",
         meta: {
           hidden: false,
-          title: "多级菜单",
-          icon: "HomeFilled",
+          title: "文章",
+          icon: "document",
         },
         children: [
           {
-            path: "/categreg",
+            path: "/article/articleList",
             meta: {
               hidden: false,
-              title: "二级菜单",
+              title: "文章列表",
             },
-            children: [
-              {
-                path: "/categregChild",
-                meta: {
-                  hidden: false,
-                  title: "三级菜单",
-                },
-              },
-            ],
+          },
+          {
+            path: "/article/editArticle",
+            meta: {
+              hidden: false,
+              title: "编辑文章",
+            },
           },
         ],
       },
@@ -119,6 +117,20 @@ export default defineComponent({
 
     // 切换显示模式
     const { themeData, handleChangeThemes } = changeTheme();
+    emitter.emit("THEME", false);
+
+    // 退出
+    const router = useRouter();
+    const handleLogout = () => {
+      console.log("退出");
+      clearStorge();
+      router.replace("login");
+    };
+
+    // 去个人中心
+    const handleGotoPerson = () => {
+      router.push("/person");
+    };
 
     return {
       isCollapse,
@@ -136,6 +148,8 @@ export default defineComponent({
       // toggleDark,
       ...toRefs(themeData),
       handleChangeThemes,
+      handleLogout,
+      handleGotoPerson,
     };
   },
 });

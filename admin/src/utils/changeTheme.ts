@@ -9,6 +9,7 @@
  * Copyright (c) 2022 by orange, All Rights Reserved.
  */
 import { onMounted, reactive } from "vue";
+import { emitter } from "./mitt";
 
 export const changeTheme = () => {
   const themeData = reactive({
@@ -18,9 +19,12 @@ export const changeTheme = () => {
     themeData.isDark = !themeData.isDark;
     if (themeData.isDark) {
       window.document.documentElement.setAttribute("data-theme", "light");
+      window.document.documentElement.setAttribute("class", "light");
     } else {
       window.document.documentElement.setAttribute("data-theme", "dark");
+      window.document.documentElement.setAttribute("class", "dark");
     }
+    emitter.emit("THEME", themeData.isDark);
   };
   onMounted(() => {
     handleChangeThemes();

@@ -16,6 +16,8 @@ import "element-plus/theme-chalk/dark/css-vars.css";
 import "element-plus/dist/index.css";
 import "./styles/index.scss";
 import "./permission";
+// 引入和风天气图标
+import 'qweather-icons/font/qweather-icons.css'
 
 const app = createApp(App);
 

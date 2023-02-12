@@ -12,7 +12,8 @@ import { defineComponent, reactive } from "vue";
 import { useRouter } from "vue-router";
 import { login } from "../../server/login";
 import { setStorge } from "../../utils/storage";
-import { LoginForm } from "./type";
+import { LoginForm } from "../../types/views/login.type";
+import MD5 from "md5";
 
 export default defineComponent({
   name: "",
@@ -26,8 +27,11 @@ export default defineComponent({
     const handleLogin = () => {
       if (!loginForm.username) return ElMessage.error("请输入用户名！");
       if (!loginForm.password) return ElMessage.error("请输入密码！");
-      login(loginForm).then((res) => {
-        setStorge("TOKEN", res);
+      login({
+        username: loginForm.username,
+        password: MD5(loginForm.password),
+      }).then((res) => {
+        setStorge("TOKEN", res.token);
         router.push("/");
       });
     };

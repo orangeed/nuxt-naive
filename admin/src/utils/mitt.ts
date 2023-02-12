@@ -11,7 +11,7 @@
 import mitt from "mitt";
 
 type Events = {
-  THEME: string;
+  THEME: string | boolean;
 };
 
 export const emitter = mitt<Events>(); // inferred as Emitter<Events>

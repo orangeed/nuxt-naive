@@ -9,11 +9,11 @@
  * Copyright (c) 2022 by orange, All Rights Reserved.
  */
 import request from "../utils/request";
-import { Login } from "./interface";
+import { Login } from "../types/server/index.type";
 
 export const login = (data: Login): Promise<any> => {
   return request({
-    url: "/user/login",
+    url: "/auth/login",
     method: "POST",
     data,
   });

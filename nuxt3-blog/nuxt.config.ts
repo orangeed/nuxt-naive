@@ -2,7 +2,7 @@
  * @Author: orange
  * @Date: 2022-10-11 21:56:20
  * @LastEditors: orange
- * @LastEditTime: 2022-11-20 15:38:18
+ * @LastEditTime: 2022-12-04 17:13:10
  * @FilePath: \nuxt-naive\nuxt3-blog\nuxt.config.ts
  * @Description:
  *

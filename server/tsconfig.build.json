@@ -1,0 +1,14 @@
+{
+  "extends": "./tsconfig.json",
+  "exclude": [
+    "node_modules",
+    "test",
+    "dist",
+    "**/*spec.ts"
+  ],
+  "compilerOptions": {
+    "sourceMap": false, //不要map文件
+    "declaration": false, //不要.d.ts
+    "incremental": false // 不要增量编译
+  }
+}

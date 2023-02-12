@@ -30,13 +30,14 @@ export default defineConfig({
   server: {
     host: "0.0.0.0",
     port: 9008,
-    proxy: {
-      "/apis": {
-        target: "http://127.0.0.1:4523/m1/603885-0-default/",
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/apis/, ""),
-      },
-    },
+    hmr: {},
+    // proxy: {
+    //   "/apis": {
+    //     target: "http://127.0.0.1:4523/m1/603885-0-default",
+    //     changeOrigin: true,
+    //     rewrite: (path) => path.replace(/^\/apis/, ""),
+    //   },
+    // },
   },
   css: {
     preprocessorOptions: {
