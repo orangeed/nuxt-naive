@@ -6,31 +6,42 @@
       <n-image :src="item.img" width="100" />
     </div>
     <div>
-      <n-tag
-        :bordered="false"
-        type="warning"
-        v-for="(tag, index) in item.tag"
-        :key="index"
-        class="mr-2"
-        size="small"
-        round 
-      >
+      <n-tag :bordered="false" type="warning" v-for="(tag, index) in item.tag" :key="index" class="mr-2" size="small" round>
         {{ tag }}
       </n-tag>
       <p class="text-xl m-1">
         {{ item.title }}
       </p>
       <p class="mt-1">
-        <span class="text-sm text-stone-400"
-          >更新时间：{{ item.updataTime }}</span
-        >
+        <span class="text-sm text-stone-400">更新时间：{{ item.updataTime }}</span>
       </p>
     </div>
   </div>
   <n-divider />
 </template>
 
-<script lang="ts" src="./artCard.ts" />
+<!-- <script lang="ts" src="./artCard.ts" /> -->
+<script>
+import { defineComponent, reactive, toRefs } from "vue"
+export default defineComponent({
+  name: "artCard",
+  components: {},
+  props: {
+    item: {
+      type: Object,
+      default: () => {
+        return {}
+      }
+    }
+  },
+  setup() {
+    const data = reactive({})
+    return {
+      ...toRefs(data)
+    }
+  }
+})
+</script>
 <style lang="scss" scoped>
 #artCard {
   img {

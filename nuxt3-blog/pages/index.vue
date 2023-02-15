@@ -18,26 +18,22 @@
         <p class="text-2xl font-familg-regular font-normal">最近文章</p>
         <n-tabs type="line" animated size="large" :on-update:value="handleChangeTabs">
           <n-tab-pane name="all" tab="全部">
-            <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer"
-              @click="handleGotoDetail(item.id)">
+            <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
               <ArtCard :item="item" />
             </div>
           </n-tab-pane>
           <n-tab-pane name="JavaScript" tab="JavaScript">
-            <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer"
-              @click="handleGotoDetail(item.id)">
+            <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
               <ArtCard :item="item" />
             </div>
           </n-tab-pane>
           <n-tab-pane name="Vue" tab="Vue">
-            <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer"
-              @click="handleGotoDetail(item.id)">
+            <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
               <ArtCard :item="item" />
             </div>
           </n-tab-pane>
           <n-tab-pane name="Left" tab="生活">
-            <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer"
-              @click="handleGotoDetail(item.id)">
+            <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
               <ArtCard :item="item" />
             </div>
           </n-tab-pane>
@@ -47,351 +43,358 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { reactive } from "vue";
-import { useRouter } from 'vue-router'
-import { Zhihu, Weixin, Github } from "@vicons/fa";
-import ArtCard from "../components/artCard.vue";
+import { reactive } from "vue"
+import { useRouter } from "vue-router"
+import { Zhihu, Weixin, Github } from "@vicons/fa"
+import ArtCard from "../components/artCard.vue"
+import { getHomeArticleList } from "../server/home"
+import { login } from "../server/index"
 
+login({ username: "orange", password: "c4ca4238a0b923820dcc509a6f75849b" }).then((res) => {
+  sessionStorage.setItem("TOKEN", res.data.token)
+})
 
 // 切换tabs的事件
 const handleChangeTabs = (val: string) => {
-  console.log("切换tabs的事件", val);
+  console.log("切换tabs的事件", val)
   // 通过val去查询对应字段的数据
-  handleGetTabsData(val);
-};
+  handleGetTabsData(val)
+}
 
 interface ArtDara {
-  id: number;
-  img: string;
-  title: string;
-  tag: string[];
-  updataTime: string;
+  id: number
+  img: string
+  title: string
+  tag: string[]
+  updataTime: string
 }
 
 interface Data {
-  artData: ArtDara[];
+  artData: ArtDara[]
 }
 
 // 获取tabs下面的数据
-const data: Data = reactive({ artData: [] });
+const data: Data = reactive({ artData: [] })
 const handleGetTabsData = (val: string) => {
-  data.artData = [];
-  console.log("获取tabs下面的数据", val);
-  // 模拟的数据
-  if (val === "all") {
-    data.artData = [
-      {
-        id: 0,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript", "Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 1,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript", "Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 2,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript", "Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 3,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript", "Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 4,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript", "Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 5,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript", "Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 6,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript", "Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 7,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript", "Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 8,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript", "Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 9,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript", "Vue"],
-        updataTime: "2022-10-26",
-      },
-    ];
-  } else if (val === "JavaScript") {
-    data.artData = [
-      {
-        id: 0,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 1,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 2,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 3,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 4,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 5,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 6,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 7,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 8,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 9,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["JavaScript"],
-        updataTime: "2022-10-26",
-      },
-    ];
-  } else if (val === 'Vue') {
-    data.artData = [
-      {
-        id: 0,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 1,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 2,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 3,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 4,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 5,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 6,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 7,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 8,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["Vue"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 9,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["Vue"],
-        updataTime: "2022-10-26",
-      },
-    ];
-  } else {
-    data.artData = [
-      {
-        id: 0,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["生活"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 1,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["生活"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 2,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["生活"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 3,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["生活"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 4,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["生活"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 5,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["生活"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 6,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["生活"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 7,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["生活"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 8,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["生活"],
-        updataTime: "2022-10-26",
-      },
-      {
-        id: 9,
-        img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
-        title: "这是第一个标题",
-        tag: ["生活"],
-        updataTime: "2022-10-26",
-      },
-    ];
-  }
-};
+  data.artData = []
+  // console.log("获取tabs下面的数据", val)
+  getHomeArticleList({ pageNum: 1, pageSize: 10 }).then((res) => {
+    console.log("获取tabs下面的数据", res)
+  })
 
-handleGetTabsData("all");
+  // // 模拟的数据
+  // if (val === "all") {
+  //   data.artData = [
+  //     {
+  //       id: 0,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript", "Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 1,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript", "Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 2,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript", "Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 3,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript", "Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 4,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript", "Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 5,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript", "Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 6,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript", "Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 7,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript", "Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 8,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript", "Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 9,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript", "Vue"],
+  //       updataTime: "2022-10-26"
+  //     }
+  //   ]
+  // } else if (val === "JavaScript") {
+  //   data.artData = [
+  //     {
+  //       id: 0,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 1,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 2,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 3,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 4,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 5,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 6,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 7,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 8,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 9,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["JavaScript"],
+  //       updataTime: "2022-10-26"
+  //     }
+  //   ]
+  // } else if (val === "Vue") {
+  //   data.artData = [
+  //     {
+  //       id: 0,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 1,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 2,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 3,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 4,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 5,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 6,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 7,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 8,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["Vue"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 9,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["Vue"],
+  //       updataTime: "2022-10-26"
+  //     }
+  //   ]
+  // } else {
+  //   data.artData = [
+  //     {
+  //       id: 0,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["生活"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 1,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["生活"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 2,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["生活"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 3,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["生活"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 4,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["生活"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 5,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["生活"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 6,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["生活"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 7,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["生活"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 8,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["生活"],
+  //       updataTime: "2022-10-26"
+  //     },
+  //     {
+  //       id: 9,
+  //       img: "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg",
+  //       title: "这是第一个标题",
+  //       tag: ["生活"],
+  //       updataTime: "2022-10-26"
+  //     }
+  //   ]
+  // }
+}
+
+handleGetTabsData("all")
 
 // 跳转至详情
-const router = useRouter();
+const router = useRouter()
 const handleGotoDetail = (id: number) => {
-  console.log("跳转至详情", id);
-  console.log("router", router);
-  router.push({ path: "/details", query: { id } });
-};
+  console.log("跳转至详情", id)
+  console.log("router", router)
+  router.push({ path: "/details", query: { id } })
+}
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>
 
 <style lang="scss">
 #index {
   .about-me {
-    .n-image>img {
+    .n-image > img {
       width: 132px;
       height: 132px;
       border-radius: 9999px;

@@ -22,19 +22,28 @@ import { ArticleModule } from './article/article.module';
 // };
 
 // 本地
-const ENV = process.env.NODE_ENV;
-const dbInfo = {
-  host: 'localhost',
-  port: 3306,
-  username: 'root',
-  password: 'orange123456.',
-};
+// const ENV = process.env.NODE_ENV;
+// const dbInfo = {
+//   host: 'localhost',
+//   port: 3306,
+//   username: 'root',
+//   password: 'orange123456.',
+// };
 // if (ENV === 'prod') {
 //   dbInfo.host = '10.0.224.4';
 //   dbInfo.port = 25532 || 3306;
 //   dbInfo.username = 'root';
 //   dbInfo.password = '';
 // }
+
+// 公司
+const dbInfo = {
+  host: 'localhost',
+  port: 3306,
+  username: 'root',
+  password: 'cj123456',
+};
+
 const { host, port, username, password } = dbInfo;
 
 @Module({

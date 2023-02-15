@@ -2,20 +2,16 @@
   <header class="sticky w-full pb-24 pt-24">
     <div class="header flex items-center">
       <div class="logo flex-1 text-center text-2xl">
-        <span class="cursor-pointer" @click="
-  $router.replace('/');
-currentIndex = 0;
-        ">
-          橘子的分享</span>
+        <span class="cursor-pointer" @click="handleGotoHome"> 橘子的分享</span>
       </div>
       <div class="flex-1 text-center text-base">
-        <span v-for="item in headerData.menuList" :key="item.id" :class="[
-          'ml-6 mr-6 cursor-pointer',
-          currentIndex === item.id ? 'active' : '',
-        ]" @click="handleClickMenu(item.id, item.lock)">
-          <span v-if="item.path" @click="handleGotoPage(item.path, item.lock)">{{
-              item.name
-          }}</span>
+        <span
+          v-for="item in headerData.menuList"
+          :key="item.id"
+          :class="['ml-6 mr-6 cursor-pointer', currentIndex === item.id ? 'active' : '']"
+          @click="handleClickMenu(item.id, item.lock)"
+        >
+          <span v-if="item.path" @click="handleGotoPage(item.path, item.lock)">{{ item.name }}</span>
         </span>
       </div>
       <div class="flex-1 flex">
@@ -45,7 +41,7 @@ currentIndex = 0;
         </div>
       </div>
     </div>
-    <slot name="header" />
+    <slot name="header"> </slot>
 
     <!-- 密码输入框 -->
     <n-modal v-model:show="showPasswordModel">
@@ -60,10 +56,8 @@ currentIndex = 0;
         </n-input>
         <template #footer>
           <div class="text-right">
-            <n-button @click="showPasswordModel = false; password = ''"> 关闭</n-button>
-            <n-button type="primary" class="ml-3" @click="handlePass">
-              确定
-            </n-button>
+            <n-button @click="handleClose"> 关闭</n-button>
+            <n-button type="primary" class="ml-3" @click="handlePass"> 确定 </n-button>
           </div>
         </template>
       </n-card>
@@ -72,14 +66,14 @@ currentIndex = 0;
 </template>
 
 <script setup lang="ts">
-import { SearchOutline, GlassesOutline, Glasses } from "@vicons/ionicons5";
-import { ref, reactive, CSSProperties, watch, Ref } from "vue";
-import { darkTheme, useMessage } from "naive-ui";
-import { emitter } from "../utils/mitt";
-import { setStorage } from "~~/utils/storage";
-import { useRouter, useRoute } from "vue-router";
+import { SearchOutline, GlassesOutline, Glasses } from "@vicons/ionicons5"
+import { ref, reactive, CSSProperties, watch, Ref } from "vue"
+import { darkTheme, useMessage } from "naive-ui"
+import { emitter } from "../utils/mitt"
+import { setStorage } from "~~/utils/storage"
+import { useRouter, useRoute } from "vue-router"
 
-const search = ref("");
+const search = ref("")
 
 // todo 这里的数据可以请求后端，后台配置，比如logo，菜单menu
 const headerData = reactive({
@@ -114,80 +108,71 @@ const headerData = reactive({
       name: "影视",
       path: "/movies",
       lock: false
-    },
+    }
 
     // Moon,
     // SunnyOutline,
-  ],
-});
-
+  ]
+})
 
 // 切换晚上和白天模式
-const active = ref(false);
-const theme = ref<typeof darkTheme | null>(null);
+const active = ref(false)
+const theme = ref<typeof darkTheme | null>(null)
 const handleChangeTheme = () => {
-  console.log("切换晚上和白天模式", active.value);
+  console.log("切换晚上和白天模式", active.value)
   if (active.value) {
-    theme.value = darkTheme;
+    theme.value = darkTheme
   } else {
-    theme.value = null;
+    theme.value = null
   }
-  console.log("theme.value ", theme.value);
+  console.log("theme.value ", theme.value)
   if (theme.value) {
-    setStorage("THEME", "dark");
+    setStorage("THEME", "dark")
   } else {
-    setStorage("THEME", "light");
+    setStorage("THEME", "light")
   }
-  emitter.emit("theme", theme.value);
-};
+  emitter.emit("theme", theme.value)
+}
 
 // 切换夜晚和白天的轨道样式
-const railStyle = ({
-  focused,
-  checked,
-}: {
-  focused: boolean;
-  checked: boolean;
-}) => {
-  const style: CSSProperties = {};
+const railStyle = ({ focused, checked }: { focused: boolean; checked: boolean }) => {
+  const style: CSSProperties = {}
   if (checked) {
-    style.background = "#ffa500";
+    style.background = "#ffa500"
     if (focused) {
-      style.boxShadow = "0 0 0 2px #d0305040";
+      style.boxShadow = "0 0 0 2px #d0305040"
     }
   } else {
-    style.background = "#101014";
+    style.background = "#101014"
     if (focused) {
-      style.boxShadow = "0 0 0 2px #2080f040";
+      style.boxShadow = "0 0 0 2px #2080f040"
     }
   }
-  return style;
-};
+  return style
+}
 
 // 查询
 const handleSubmit = () => {
-  console.log("查询", search.value);
-};
-
-
+  console.log("查询", search.value)
+}
 
 // 点击菜单按钮
 // 当前选中的按钮索引
-const currentIndex: Ref<number> = ref(0);
+const currentIndex: Ref<number> = ref(0)
 let idNumber: number
 const handleClickMenu = (id: number, lock: boolean) => {
-  console.log(id);
+  console.log(id)
   if (lock) {
     idNumber = id
   } else {
-    currentIndex.value = id;
+    currentIndex.value = id
   }
-};
+}
 
 // 跳转页面
 const router = useRouter()
 const showPasswordModel: Ref<boolean> = ref(false)
-let pathStr: string = ''
+let pathStr: string = ""
 const handleGotoPage = (path: string, lock: boolean) => {
   if (lock) {
     pathStr = path
@@ -198,7 +183,7 @@ const handleGotoPage = (path: string, lock: boolean) => {
 }
 
 // 确定密码
-const password: Ref<string> = ref('')
+const password: Ref<string> = ref("")
 const message = useMessage()
 const handlePass = () => {
   if (!password.value) return message.error("请输入密码!")
@@ -206,23 +191,39 @@ const handlePass = () => {
   currentIndex.value = idNumber
   router.push(pathStr)
   showPasswordModel.value = false
-  password.value = ''
+  password.value = ""
 }
 
-const route = useRoute();
-watch(route, (val: any) => {
-  if (val) {
-    headerData.menuList.forEach((v: any, i: number) => {
-      if (v.path === val.path) {
-        console.log(111);
-        currentIndex.value = v.id;
-      }
-    });
+// 关闭弹窗
+const handleClose = () => {
+  showPasswordModel.value = false
+  password.value = ""
+}
+
+// 跳转首页
+const handleGotoHome = () => {
+  router.replace("/")
+  currentIndex.value = 0
+}
+
+const route = useRoute()
+watch(
+  route,
+  (val: any) => {
+    if (val) {
+      headerData.menuList.forEach((v: any, i: number) => {
+        if (v.path === val.path) {
+          console.log(111)
+          currentIndex.value = v.id
+        }
+      })
+    }
+  },
+  {
+    immediate: true,
+    deep: true
   }
-}, {
-  immediate: true,
-  deep: true
-});
+)
 </script>
 
 <style lang="scss" scoped>
