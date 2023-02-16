@@ -1,26 +1,32 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import { ApiProperty } from "@nestjs/swagger"
+import { IsNotEmpty, IsNumber, IsString } from "class-validator"
+import { FindOperator } from "typeorm"
 
 export class FindActicleDto {
   @IsString()
   @ApiProperty()
-  title: string;
+  title: string
 
   @IsString()
   @ApiProperty()
-  author: string;
+  author: string
 
   @IsString()
   @ApiProperty()
-  tag: string;
+  tag: string
 
   @IsNotEmpty()
   @IsNumber()
   @ApiProperty()
-  pageNum: number;
+  pageNum: number
 
   @IsNotEmpty()
   @IsNumber()
   @ApiProperty()
-  pageSize: number;
+  pageSize: number
+}
+
+export interface WhereParams {
+  tags?: FindOperator<string>
+  title?: FindOperator<string>
 }

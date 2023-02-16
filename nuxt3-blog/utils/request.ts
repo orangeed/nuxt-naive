@@ -3,7 +3,7 @@ import { useMessage } from "naive-ui"
 const message = useMessage()
 
 const getAuthToken = () => {
-  return sessionStorage.getItem("TOKEN")
+  return window.sessionStorage.getItem("TOKEN")
 }
 
 const service = axios.create({

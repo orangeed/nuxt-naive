@@ -213,7 +213,6 @@ watch(
     if (val) {
       headerData.menuList.forEach((v: any, i: number) => {
         if (v.path === val.path) {
-          console.log(111)
           currentIndex.value = v.id
         }
       })

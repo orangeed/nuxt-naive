@@ -26,9 +26,10 @@ export default defineComponent({
 
     // 获取markdown数据
     const handleGetMarkdownHtml = (v: any, h: any) => {
-      h.then((html: any) => {
-        ctx.emit("MARKDOWM_HTML", html);
-      });
+      // h.then((html: any) => {
+      //   ctx.emit("MARKDOWM_HTML", html);
+      // });
+      ctx.emit('MARKDOWM_HTML',data.editorText)
     };
 
     watch(

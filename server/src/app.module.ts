@@ -13,13 +13,13 @@ import { DoseModule } from './dose/dose.module';
 import { ArticleModule } from './article/article.module';
 
 // 线上
-// const dbInfo = {
-//   // host: '127.0.0.1',
-//   host: '43.136.136.106',
-//   port: 3306,
-//   username: 'wxsugger',
-//   password: 'orange123456.',
-// };
+const dbInfo = {
+  // host: '127.0.0.1',
+  host: '43.136.136.106',
+  port: 3306,
+  username: 'blog',
+  password: 'blogorangecj.',
+};
 
 // 本地
 // const ENV = process.env.NODE_ENV;
@@ -37,12 +37,12 @@ import { ArticleModule } from './article/article.module';
 // }
 
 // 公司
-const dbInfo = {
-  host: 'localhost',
-  port: 3306,
-  username: 'root',
-  password: 'cj123456',
-};
+// const dbInfo = {
+//   host: 'localhost',
+//   port: 3306,
+//   username: 'root',
+//   password: 'cj123456',
+// };
 
 const { host, port, username, password } = dbInfo;
 

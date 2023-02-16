@@ -1,103 +1,86 @@
-import { Repository } from "typeorm"
+import { Like, Repository } from "typeorm"
 import { Injectable } from "@nestjs/common"
 import { InjectRepository } from "@nestjs/typeorm"
 import { UpdateArticleDto } from "./dto/update-article.dto"
 import { CreateArticleDto } from "./dto/create-article.dto"
 import { Article } from "./entities/article.entity"
 import { stateCode } from "src/utils/enum"
-import { FindActicleDto } from "./dto/find-acticle.dto"
+import { FindActicleDto, WhereParams } from "./dto/find-acticle.dto"
 const dayjs = require("dayjs")
 
 @Injectable()
 export class ArticleService {
   constructor(@InjectRepository(Article) private acticleRepository: Repository<Article>) {}
   async create(createArticleDto: CreateArticleDto) {
-    // return 'This action adds a new article';
-    console.log("createArticleDto", createArticleDto)
+    if (!createArticleDto.author) return { code: stateCode.findFail, message: "作者不能为空" }
+    if (!createArticleDto.title) return { code: stateCode.findFail, message: "标题不能为空" }
+    if (!createArticleDto.tags) return { code: stateCode.findFail, message: "分类不能为空" }
+    if (!createArticleDto.content) return { code: stateCode.findFail, message: "内容不能为空" }
+    let params = {}
+    params = Object.assign({
+      title: createArticleDto.title,
+      author: createArticleDto.author,
+      tags: createArticleDto.tags,
+      content: createArticleDto.content,
+      createTime: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss"),
+      updateTime: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")
+    })
+
     return this.acticleRepository
-      .save({
-        title: createArticleDto.title,
-        author: createArticleDto.author,
-        tags: createArticleDto.tags,
-        content: createArticleDto.content,
-        createTime: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")
-      })
+      .save(params)
       .then(() => {
-        return {
-          code: stateCode.success,
-          message: "添加成功！",
-          data: null
-        }
+        return { code: stateCode.success, message: "添加成功！", data: null }
       })
       .catch((err) => {
-        return {
-          code: stateCode.cpdFail,
-          message: `添加失败！${err.query}`,
-          data: null
-        }
+        return { code: stateCode.cpdFail, message: `添加失败！${err.query}`, data: null }
       })
   }
 
   async findAll(findActicleDto: FindActicleDto) {
-    console.log("findActicleDto", findActicleDto)
-    if (!findActicleDto.pageNum)
-      return {
-        code: stateCode.findFail,
-        message: "pageNum不能为空",
-        data: null
-      }
-    if (!findActicleDto.pageSize)
-      return {
-        code: stateCode.findFail,
-        message: "pageSize不能为空",
-        data: null
-      }
-    let result = null
-    if (!findActicleDto.tag && !findActicleDto.title) {
-      result = this.acticleRepository.findAndCount({
-        skip: (findActicleDto.pageNum - 1) * findActicleDto.pageSize,
-        take: findActicleDto.pageSize,
-        order: {
-          createTime: "DESC"
-        }
-      })
-    } else {
-      result = this.acticleRepository.findAndCount({
-        where: {
-          tags: findActicleDto.tag,
-          title: findActicleDto.title
-        },
-        skip: (findActicleDto.pageNum - 1) * findActicleDto.pageSize,
-        take: findActicleDto.pageSize,
-        order: {
-          createTime: "DESC"
-        }
-      })
+    if (!findActicleDto.pageNum) return { code: stateCode.findFail, message: "pageNum不能为空", data: null }
+    if (!findActicleDto.pageSize) return { code: stateCode.findFail, message: "pageSize不能为空", data: null }
+    const whereParams: WhereParams = {}
+    if (findActicleDto.tag) {
+      whereParams.tags = Like(`%${findActicleDto.tag}%`)
     }
-    console.log("result", result)
-    return result
-      .then((res) => {
-        console.log("res", res)
-        return {
-          code: stateCode.success,
-          message: "成功",
-          data: {
-            list: res[0],
-            total: res[1]
-          }
-        }
-      })
-      .catch((err) => {
-        return {
-          code: stateCode.findFail,
-          message: `查询失败${err.query}`,
-          data: ""
-        }
-      })
+    if (findActicleDto.title) {
+      whereParams.title = Like(`%${findActicleDto.title}%`)
+    }
+    let params = {}
+    params = Object.assign({
+      select: ["tags", "updateTime", "title", "id"],
+      where: whereParams,
+      skip: ((findActicleDto.pageNum | 1) - 1) * (findActicleDto.pageSize | 10),
+      take: findActicleDto.pageSize,
+      order: {
+        createTime: "DESC"
+      }
+    })
+    const [data, total] = await this.acticleRepository.findAndCount(params)
+    data.forEach((v) => {
+      if (v.updateTime) {
+        v.updateTime = dayjs(v.updateTime).format("YYYY-MM-DD HH:mm:ss")
+      }
+    })
+    return {
+      code: stateCode.success,
+      message: "成功",
+      data: {
+        list: data,
+        total
+      }
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} article`
+  async findOne(id: string) {
+    // return `This action returns a #${id} article`
+    const data = await this.acticleRepository.findOne(id)
+    data.updateTime = dayjs(data.updateTime).format("YYYY-MM-DD HH:mm:ss")
+    return {
+      code: stateCode.success,
+      message: "查询成功",
+      data
+    }
   }
 
   update(id: number, updateArticleDto: UpdateArticleDto) {
