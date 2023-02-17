@@ -54,7 +54,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { reactive } from "vue"
+import { onMounted, reactive } from "vue"
 import { useRouter } from "vue-router"
 import { Zhihu, Weixin, Github } from "@vicons/fa"
 import ArtCard from "../components/artCard.vue"
@@ -98,7 +98,9 @@ const handleGetTabsData = (val: string) => {
   })
 }
 
-handleGetTabsData("")
+onMounted(() => {
+  handleGetTabsData("")
+})
 
 // 跳转至详情
 const router = useRouter()

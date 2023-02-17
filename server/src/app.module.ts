@@ -18,7 +18,7 @@ const dbInfo = {
   host: '43.136.136.106',
   port: 3306,
   username: 'blog',
-  password: 'blogorangecj.',
+  password: 'blogorange',
 };
 
 // 本地
