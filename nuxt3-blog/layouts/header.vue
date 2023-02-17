@@ -1,6 +1,6 @@
 <template>
-  <header class="sticky w-full pb-24 pt-24">
-    <div class="header flex items-center">
+  <header class="sticky w-full">
+    <div class="header flex items-center header-pc">
       <div class="logo flex-1 text-center text-2xl">
         <span class="cursor-pointer" @click="handleGotoHome"> 橘子的分享</span>
       </div>
@@ -25,24 +25,53 @@
         </div>
         <div class="flex-1 flex items-center justify-center">
           <n-switch size="medium" v-model:value="active" @update:value="handleChangeTheme" :rail-style="railStyle">
-            <!-- <template #checked-icon #checked>
-              <n-icon :component="Moon" size="20" />
-            </template>
-            <template #unchecked-icon #unchecked>
-              <n-icon
-                :component="SunnyOutline"
-                size="=20"
-                class="text-orange-500"
-              />
-            </template> -->
             <template #checked>浅</template>
             <template #unchecked>深</template>
           </n-switch>
         </div>
       </div>
     </div>
-    <slot name="header"> </slot>
+    <div class="header flex items-center header-mobile">
+      <div class="flex-1 text-center text-2xl">
+        <n-icon :size="16" :component="Menu" class="cursor-pointer" @click="handleShowMenu" />
+      </div>
+      <div class="flex mr-6" style="flex: 3;">
+        <div class="flex-1 flex justify-end items-end">
+          <n-input-group>
+            <n-input v-model:value="search" placeholder="搜索" size="medium"></n-input>
+            <n-input-group-label class="bg-orange-300 text-white border-none cursor-pointer" @click="handleSubmit()">
+              <n-icon :component="SearchOutline" />
+            </n-input-group-label>
+          </n-input-group>
+        </div>
+      </div>
+    </div>
+    <!-- 手机端菜单 -->
+    <n-drawer v-model:show="showDrawer" :width="300" placement="left">
+      <n-drawer-content>
+        <template #header>
+          <span>菜单</span>
+          <span class="mr-6 cursor-pointer flex flex-3 justify-end">
+            <n-switch size="medium" v-model:value="active" @update:value="handleChangeTheme" :rail-style="railStyle">
+              <template #checked>浅</template>
+              <template #unchecked>深</template>
+            </n-switch>
+          </span>
+        </template>
 
+        <p
+          v-for="item in headerData.menuList"
+          :key="item.id"
+          :class="['ml-6 mr-6 cursor-pointer']"
+          @click="handleClickMenu(item.id, item.lock)"
+        >
+          <span :class="[currentIndex === item.id ? 'active' : '']" v-if="item.path" @click="handleGotoPage(item.path, item.lock)">{{
+            item.name
+          }}</span>
+        </p>
+      </n-drawer-content>
+    </n-drawer>
+    <slot name="header"> </slot>
     <!-- 密码输入框 -->
     <n-modal v-model:show="showPasswordModel">
       <n-card style="width: 600px" title="密码" :bordered="false" size="huge" role="dialog" aria-modal="true">
@@ -66,9 +95,9 @@
 </template>
 
 <script setup lang="ts">
-import { SearchOutline, GlassesOutline, Glasses } from "@vicons/ionicons5"
+import { SearchOutline, GlassesOutline, Glasses, Menu } from "@vicons/ionicons5"
 import { ref, reactive, CSSProperties, watch, Ref } from "vue"
-import { darkTheme, useMessage } from "naive-ui"
+import { c, darkTheme, useMessage } from "naive-ui"
 import { emitter } from "../utils/mitt"
 import { setStorage } from "~~/utils/storage"
 import { useRouter, useRoute } from "vue-router"
@@ -179,6 +208,7 @@ const handleGotoPage = (path: string, lock: boolean) => {
     showPasswordModel.value = true
   } else {
     router.push(path)
+    showDrawer.value = false
   }
 }
 
@@ -192,6 +222,7 @@ const handlePass = () => {
   router.push(pathStr)
   showPasswordModel.value = false
   password.value = ""
+  showDrawer.value = false
 }
 
 // 关闭弹窗
@@ -223,6 +254,17 @@ watch(
     deep: true
   }
 )
+
+// 打开手机端菜单
+const showDrawer: Ref<boolean> = ref(false)
+const handleShowMenu = () => {
+  // showDrawer.value != showDrawer.value
+  if (showDrawer.value) {
+    showDrawer.value = false
+  } else {
+    showDrawer.value = true
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -241,6 +283,33 @@ watch(
       transition: all 0.3s;
       filter: drop-shadow(0 0 30px rgb(255, 30, 0));
     }
+  }
+}
+:deep(.n-drawer-header__main) {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+@media screen and (max-width: 1240px) {
+  header {
+    @apply pb-10 pt-10;
+  }
+  .header-pc {
+    display: none;
+  }
+  .header-mobile {
+    display: flex;
+  }
+}
+@media screen and (min-width: 1241px) {
+  header {
+    @apply pb-24 pt-24;
+  }
+  .header-pc {
+    display: flex;
+  }
+  .header-mobile {
+    display: none;
   }
 }
 </style>

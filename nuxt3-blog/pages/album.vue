@@ -10,28 +10,26 @@
 -->
 <!-- album -->
 <template>
-  <div id="album" class="text-center">
+  <div id="album" class="text-center pl-8 pr-8">
     <!-- 筛选 -->
     <n-calendar v-model:value="time" #="{ year, month, date }" :is-date-disabled="isDateDisabled" @update:value="handleUpdateValue">
       {{ year }}-{{ month }}-{{ date }}
     </n-calendar>
     <!-- 图片 -->
-    <div class="p-20">
-      <n-image-group>
-        <n-image
-          v-for="i in 30"
-          :key="i"
-          class="w-52 h-52 m-8"
-          lazy
-          src="../assets/img/header.jpg"
-          :intersection-observer-options="{ root: '#image-scroll-container' }"
-        >
-          <template #placeholder>
-            <div class="w-52 h-52 flex items-center justify-center bg-gray-300 m-5">Loading</div>
-          </template>
-        </n-image>
-      </n-image-group>
-    </div>
+    <n-image-group>
+      <n-image
+        v-for="i in 30"
+        :key="i"
+        class="w-52 h-52 m-8"
+        lazy
+        src="../assets/img/header.jpg"
+        :intersection-observer-options="{ root: '#image-scroll-container' }"
+      >
+        <template #placeholder>
+          <div class="w-52 h-52 flex items-center justify-center bg-gray-300 m-5">Loading</div>
+        </template>
+      </n-image>
+    </n-image-group>
   </div>
 </template>
 

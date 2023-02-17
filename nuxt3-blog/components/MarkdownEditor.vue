@@ -108,4 +108,12 @@ export default defineComponent({
   font-family: Operator Mono, Consolas, Monaco, Menlo, monospace;
   word-break: break-all;
 }
+:deep(.figure) {
+  display: flex;
+}
+:deep(.cjp) {
+  background-color: #fcddb4;
+  padding: 6px 6px;
+  border-radius: 4px;
+}
 </style>

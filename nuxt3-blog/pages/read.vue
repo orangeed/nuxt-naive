@@ -2,6 +2,7 @@
 <template>
     <div id="read">
         read
+        很懒，还在写
     </div>
 </template>
 
