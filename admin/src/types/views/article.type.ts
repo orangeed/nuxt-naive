@@ -1,25 +1,26 @@
 export interface Data {
-  markDownInfo: MarkDownInfo;
-  editorText: string;
+  markDownInfo: MarkDownInfo
+  editorText: string
 }
 
 export interface MarkDownInfo {
-  title: string;
-  author: string;
+  title: string
+  author: string
   // time: string;
-  tags: string[];
-  content: "";
+  tags: string[]
+  content: string
+  img: string
 }
 
 export interface ArticleForm {
-  articleName: string;
-  beginTime: string;
-  endTime: string;
-  time: string;
+  articleName: string
+  beginTime: string
+  endTime: string
+  time: string
 }
 
 export interface PageConfig {
-  current: number;
-  pageSize: number;
-  total: number;
+  current: number
+  pageSize: number
+  total: number
 }

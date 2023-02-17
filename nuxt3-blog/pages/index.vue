@@ -90,9 +90,6 @@ const handleGetTabsData = (val: string) => {
   getHomeArticleList({ pageNum: 1, pageSize: 10, tag: val ? val : "" }).then((res) => {
     console.log("获取tabs下面的数据", res)
     data.artData = res.data.list
-    data.artData.forEach((v) => {
-      v.img = "https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg"
-    })
   })
 }
 
@@ -139,7 +136,7 @@ const handleGoto = (val: string) => {
     font-size: 14px !important;
   }
   .acr-img {
-    height: 72px;
+    height: 110px;
   }
   .index-box {
     @apply flex flex-wrap flex-col pl-10 pr-10;
@@ -150,13 +147,33 @@ const handleGoto = (val: string) => {
   .content {
     @apply pl-4 pr-4;
   }
+  #artCard {
+    @apply flex-col;
+  }
+  #artCard .arc-info{
+    @apply h-14 flex items-center;
+    margin-bottom: -24px;
+  }
+  #artCard .o-tag {
+    display: none;
+  }
+  #artCard .o-title {
+    display: flex;
+    align-items: center;
+  }
+  #artCard .o-time {
+    display: none;
+  }
+  #artCard .img {
+    display: flex;
+    justify-content: center;
+  }
 }
 @media screen and (min-width: 1241px) {
   body {
     font-size: 16px !important;
   }
   .acr-img {
-    width: 100px;
     height: 100px;
   }
   .index-box {
@@ -167,6 +184,20 @@ const handleGoto = (val: string) => {
   }
   .content {
     @apply pl-24;
+  }
+  #artCard {
+    @apply flex-row;
+  }
+  #artCard .o-tag {
+    display: block;
+  }
+  #artCard .o-title {
+    /* display: block; */
+  }
+  #artCard .o-time {
+    display: block;
+  }
+  #artCard .img {
   }
 }
 </style>

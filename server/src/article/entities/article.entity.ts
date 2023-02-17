@@ -9,6 +9,9 @@ export class Article {
   title: string;
 
   @Column()
+  img: string;
+
+  @Column()
   author: string;
 
   //   分类

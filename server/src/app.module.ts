@@ -13,22 +13,22 @@ import { DoseModule } from './dose/dose.module';
 import { ArticleModule } from './article/article.module';
 
 // 线上
-const dbInfo = {
-  // host: '127.0.0.1',
-  host: '43.136.136.106',
-  port: 3306,
-  username: 'orange',
-  password: 'orangecj.1',
-};
+// const dbInfo = {
+//   // host: '127.0.0.1',
+//   host: '43.136.136.106',
+//   port: 3306,
+//   username: 'orange',
+//   password: 'orangecj.1',
+// };
 
 // 本地
 // const ENV = process.env.NODE_ENV;
-// const dbInfo = {
-//   host: 'localhost',
-//   port: 3306,
-//   username: 'root',
-//   password: 'orange123456.',
-// };
+const dbInfo = {
+  host: 'localhost',
+  port: 3306,
+  username: 'root',
+  password: 'orange123456.',
+};
 // if (ENV === 'prod') {
 //   dbInfo.host = '10.0.224.4';
 //   dbInfo.port = 25532 || 3306;

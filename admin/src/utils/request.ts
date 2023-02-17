@@ -28,7 +28,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
   (response: AxiosResponse) => {
     if (response.data.code === 200) {
-      return Promise.resolve(response.data.data);
+      return Promise.resolve(response.data);
     } else {
       ElMessage.error(response.data.message);
       return Promise.reject(response.data.message);

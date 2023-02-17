@@ -1,36 +1,41 @@
-import { ApiProperty } from '@nestjs/swagger';
-import { IsArray, IsDateString, IsNotEmpty, IsString } from 'class-validator';
+import { ApiProperty } from "@nestjs/swagger"
+import { IsArray, IsDateString, IsNotEmpty, IsString } from "class-validator"
 
 export class CreateArticleDto {
-  id: number;
+  id: number
 
   @IsNotEmpty()
   @IsString()
   @ApiProperty()
-  title: string;
+  title: string
 
   @IsNotEmpty()
   @IsString()
   @ApiProperty()
-  author: string;
+  author: string
 
   @IsNotEmpty()
   @IsArray()
   @ApiProperty()
-  tags: string[];
+  tags: string[]
 
   @IsNotEmpty()
   @IsString()
   @ApiProperty()
-  content: string;
+  img: string
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty()
+  content: string
 
   @IsNotEmpty()
   @ApiProperty()
   @ApiProperty()
-  createTime: Date;
+  createTime: Date
 
   @IsNotEmpty()
   @IsDateString()
   @ApiProperty()
-  updateTime: Date;
+  updateTime: Date
 }

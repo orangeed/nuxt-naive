@@ -16,9 +16,11 @@ export class ArticleService {
     if (!createArticleDto.title) return { code: stateCode.findFail, message: "标题不能为空" }
     if (!createArticleDto.tags) return { code: stateCode.findFail, message: "分类不能为空" }
     if (!createArticleDto.content) return { code: stateCode.findFail, message: "内容不能为空" }
+    if (!createArticleDto.img) return { code: stateCode.findFail, message: "封面不能为空" }
     let params = {}
     params = Object.assign({
       title: createArticleDto.title,
+      img: createArticleDto.img,
       author: createArticleDto.author,
       tags: createArticleDto.tags,
       content: createArticleDto.content,
@@ -48,7 +50,7 @@ export class ArticleService {
     }
     let params = {}
     params = Object.assign({
-      select: ["tags", "updateTime", "title", "id"],
+      select: ["tags", "updateTime", "title", "id", "img"],
       where: whereParams,
       skip: ((findActicleDto.pageNum | 1) - 1) * (findActicleDto.pageSize | 10),
       take: findActicleDto.pageSize,
@@ -73,7 +75,6 @@ export class ArticleService {
   }
 
   async findOne(id: string) {
-    // return `This action returns a #${id} article`
     const data = await this.acticleRepository.findOne(id)
     data.updateTime = dayjs(data.updateTime).format("YYYY-MM-DD HH:mm:ss")
     return {
