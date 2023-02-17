@@ -1,16 +1,13 @@
 <template>
-  <div class="pl-40 pr-40" id="index">
-    <div class="flex">
+  <div id="index">
+    <div class="index-box">
       <div class="flex-1 about-me text-center">
         <!-- <p class="text-2xl text-left">个人简介</p> -->
         <n-image src="../assets/img/header.jpg" />
         <p class="text-xl">橘子</p>
-        <p class="text-left">
-          菜鸡小前端一个，本科毕业，现在就职于一个中小企业。这里的文章主要是记录工作或者学习或者生活。还有个公众号：【橘子的分享】
-        </p>
-        <div class="text-left text-gray-500">
+        <p class="text-left">菜鸡小前端一个，本科毕业。这里的文章主要是记录工作、学习以及生活。还有个公众号：【橘子的分享】</p>
+        <div class="o-icon">
           <n-icon :component="Zhihu" size="40" class="bg-gray-100 rounded-xl p-2.5 ml-1 mr-1 cursor-pointer" @click="handleGoto('zhihu')" />
-
           <n-tooltip trigger="hover">
             <template #trigger>
               <n-icon
@@ -25,7 +22,7 @@
           <n-icon :component="Github" size="40" class="bg-gray-100 rounded-xl p-2.5 ml-1 mr-1 cursor-pointer" @click="handleGoto('git')" />
         </div>
       </div>
-      <div class="flex-3 pl-24" style="flex: 3">
+      <div class="content" style="flex: 3">
         <p class="text-2xl font-familg-regular font-normal">最近文章</p>
         <n-tabs type="line" animated size="large" :on-update:value="handleChangeTabs">
           <n-tab-pane name="" tab="全部">
@@ -63,6 +60,7 @@ import { login } from "../server/index"
 
 login({ username: "orange", password: "c4ca4238a0b923820dcc509a6f75849b" }).then((res) => {
   window.sessionStorage.setItem("TOKEN", res.data.token)
+  handleGetTabsData("")
 })
 
 // 切换tabs的事件
@@ -98,8 +96,6 @@ const handleGetTabsData = (val: string) => {
   })
 }
 
-handleGetTabsData("")
-
 // 跳转至详情
 const router = useRouter()
 const handleGotoDetail = (id: number) => {
@@ -126,8 +122,6 @@ const handleGoto = (val: string) => {
 }
 </script>
 
-<style lang="scss" scoped></style>
-
 <style lang="scss">
 #index {
   .about-me {
@@ -136,6 +130,43 @@ const handleGoto = (val: string) => {
       height: 132px;
       border-radius: 9999px;
     }
+  }
+}
+</style>
+<style>
+@media screen and (max-width: 1240px) {
+  body {
+    font-size: 14px !important;
+  }
+  .acr-img {
+    height: 72px;
+  }
+  .index-box {
+    @apply flex flex-wrap flex-col pl-10 pr-10;
+  }
+  .o-icon {
+    @apply text-center text-gray-500;
+  }
+  .content {
+    @apply pl-4 pr-4;
+  }
+}
+@media screen and (min-width: 1241px) {
+  body {
+    font-size: 16px !important;
+  }
+  .acr-img {
+    width: 100px;
+    height: 100px;
+  }
+  .index-box {
+    @apply flex flex-wrap pl-40 pr-40;
+  }
+  .o-icon {
+    @apply text-left text-gray-500;
+  }
+  .content {
+    @apply pl-24;
   }
 }
 </style>

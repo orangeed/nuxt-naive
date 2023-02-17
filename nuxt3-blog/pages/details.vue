@@ -1,8 +1,7 @@
 <!-- 详情 -->
 <template>
-  <div id="pageDetails" class="max-w-3xl m-auto">
+  <div id="pageDetails" class="max-w-3xl m-auto p-8">
     <p class="text-3xl font-semibold">{{ pagesInfo.title }}</p>
-
     <div class="text-sm font-semibold" style="color: #5a5a5a">
       <n-tag :bordered="false" type="warning" v-for="(tag, index) in pagesInfo.tags" :key="index" class="mr-2" size="small" round>
         {{ stateList[index].label }}

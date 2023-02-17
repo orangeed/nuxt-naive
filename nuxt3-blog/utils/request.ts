@@ -8,7 +8,9 @@ const getAuthToken = () => {
 
 const service = axios.create({
   // baseURL: import.meta.env.VITE_GLOB_API_URL,
-  baseURL: "http://127.0.0.1:3000",
+  // baseURL: "http://127.0.0.1:3000",
+  baseURL: "https://www.api.orangecj.cn/",
+  // baseURL: "/",
   timeout: 30000
 })
 
