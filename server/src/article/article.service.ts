@@ -75,12 +75,13 @@ export class ArticleService {
   }
 
   async findOne(id: string) {
+    if (!id) return { code: stateCode.findFail, message: "id不能为空", data: null }
     const data = await this.acticleRepository.findOne(id)
     data.updateTime = dayjs(data.updateTime).format("YYYY-MM-DD HH:mm:ss")
     return {
       code: stateCode.success,
       message: "查询成功",
-      data
+      data: data ? data : null
     }
   }
 

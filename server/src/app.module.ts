@@ -11,6 +11,8 @@ import { HomeModule } from './home/home.module';
 import { StatisticsModule } from './statistics/statistics.module';
 import { DoseModule } from './dose/dose.module';
 import { ArticleModule } from './article/article.module';
+import { MoviesModule } from './movies/movies.module';
+import { ReadModule } from './read/read.module';
 
 // 线上
 // const dbInfo = {
@@ -23,12 +25,12 @@ import { ArticleModule } from './article/article.module';
 
 // 本地
 // const ENV = process.env.NODE_ENV;
-const dbInfo = {
-  host: 'localhost',
-  port: 3306,
-  username: 'root',
-  password: 'orange123456.',
-};
+// const dbInfo = {
+//   host: 'localhost',
+//   port: 3306,
+//   username: 'root',
+//   password: 'orange123456.',
+// };
 // if (ENV === 'prod') {
 //   dbInfo.host = '10.0.224.4';
 //   dbInfo.port = 25532 || 3306;
@@ -37,12 +39,12 @@ const dbInfo = {
 // }
 
 // 公司
-// const dbInfo = {
-//   host: 'localhost',
-//   port: 3306,
-//   username: 'root',
-//   password: 'cj123456',
-// };
+const dbInfo = {
+  host: 'localhost',
+  port: 3306,
+  username: 'root',
+  password: 'cj123456',
+};
 
 const { host, port, username, password } = dbInfo;
 
@@ -69,6 +71,8 @@ const { host, port, username, password } = dbInfo;
     StatisticsModule,
     DoseModule,
     ArticleModule,
+    MoviesModule,
+    ReadModule,
   ],
   controllers: [AppController],
   providers: [AppService],
