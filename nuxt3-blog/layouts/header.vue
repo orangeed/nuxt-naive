@@ -35,7 +35,7 @@
       <div class="flex-1 text-center text-2xl">
         <n-icon :size="16" :component="Menu" class="cursor-pointer" @click="handleShowMenu" />
       </div>
-      <div class="flex mr-6" style="flex: 3;">
+      <div class="flex mr-6" style="flex: 3">
         <div class="flex-1 flex justify-end items-end">
           <n-input-group>
             <n-input v-model:value="search" placeholder="搜索" size="medium"></n-input>
@@ -97,10 +97,11 @@
 <script setup lang="ts">
 import { SearchOutline, GlassesOutline, Glasses, Menu } from "@vicons/ionicons5"
 import { ref, reactive, CSSProperties, watch, Ref } from "vue"
-import { c, darkTheme, useMessage } from "naive-ui"
+import { darkTheme, useMessage } from "naive-ui"
 import { emitter } from "../utils/mitt"
 import { setStorage } from "~~/utils/storage"
 import { useRouter, useRoute } from "vue-router"
+import { getHomeArticleList } from "../server/home"
 
 const search = ref("")
 
@@ -183,6 +184,11 @@ const railStyle = ({ focused, checked }: { focused: boolean; checked: boolean })
 // 查询
 const handleSubmit = () => {
   console.log("查询", search.value)
+  getHomeArticleList({ pageNum: 1, pageSize: 10, title: search.value }).then((res) => {
+    console.log("获取tabs下面的数据", res)
+    // emit("SEARCH_DATA", res.data)
+    emitter.emit("SEARCH_DATA", res.data)
+  })
 }
 
 // 点击菜单按钮

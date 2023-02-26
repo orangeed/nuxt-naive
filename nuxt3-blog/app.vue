@@ -22,7 +22,7 @@
         <NuxtLayout name="header"> </NuxtLayout>
         <NuxtPage :key="$route.fullPath"></NuxtPage>
         <NuxtLayout name="footer"> </NuxtLayout>
-        <n-back-top :right="100" />
+        <n-back-top :right="20" />
         <div>
           <Head>
             <Title>
@@ -61,7 +61,6 @@ const darkThemeOverrides = {
   backgroundColor: "#101014"
 }
 
-
 emitter.on("theme", (themeItem: any) => {
   console.log("emitterTheme", themeItem)
   theme.value = themeItem
@@ -72,21 +71,8 @@ onMounted(() => {
     theme.value = darkTheme
   }
 })
-
-// const lightThemeOverrides = {
-//   common: {
-//     primaryColor: "#000000",
-//   },
-//   // ...
-// };
-
-// const darkThemeOverrides = {
-//   common: {
-//     primaryColor: "#FFFFFF",
-//   },
-//   // ...
-// };
 </script>
+<!-- <script  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 <style lang="scss">
 #app-nuxt {
   font-family: Roboto Mono-Regular, Roboto Mono;
