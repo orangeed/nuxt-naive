@@ -53,10 +53,8 @@ const pagesInfo: PagesInfo = reactive({
 const route = useRoute()
 console.log("pageDetails route", route.query)
 
-// TODO 请求数据
 const handleGetData = () => {
   getHomeFindDetails({ id: route.query.id }).then((res) => {
-    console.log("请求数据", res)
     // pagesInfo = res.data
     pagesInfo.author = res.data.author
     pagesInfo.tags = res.data.tags

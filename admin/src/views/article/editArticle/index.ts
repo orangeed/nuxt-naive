@@ -29,7 +29,7 @@ export default defineComponent({
       },
       {
         value: 2,
-        label: "生活"
+        label: "Python"
       }
     ]
 

@@ -121,12 +121,12 @@ const headerData = reactive({
       path: "/about",
       lock: false
     },
-    {
-      id: 2,
-      name: "相册",
-      path: "/album",
-      lock: true
-    },
+    // {
+    //   id: 2,
+    //   name: "相册",
+    //   path: "/album",
+    //   lock: true
+    // },
     {
       id: 3,
       name: "阅读",

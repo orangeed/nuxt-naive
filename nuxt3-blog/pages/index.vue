@@ -42,7 +42,7 @@
               <ArtCard :item="item" />
             </div>
           </n-tab-pane>
-          <n-tab-pane name="0" tab="JavaScript">
+          <n-tab-pane name="0" tab="JS/TS">
             <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
               <ArtCard :item="item" />
             </div>
@@ -52,7 +52,7 @@
               <ArtCard :item="item" />
             </div>
           </n-tab-pane>
-          <n-tab-pane name="2" tab="生活">
+          <n-tab-pane name="2" tab="Python">
             <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
               <ArtCard :item="item" />
             </div>
@@ -197,82 +197,5 @@ const handleChangePageSize = (val: number) => {
 }
 #busuanzi_container_site_uv {
   display: block !important;
-}
-</style>
-<style>
-@media screen and (max-width: 1240px) {
-  body {
-    font-size: 14px !important;
-  }
-  .acr-img {
-    height: 110px;
-  }
-  .index-box {
-    @apply flex flex-wrap flex-col pl-10 pr-10;
-  }
-  .about-me {
-    margin-right: 2rem;
-  }
-  .o-icon {
-    @apply text-center text-gray-500;
-  }
-  .content {
-    @apply pl-4 pr-4;
-  }
-  #artCard {
-    @apply flex-col;
-  }
-  #artCard .arc-info {
-    @apply h-14 flex items-center;
-    margin-bottom: -24px;
-  }
-  #artCard .o-tag {
-    display: none;
-  }
-  #artCard .o-title {
-    display: flex;
-    align-items: center;
-  }
-  #artCard .o-time {
-    display: none;
-  }
-  #artCard .img {
-    display: flex;
-    justify-content: center;
-  }
-  /* :deep(.n-back-top) {
-    right: 10px !important;
-  } */
-}
-@media screen and (min-width: 1241px) {
-  body {
-    font-size: 16px !important;
-  }
-  .acr-img {
-    height: 100px;
-  }
-  .index-box {
-    @apply flex flex-wrap pl-40 pr-40;
-  }
-  .o-icon {
-    @apply text-left text-gray-500;
-  }
-  .content {
-    @apply pl-24;
-  }
-  #artCard {
-    @apply flex-row;
-  }
-  #artCard .o-tag {
-    display: block;
-  }
-  #artCard .o-title {
-    /* display: block; */
-  }
-  #artCard .o-time {
-    display: block;
-  }
-  #artCard .img {
-  }
 }
 </style>
