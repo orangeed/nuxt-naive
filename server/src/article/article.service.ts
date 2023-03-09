@@ -52,13 +52,14 @@ export class ArticleService {
     params = Object.assign({
       select: ["tags", "updateTime", "title", "id", "img"],
       where: whereParams,
-      skip: ((findActicleDto.pageNum | 1) - 1) * (findActicleDto.pageSize | 10),
+      skip: (findActicleDto.pageNum - 1) * findActicleDto.pageSize,
       take: findActicleDto.pageSize,
       order: {
         createTime: "DESC"
       }
     })
     const [data, total] = await this.acticleRepository.findAndCount(params)
+    console.log("data", data)
     data.forEach((v) => {
       if (v.updateTime) {
         v.updateTime = dayjs(v.updateTime).format("YYYY-MM-DD HH:mm:ss")

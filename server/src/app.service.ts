@@ -1,8 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable } from "@nestjs/common"
+import axios from "axios"
 
 @Injectable()
 export class AppService {
-  getHello(): string {
-    return 'Hello World!';
+  getMessage(message: string) {
+    axios.post()
   }
 }

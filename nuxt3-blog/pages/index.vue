@@ -63,7 +63,7 @@
             v-model:page="pageConfig.pageNum"
             v-model:page-size="pageConfig.pageSize"
             :page-sizes="[10, 20, 30, 40]"
-            :page-count="pageConfig.total / pageConfig.pageSize"
+            :page-count="Math.ceil(pageConfig.total / pageConfig.pageSize)"
             size="large"
             show-quick-jumper
             show-size-picker
@@ -92,6 +92,7 @@ login({ username: "orange", password: "c4ca4238a0b923820dcc509a6f75849b" }).then
 // 切换tabs的事件
 const handleChangeTabs = (val: string) => {
   // 通过val去查询对应字段的数据
+  pageConfig.pageNum = 1
   handleGetTabsData(val)
 }
 

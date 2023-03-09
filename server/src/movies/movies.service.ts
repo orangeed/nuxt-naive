@@ -49,7 +49,7 @@ export class MoviesService {
     params = Object.assign({
       select: ["id", "name", "type", "img"],
       where: whereParams,
-      skip: ((findMoviesDto.pageNum | 1) - 1) * (findMoviesDto.pageSize | 10),
+      skip: findMoviesDto.pageNum * findMoviesDto.pageSize,
       take: findMoviesDto.pageSize,
       order: {
         time: "DESC"

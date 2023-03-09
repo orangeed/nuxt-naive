@@ -46,7 +46,7 @@ export class ReadService {
     params = Object.assign({
       select: ["id", "name", "img"],
       where: whereParams,
-      skip: ((findReadDto.pageNum | 1) - 1) * (findReadDto.pageSize | 10),
+      skip: (findReadDto.pageNum - 1) * findReadDto.pageSize,
       take: findReadDto.pageSize,
       order: {
         time: "DESC"
