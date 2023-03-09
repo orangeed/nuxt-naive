@@ -54,7 +54,32 @@ export default defineNuxtConfig({
       meta: [
         // <meta name="description" content="My amazing site">
         { name: "description", content: "My amazing site." }
+      ],
+      script: [
+        {
+          type: "text/javascript",
+          src: "//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js",
+          body: true //<script>是否在body中
+        }
       ]
     }
-  }
+  },
+  // index: {
+  //   head: {
+  //     title: "在线Excel文件转换成数组json格式数据-六月初工具站",
+  //     meta: [
+  //       {
+  //         name: "keywords",
+  //         content: "在线excle数据1"
+  //       }
+  //     ],
+  //     script: [
+  //       {
+  //         type: "text/javascript",
+  //         src: "https://code.jquery.com/jquery-3.1.1.min.js",
+  //         body: true //<script>是否在body中
+  //       }
+  //     ]
+  //   }
+  // }
 })

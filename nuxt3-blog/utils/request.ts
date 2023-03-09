@@ -10,9 +10,9 @@ const service = axios.create({
   // 本地开发
   // baseURL: "http://127.0.0.1:3000",
   // 线上
-  // baseURL: "https://www.api.orangecj.cn/",
+  baseURL: "https://www.api.orangecj.cn/",
   // mock
-  baseURL: "http://127.0.0.1:4523/m1/603885-0-default",
+  // baseURL: "http://127.0.0.1:4523/m1/603885-0-default",
   timeout: 30000
 })
 

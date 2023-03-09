@@ -9,6 +9,6 @@ export const stateList = [
   },
   {
     value: 2,
-    label: "生活"
+    label: "Python"
   }
 ]

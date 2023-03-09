@@ -8,7 +8,7 @@
     <div class="arc-info">
       <span class="o-tag">
         <n-tag :bordered="false" type="warning" v-for="(tag, index) in item.tags" :key="index" class="mr-2" size="small" round>
-          {{ stateList[index].label }}
+          {{ stateList[Number(tag)].label }}
         </n-tag>
       </span>
       <p class="text-base xl:text-xl m-1 o-title">
