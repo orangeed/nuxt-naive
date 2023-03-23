@@ -4,15 +4,15 @@ import { FindOperator } from "typeorm"
 
 export class FindActicleDto {
   @IsString()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   title: string
 
   @IsString()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   author: string
 
   @IsString()
-  @ApiProperty()
+  @ApiProperty({ required: false })
   tag: string
 
   @IsNotEmpty()

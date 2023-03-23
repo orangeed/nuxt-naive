@@ -38,6 +38,7 @@
     "jwt-decode": "^3.1.2",
     "log4js": "^6.3.0",
     "mysql2": "^2.3.0",
+    "openai": "^3.2.1",
     "passport": "^0.4.1",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",

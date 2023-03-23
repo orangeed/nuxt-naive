@@ -3,7 +3,7 @@ import { ArticleService } from "./article.service"
 import { CreateArticleDto } from "./dto/create-article.dto"
 import { UpdateArticleDto } from "./dto/update-article.dto"
 import { JwtAuthGuardUser } from "../auth/guards/jwt-auth.guard"
-import { ApiOperation, ApiTags } from "@nestjs/swagger"
+import { ApiBody, ApiOperation, ApiQuery, ApiTags } from "@nestjs/swagger"
 import { FindActicleDto } from "./dto/find-acticle.dto"
 
 @ApiTags("文章")
