@@ -18,25 +18,25 @@ export class ReadController {
     return this.readService.create(createReadDto)
   }
 
-  @UseGuards(JwtAuthGuardUser)
   @ApiOperation({ summary: "获取书籍列表" })
   @Get("list")
   findAll(@Query() findReadDto: FindReadDto) {
     return this.readService.findAll(findReadDto)
   }
 
-  @UseGuards(JwtAuthGuardUser)
   @ApiOperation({ summary: "根据id查询某一个书籍信息" })
   @Get("")
   findOne(@Query() id: string) {
     return this.readService.findOne(id)
   }
 
+  @UseGuards(JwtAuthGuardUser)
   @Patch(":id")
   update(@Param("id") id: string, @Body() updateReadDto: UpdateReadDto) {
     return this.readService.update(+id, updateReadDto)
   }
 
+  @UseGuards(JwtAuthGuardUser)
   @Delete(":id")
   remove(@Param("id") id: string) {
     return this.readService.remove(+id)

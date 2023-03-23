@@ -6,8 +6,8 @@ import { getStorge } from "./storage";
 const service = axios.create({
   // baseURL: import.meta.env.VITE_GLOB_API_URL,
   // baseURL: "/apis",
-  // baseURL: "http://127.0.0.1:3000",
-  baseURL: "https://www.api.orangecj.cn/",
+  baseURL: "http://127.0.0.1:3000",
+  // baseURL: "https://www.api.orangecj.cn/",
   withCredentials: true,
   timeout: 30000,
 });

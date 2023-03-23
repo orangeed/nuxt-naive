@@ -17,21 +17,20 @@
 <script setup lang="ts">
 import { ElConfigProvider } from "element-plus"
 import zhCn from "element-plus/dist/locale/zh-cn.mjs"
-import axios from "axios"
+import { Ref } from "vue"
+
 const zIndex = 3000
 const locale = zhCn
-
-const data = await axios({
-  url: "https://api.openai.com/v1/chat/completions",
-  method: "post",
-  headers: {
-    Authorization: "Bearer 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",
-    "Content-Type": "application/json"
-  },
-  data: {
-    model: "gpt-3.5-turbo-0301",
-    messages: [{ role: "user", content: "你好！" }]
-  }
-})
-console.log("data", data)
+// 获取分辨率赋值样式
+const fullWidth: Ref<number> = ref(0)
+const fullHeight: Ref<number> = ref(0)
+provide("FULL_SCREEN", { fullHeight, fullWidth })
+const handleGetWidth = () => {
+  fullHeight.value = window.innerHeight
+  fullWidth.value = window.innerWidth
+}
+handleGetWidth()
+window.onresize = () => {
+  handleGetWidth()
+}
 </script>

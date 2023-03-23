@@ -24,3 +24,8 @@ export interface PageConfig {
   pageSize: number
   total: number
 }
+
+export interface FullScreen {
+  fullHeight: number
+  fullWidth: number
+}

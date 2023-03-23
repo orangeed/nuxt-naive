@@ -19,7 +19,7 @@ const service = axios.create({
 service.interceptors.request.use(
   //   (config: AxiosRequestConfig) => {
   (config: any) => {
-    config.headers["Authorization"] = `Bearer ${getAuthToken()}`
+    // config.headers["Authorization"] = `Bearer ${getAuthToken()}`
     return config
   },
   (error: any) => {

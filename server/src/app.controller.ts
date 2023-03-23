@@ -6,18 +6,4 @@ import { AppService } from "./app.service"
 @Controller("openai")
 export class AppController {
   constructor(private readonly appService: AppService) {}
-
-  // @Post()
-  // getMessage(@Body() message: string) {
-  //   return this.appService.getMessage(message)
-  // }
-
-  // @Get()
-  // getMessage(@Query() message: string) {
-  //   return this.appService.getMessage(message)
-  // }
-  // @Get()
-  // getHello(): string {
-  //   return 'hee'
-  // }
 }

@@ -5,4 +5,7 @@ export const routerMap = {
   article: "article",
   articleList: "articleList",
   editArticle: "editArticle",
-};
+  read: "read",
+  movies: "movies",
+  project: "project"
+}

@@ -99,7 +99,7 @@ export default defineComponent({
         data.projectList = res;
       });
     };
-    handleGetProjectList();
+    // handleGetProjectList();
 
     // 获取项目访问量数据统计
     const line = ref(null);
@@ -163,7 +163,7 @@ export default defineComponent({
         lineEcharts(line.value, xAxisData, series);
       });
     };
-    handleGetProjectAnalyse();
+    // handleGetProjectAnalyse();
 
     watch(
       () => data.weather,

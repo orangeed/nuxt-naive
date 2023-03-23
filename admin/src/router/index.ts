@@ -1,6 +1,6 @@
-import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
-import Layout from "../layout/index.vue";
-import { routerMap } from "./routerMap";
+import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router"
+import Layout from "../layout/index.vue"
+import { routerMap } from "./routerMap"
 
 export const basisRoutes: RouteRecordRaw[] = [
   {
@@ -9,8 +9,8 @@ export const basisRoutes: RouteRecordRaw[] = [
     component: () => import("../views/login/index.vue"),
     meta: {
       hidden: true,
-      affix: false,
-    },
+      affix: false
+    }
   },
   {
     path: "/",
@@ -18,7 +18,7 @@ export const basisRoutes: RouteRecordRaw[] = [
     name: "index",
     meta: {
       hidden: false,
-      affix: false,
+      affix: false
     },
     redirect: routerMap.dashboard,
     children: [
@@ -29,8 +29,8 @@ export const basisRoutes: RouteRecordRaw[] = [
         meta: {
           hidden: false,
           affix: true, //是否显示在tagsview
-          title: "dashboard",
-        },
+          title: "dashboard"
+        }
       },
       {
         path: routerMap.article,
@@ -38,7 +38,7 @@ export const basisRoutes: RouteRecordRaw[] = [
         meta: {
           hidden: false,
           affix: false,
-          title: "文章列表",
+          title: "文章列表"
         },
         redirect: routerMap.articleList,
         children: [
@@ -49,8 +49,8 @@ export const basisRoutes: RouteRecordRaw[] = [
             meta: {
               hidden: false,
               affix: false, //是否显示在tagsview
-              title: "文章列表",
-            },
+              title: "文章列表"
+            }
           },
           {
             path: routerMap.editArticle,
@@ -59,10 +59,10 @@ export const basisRoutes: RouteRecordRaw[] = [
             meta: {
               hidden: false,
               affix: false, //是否显示在tagsview
-              title: "编辑文章",
-            },
-          },
-        ],
+              title: "编辑文章"
+            }
+          }
+        ]
       },
       {
         path: routerMap.person,
@@ -71,10 +71,40 @@ export const basisRoutes: RouteRecordRaw[] = [
         meta: {
           hidden: false,
           affix: true, //是否显示在tagsview
-          title: "个人主页",
-        },
+          title: "个人主页"
+        }
       },
-    ],
+      {
+        path: routerMap.read,
+        name: routerMap.read,
+        component: () => import("../views/read/index.vue"),
+        meta: {
+          hidden: false,
+          affix: true, //是否显示在tagsview
+          title: "图书馆"
+        }
+      },
+      {
+        path: routerMap.movies,
+        name: routerMap.movies,
+        component: () => import("../views/movies/index.vue"),
+        meta: {
+          hidden: false,
+          affix: true, //是否显示在tagsview
+          title: "电影/电视剧"
+        }
+      },
+      {
+        path: routerMap.project,
+        name: routerMap.project,
+        component: () => import("../views/project/index.vue"),
+        meta: {
+          hidden: false,
+          affix: true, //是否显示在tagsview
+          title: "个人项目"
+        }
+      }
+    ]
   },
 
   {
@@ -83,8 +113,8 @@ export const basisRoutes: RouteRecordRaw[] = [
     name: "404",
     meta: {
       hidden: true,
-      affix: false,
-    },
+      affix: false
+    }
   },
   {
     path: "/401",
@@ -92,9 +122,9 @@ export const basisRoutes: RouteRecordRaw[] = [
     name: "401",
     meta: {
       hidden: true,
-      affix: false,
-    },
-  },
+      affix: false
+    }
+  }
 
   // {
   //   path: "*",
@@ -105,7 +135,7 @@ export const basisRoutes: RouteRecordRaw[] = [
   //     affix: false,
   //   },
   // },
-];
+]
 
 // export const asyncRoute = [
 //   {
@@ -164,7 +194,7 @@ export const basisRoutes: RouteRecordRaw[] = [
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: basisRoutes,
-});
+  routes: basisRoutes
+})
 
-export default router;
+export default router

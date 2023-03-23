@@ -81,13 +81,12 @@ import { useRouter } from "vue-router"
 import { Zhihu, Weixin, Github } from "@vicons/fa"
 import ArtCard from "../components/artCard.vue"
 import { getHomeArticleList } from "../server/home"
-import { login } from "../server/index"
 import { emitter } from "../utils/mitt"
 
-login({ username: "orange", password: "c4ca4238a0b923820dcc509a6f75849b" }).then((res) => {
-  window.sessionStorage.setItem("TOKEN", res.data.token)
-  handleGetTabsData("")
-})
+// login({ username: "orange", password: "c4ca4238a0b923820dcc509a6f75849b" }).then((res) => {
+//   window.sessionStorage.setItem("TOKEN", res.data.token)
+//   handleGetTabsData("")
+// })
 
 // 切换tabs的事件
 const handleChangeTabs = (val: string) => {
