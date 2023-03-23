@@ -1,7 +1,7 @@
 <!-- editArticle -->
 <template>
   <div id="editArticle">
-    <div class="content-search">
+    <div class="content-search shadow-xl">
       <!-- 搜索栏 -->
       <el-form :inline="true" :model="markDownInfo">
         <el-form-item label="文章名称">
@@ -29,7 +29,7 @@
         </el-form-item>
       </el-form>
     </div>
-    <div class="content-table">
+    <div class="content-table shadow-xl">
       <MarkdownEditor ref="markdownEditor" :editorText="editorText" @MARKDOWM_HTML="handleGetHtml" />
     </div>
   </div>

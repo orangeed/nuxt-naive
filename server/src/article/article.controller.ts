@@ -18,7 +18,7 @@ export class ArticleController {
     return this.articleService.create(createArticleDto)
   }
 
-  @UseGuards(JwtAuthGuardUser)
+  // @UseGuards(JwtAuthGuardUser)
   @Get("findActicle")
   @ApiOperation({ summary: "查询文章" })
   findAll(@Query() findActicleDto: FindActicleDto) {
@@ -30,11 +30,13 @@ export class ArticleController {
     return this.articleService.findOne(id)
   }
 
+  @UseGuards(JwtAuthGuardUser)
   @Patch(":id")
   update(@Param("id") id: string, @Body() updateArticleDto: UpdateArticleDto) {
     return this.articleService.update(+id, updateArticleDto)
   }
-
+  
+  @UseGuards(JwtAuthGuardUser)
   @Delete(":id")
   remove(@Param("id") id: string) {
     return this.articleService.remove(+id)

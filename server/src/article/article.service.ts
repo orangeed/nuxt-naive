@@ -50,7 +50,7 @@ export class ArticleService {
     }
     let params = {}
     params = Object.assign({
-      select: ["tags", "updateTime", "title", "id", "img"],
+      select: ["tags", "updateTime", "title", "id", "img", "author"],
       where: whereParams,
       skip: ((findActicleDto.pageNum | 1) - 1) * (findActicleDto.pageSize | 10),
       take: findActicleDto.pageSize,
@@ -85,11 +85,26 @@ export class ArticleService {
     }
   }
 
-  update(id: number, updateArticleDto: UpdateArticleDto) {
-    return `This action updates a #${id} article`
+  async update(id: number, updateArticleDto: UpdateArticleDto) {
+    if (!id) return { code: stateCode.findFail, message: "id不能为空", data: null }
+    const data = await this.acticleRepository.update({ id }, updateArticleDto)
+    return {
+      code: stateCode.success,
+      message: "修改成功！",
+      data: null
+    }
   }
 
   remove(id: number) {
+    if (!id) return { code: stateCode.findFail, message: "id不能为空", data: null }
+    this.acticleRepository.delete(id).then(() => {
+      return {
+        code: stateCode.success,
+        message: "删除成功",
+        data: null
+      }
+    })
+
     return `This action removes a #${id} article`
   }
 }

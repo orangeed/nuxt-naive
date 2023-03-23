@@ -15,9 +15,22 @@
 </template>
 
 <script setup lang="ts">
-import { ElConfigProvider } from "element-plus";
-import zhCn from "element-plus/dist/locale/zh-cn.mjs";
+import { ElConfigProvider } from "element-plus"
+import zhCn from "element-plus/dist/locale/zh-cn.mjs"
+import { Ref } from "vue"
 
-const zIndex = 3000;
-const locale = zhCn;
+const zIndex = 3000
+const locale = zhCn
+// 获取分辨率赋值样式
+const fullWidth: Ref<number> = ref(0)
+const fullHeight: Ref<number> = ref(0)
+provide("FULL_SCREEN", { fullHeight, fullWidth })
+const handleGetWidth = () => {
+  fullHeight.value = window.innerHeight
+  fullWidth.value = window.innerWidth
+}
+handleGetWidth()
+window.onresize = () => {
+  handleGetWidth()
+}
 </script>
