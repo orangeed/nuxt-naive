@@ -17,6 +17,16 @@ export class CreateReadDto {
   @IsNotEmpty()
   @IsString()
   @ApiProperty()
+  author: string
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty()
+  introduction: string
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty()
   content: string
 
   @IsNotEmpty()

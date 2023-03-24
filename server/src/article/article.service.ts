@@ -65,47 +65,33 @@ export class ArticleService {
         v.updateTime = dayjs(v.updateTime).format("YYYY-MM-DD HH:mm:ss")
       }
     })
-    return {
-      code: stateCode.success,
-      message: "成功",
-      data: {
-        list: data,
-        total
-      }
-    }
+    return { code: stateCode.success, message: "成功", data: { list: data, total } }
   }
 
   async findOne(id: string) {
     if (!id) return { code: stateCode.findFail, message: "id不能为空", data: null }
     const data = await this.acticleRepository.findOne(id)
     data.updateTime = dayjs(data.updateTime).format("YYYY-MM-DD HH:mm:ss")
-    return {
-      code: stateCode.success,
-      message: "查询成功",
-      data: data ? data : null
-    }
+    return { code: stateCode.success, message: "查询成功", data: data ? data : null }
   }
 
   async update(id: number, updateArticleDto: UpdateArticleDto) {
     if (!id) return { code: stateCode.findFail, message: "id不能为空", data: null }
     const data = await this.acticleRepository.update({ id }, updateArticleDto)
-    return {
-      code: stateCode.success,
-      message: "修改成功！",
-      data: null
+    if (data.affected > 0) {
+      return { code: stateCode.success, message: "修改成功！", data: null }
+    } else {
+      return { code: stateCode.findFail, message: "修改失败", data: null }
     }
   }
 
-  remove(id: number) {
+  async remove(id: number) {
     if (!id) return { code: stateCode.findFail, message: "id不能为空", data: null }
-    this.acticleRepository.delete(id).then(() => {
-      return {
-        code: stateCode.success,
-        message: "删除成功",
-        data: null
-      }
-    })
-
-    return `This action removes a #${id} article`
+    const data = await this.acticleRepository.delete(id)
+    if (data.affected > 0) {
+      return { code: stateCode.success, message: "删除成功！", data: null }
+    } else {
+      return { code: stateCode.findFail, message: "删除失败", data: null }
+    }
   }
 }

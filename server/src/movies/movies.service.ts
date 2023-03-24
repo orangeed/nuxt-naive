@@ -15,7 +15,8 @@ export class MoviesService {
     if (!createMovieDto.name) return { code: stateCode.findFail, message: "影视名称不能为空" }
     if (!createMovieDto.type) return { code: stateCode.findFail, message: "影视分类不能为空" }
     if (!createMovieDto.time) return { code: stateCode.findFail, message: "观影时间不能为空" }
-    if (!createMovieDto.content) return { code: stateCode.findFail, message: "内容不能为空" }
+    if (!createMovieDto.score) return { code: stateCode.findFail, message: "评分时间不能为空" }
+    if (!createMovieDto.introduction) return { code: stateCode.findFail, message: "简介不能为空" }
     if (!createMovieDto.img) return { code: stateCode.findFail, message: "影视封面不能为空" }
     let params = {}
     params = Object.assign({
@@ -23,6 +24,7 @@ export class MoviesService {
       img: createMovieDto.img,
       type: createMovieDto.type,
       time: createMovieDto.time,
+      introduction: createMovieDto.introduction,
       content: createMovieDto.content,
       createTime: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")
     })
@@ -40,47 +42,55 @@ export class MoviesService {
   async findAll(findMoviesDto: FindMoviesDto) {
     if (!findMoviesDto.pageNum) return { code: stateCode.findFail, message: "pageNum不能为空", data: null }
     if (!findMoviesDto.pageSize) return { code: stateCode.findFail, message: "pageSize不能为空", data: null }
-    if (!findMoviesDto.type) return { code: stateCode.findFail, message: "type不能为空", data: null }
     const whereParams: WhereParams = {}
     if (findMoviesDto.name) {
       whereParams.name = Like(`%${findMoviesDto.name}%`)
     }
+    if (findMoviesDto.type) {
+      whereParams.type = Like(`%${findMoviesDto.type}`)
+    }
     let params = {}
     params = Object.assign({
-      select: ["id", "name", "type", "img"],
+      select: ["id", "name", "type", "img", "time", "introduction"],
       where: whereParams,
-      skip: findMoviesDto.pageNum * findMoviesDto.pageSize,
+      skip: (findMoviesDto.pageNum - 1) * findMoviesDto.pageSize,
       take: findMoviesDto.pageSize,
       order: {
         time: "DESC"
       }
     })
     const [data, total] = await this.moviesRepository.findAndCount(params)
-    return {
-      code: stateCode.success,
-      message: "成功",
-      data: {
-        list: data,
-        total
+    data.forEach((v) => {
+      if (v.time) {
+        v.time = dayjs(v.time).format("YYYY-MM-DD")
       }
-    }
+    })
+    return { code: stateCode.success, message: "成功", data: { list: data, total } }
   }
 
   async findOne(id: string) {
     if (!id) return { code: stateCode.findFail, message: "id不能为空", data: null }
     const data = await this.moviesRepository.findOne(id)
-    return {
-      code: stateCode.success,
-      message: "查询成功",
-      data: data ? data : null
+    return { code: stateCode.success, message: "查询成功", data: data ? data : null }
+  }
+
+  async update(id: number, updateMovieDto: UpdateMovieDto) {
+    if (!id) return { code: stateCode.findFail, message: "id不能为空", data: null }
+    const data = await this.moviesRepository.update({ id }, updateMovieDto)
+    if (data.affected > 0) {
+      return { code: stateCode.success, message: "修改成功！", data: null }
+    } else {
+      return { code: stateCode.findFail, message: "修改失败", data: null }
     }
   }
 
-  update(id: number, updateMovieDto: UpdateMovieDto) {
-    return `This action updates a #${id} movie`
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} movie`
+  async remove(id: number) {
+    if (!id) return { code: stateCode.findFail, message: "id不能为空", data: null }
+    const data = await this.moviesRepository.delete(id)
+    if (data.affected > 0) {
+      return { code: stateCode.success, message: "删除成功！", data: null }
+    } else {
+      return { code: stateCode.findFail, message: "删除失败", data: null }
+    }
   }
 }

@@ -27,13 +27,13 @@
     <div class="content-table">
       <el-table :data="tableData" stripe :max-height="fullScreen.fullHeight.value - 300">
         <el-table-column prop="id" label="序号" width="60" />
-        <el-table-column label="封面">
+        <el-table-column label="封面" width="90">
           <template #default="scope">
-            <el-image style="width: 200px" :src="scope.row.img" :zoom-rate="1.2" :teleported="true" />
+            <el-image style="width: 60px;" :src="scope.row.img" :teleported="true" />
           </template>
         </el-table-column>
         <el-table-column prop="title" label="标题" />
-        <el-table-column prop="tags" label="标签" width="200">
+        <el-table-column prop="tags" label="标签" width="220">
           <template #default="scope">
             <div v-if="scope.row.tags">
               <el-tag round v-for="(tag, index) in scope.row.tags" :key="index" class="ml-2" effect="dark">

@@ -1,10 +1,10 @@
 import { defineComponent, reactive, Ref, toRefs } from "vue"
 import { useTable } from "../../hooks/useTable"
-import { readList } from "../../server/read"
+import { createRead, findOneRead, readList, upDateOneRead, deleteOneRead } from "../../server/read"
 import { FullScreen, PageConfig } from "../../types/views/article.type"
 import { CreateBook, ReadForm } from "../../types/views/read.type"
 import { Delete, Edit, Plus, Search, Refresh } from "@element-plus/icons-vue"
-import type { UploadProps, UploadUserFile } from "element-plus"
+import { ElMessage, ElMessageBox } from "element-plus"
 export default defineComponent({
   name: "Read",
   components: {},
@@ -23,7 +23,7 @@ export default defineComponent({
     const drawerTitle: Ref<string> = ref("")
     // 新增图书
     const createForm: CreateBook = reactive({
-      title: "",
+      name: "",
       author: "",
       img: "",
       time: "",
@@ -79,25 +79,34 @@ export default defineComponent({
       console.log(row)
       showDrawer.value = true
       drawerTitle.value = "编辑"
+      findOneRead(row.id).then((res) => {
+        Object.assign(createForm, res.data)
+      })
     }
 
     // 删除
     const handleDelete = (row: any) => {
-      console.log(row)
+      ElMessageBox.confirm("确认删除本篇文章吗？", "提示", {
+        type: "error",
+        icon: markRaw(Delete),
+        confirmButtonText: "删除",
+        confirmButtonClass: "deleteConfirm"
+      })
+        .then(() => {
+          deleteOneRead(row.id).then((res) => {
+            ElMessage.success(res.message)
+            handleGetFileData()
+          })
+        })
+        .catch((err) => {
+          console.log(err)
+        })
     }
 
-    // 上架书籍
+    // 上架图书
     const handleCreate = () => {
       showDrawer.value = true
       drawerTitle.value = "新增"
-    }
-
-    // 上架书籍预览封面
-    const dialogImageUrl = ref("")
-    const dialogVisible = ref(false)
-    const handlePictureCardPreview: UploadProps["onPreview"] = (uploadFile) => {
-      dialogImageUrl.value = uploadFile.url!
-      dialogVisible.value = true
     }
 
     // 取消上架
@@ -107,7 +116,33 @@ export default defineComponent({
 
     // 确认上架
     const handleCreateEnter = () => {
-      showDrawer.value = false
+      // 编辑
+      if (createForm.id) {
+        upDateOneRead(createForm.id, createForm).then((res) => {
+          showDrawer.value = false
+          ElMessage.success(res.message)
+          handleGetFileData()
+          handleResetCreate()
+        })
+      } else {
+        // 新增
+        createRead(createForm).then((res) => {
+          showDrawer.value = false
+          ElMessage.success(res.message)
+          handleGetFileData()
+          handleResetCreate()
+        })
+      }
+    }
+
+    // 重置上架表单
+    const handleResetCreate = () => {
+      createForm.author = ""
+      createForm.name = ""
+      createForm.img = ""
+      createForm.time = ""
+      createForm.introduction = ""
+      createForm.content = ""
     }
 
     return {
@@ -130,9 +165,6 @@ export default defineComponent({
       showDrawer,
       drawerTitle,
       createForm,
-      handlePictureCardPreview,
-      dialogImageUrl,
-      dialogVisible,
       handleCancel,
       handleCreateEnter
     }

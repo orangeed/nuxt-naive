@@ -26,3 +26,8 @@ export interface CreateActicle {
 export interface ReadList {
   title: string
 }
+
+export interface MoviesList {
+  name?: string
+  tag?: string
+}

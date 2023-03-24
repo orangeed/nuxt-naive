@@ -10,22 +10,24 @@ const dayjs = require("dayjs")
 
 @Injectable()
 export class ReadService {
-  constructor(@InjectRepository(Read) private moviesRepository: Repository<Read>) {}
-  async create(createMovieDto: CreateReadDto) {
-    if (!createMovieDto.name) return { code: stateCode.findFail, message: "书籍名称不能为空" }
-    if (!createMovieDto.time) return { code: stateCode.findFail, message: "书籍时间不能为空" }
-    if (!createMovieDto.content) return { code: stateCode.findFail, message: "内容不能为空" }
-    if (!createMovieDto.img) return { code: stateCode.findFail, message: "书籍封面不能为空" }
+  constructor(@InjectRepository(Read) private readRepository: Repository<Read>) {}
+  async create(createreadDto: CreateReadDto) {
+    if (!createreadDto.name) return { code: stateCode.findFail, message: "书籍名称不能为空" }
+    if (!createreadDto.time) return { code: stateCode.findFail, message: "书籍时间不能为空" }
+    if (!createreadDto.content) return { code: stateCode.findFail, message: "内容不能为空" }
+    if (!createreadDto.img) return { code: stateCode.findFail, message: "书籍封面不能为空" }
     let params = {}
     params = Object.assign({
-      name: createMovieDto.name,
-      img: createMovieDto.img,
-      time: createMovieDto.time,
-      content: createMovieDto.content,
+      name: createreadDto.name,
+      img: createreadDto.img,
+      time: createreadDto.time,
+      content: createreadDto.content,
+      author: createreadDto.author,
+      introduction: createreadDto.introduction,
       createTime: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")
     })
 
-    return this.moviesRepository
+    return this.readRepository
       .save(params)
       .then(() => {
         return { code: stateCode.success, message: "添加成功！", data: null }
@@ -44,7 +46,7 @@ export class ReadService {
     }
     let params = {}
     params = Object.assign({
-      select: ["id", "name", "img"],
+      select: ["id", "name", "img", "author", "createTime"],
       where: whereParams,
       skip: (findReadDto.pageNum - 1) * findReadDto.pageSize,
       take: findReadDto.pageSize,
@@ -52,32 +54,39 @@ export class ReadService {
         time: "DESC"
       }
     })
-    const [data, total] = await this.moviesRepository.findAndCount(params)
-    return {
-      code: stateCode.success,
-      message: "成功",
-      data: {
-        list: data,
-        total
+    const [data, total] = await this.readRepository.findAndCount(params)
+    data.forEach((v) => {
+      if (v.createTime) {
+        v.createTime = dayjs(v.createTime).format("YYYY-MM-DD HH:mm:ss")
       }
-    }
+    })
+    return { code: stateCode.success, message: "成功", data: { list: data, total } }
   }
 
   async findOne(id: string) {
     if (!id) return { code: stateCode.findFail, message: "id不能为空", data: null }
-    const data = await this.moviesRepository.findOne(id)
-    return {
-      code: stateCode.success,
-      message: "查询成功",
-      data: data ? data : null
+    const data = await this.readRepository.findOne(id)
+    data.createTime = dayjs(data.createTime).format("YYYY-MM-DD HH:mm:ss")
+    return { code: stateCode.success, message: "查询成功", data: data ? data : null }
+  }
+
+  async update(id: number, updateReadDto: UpdateReadDto) {
+    if (!id) return { code: stateCode.findFail, message: "id不能为空", data: null }
+    const data = await this.readRepository.update({ id }, updateReadDto)
+    if (data.affected > 0) {
+      return { code: stateCode.success, message: "修改成功！", data: null }
+    } else {
+      return { code: stateCode.findFail, message: "修改失败", data: null }
     }
   }
 
-  update(id: number, updateReadDto: UpdateReadDto) {
-    return `This action updates a #${id} read`
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} read`
+  async remove(id: number) {
+    if (!id) return { code: stateCode.findFail, message: "id不能为空", data: null }
+    const data = await this.readRepository.delete(id)
+    if (data.affected > 0) {
+      return { code: stateCode.success, message: "删除成功！", data: null }
+    } else {
+      return { code: stateCode.findFail, message: "删除失败", data: null }
+    }
   }
 }

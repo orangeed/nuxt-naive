@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm"
 
-@Entity("movies")
-export class Movies {
+@Entity("project")
+export class Project {
   @PrimaryGeneratedColumn("increment")
   id: number
 
@@ -11,21 +11,12 @@ export class Movies {
   @Column()
   img: string
 
-  @Column({ nullable: true })
-  time: Date
-
   @Column()
-  score: string
+  author: string
 
-  //   分类
-  @Column()
-  type: number
-
+  // 简介
   @Column("text")
   introduction: string
-
-  @Column("text")
-  content: string
 
   //   后端创建数据的时候生成
   @Column({ nullable: true })

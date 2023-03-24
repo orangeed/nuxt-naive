@@ -94,10 +94,10 @@ export default defineComponent({
         confirmButtonText: "删除",
         confirmButtonClass: "deleteConfirm"
       })
-        .then((res) => {
-          console.log("delete", res)
+        .then(() => {
           deleteArticle(row.id).then(() => {
             ElMessage.success("删除成功！")
+            handleGetFileData()
           })
         })
         .catch((err) => {

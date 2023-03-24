@@ -18,25 +18,25 @@ export class MoviesController {
     return this.moviesService.create(createMovieDto)
   }
 
-  @UseGuards(JwtAuthGuardUser)
   @ApiOperation({ summary: "获取影视列表" })
   @Get("list")
   findAll(@Query() findMoviesDto: FindMoviesDto) {
     return this.moviesService.findAll(findMoviesDto)
   }
 
-  @UseGuards(JwtAuthGuardUser)
   @ApiOperation({ summary: "根据id查询某一个影视信息" })
-  @Get("")
-  findOne(@Query() id: string) {
+  @Get(":id")
+  findOne(@Param() id: string) {
     return this.moviesService.findOne(id)
   }
 
+  @UseGuards(JwtAuthGuardUser)
   @Patch(":id")
   update(@Param("id") id: string, @Body() updateMovieDto: UpdateMovieDto) {
     return this.moviesService.update(+id, updateMovieDto)
   }
 
+  @UseGuards(JwtAuthGuardUser)
   @Delete(":id")
   remove(@Param("id") id: string) {
     return this.moviesService.remove(+id)

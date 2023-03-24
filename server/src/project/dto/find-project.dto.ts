@@ -2,14 +2,10 @@ import { ApiProperty } from "@nestjs/swagger"
 import { IsNotEmpty, IsNumber, IsString } from "class-validator"
 import { FindOperator } from "typeorm"
 
-export class FindMoviesDto {
+export class FindProjectDto {
   @IsString()
   @ApiProperty()
   name: string
-
-  @IsNumber()
-  @ApiProperty()
-  type: string
 
   @IsNotEmpty()
   @IsNumber()

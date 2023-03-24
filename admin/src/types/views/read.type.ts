@@ -3,10 +3,11 @@ export interface ReadForm {
 }
 
 export interface CreateBook {
-  title: string
+  name: string
   author: string
   img: string
   time: string
   introduction: string
   content: string
+  id?: number | string
 }

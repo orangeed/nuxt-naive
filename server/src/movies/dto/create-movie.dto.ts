@@ -25,6 +25,16 @@ export class CreateMovieDto {
   content: string
 
   @IsNotEmpty()
+  @IsString()
+  @ApiProperty()
+  score: string
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty()
+  introduction: string
+
+  @IsNotEmpty()
   @IsDateString()
   @ApiProperty()
   time: Date

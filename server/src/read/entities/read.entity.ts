@@ -11,6 +11,13 @@ export class Read {
   @Column()
   img: string
 
+  @Column()
+  author: string
+
+  // 描述
+  @Column("text")
+  introduction: string
+
   @Column({ nullable: true })
   time: Date
 

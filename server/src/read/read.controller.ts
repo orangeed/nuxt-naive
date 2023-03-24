@@ -25,8 +25,8 @@ export class ReadController {
   }
 
   @ApiOperation({ summary: "根据id查询某一个书籍信息" })
-  @Get("")
-  findOne(@Query() id: string) {
+  @Get(":id")
+  findOne(@Param("id") id: string) {
     return this.readService.findOne(id)
   }
 
