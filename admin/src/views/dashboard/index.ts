@@ -93,14 +93,19 @@ export default defineComponent({
     }
 
     // 删除
-    const handleDelete = (dom: any) => {
-      document.getElementById(dom)?.addEventListener("mousemove", (e) => {
-        console.log("删除", e)
-      })
-    }
+    let deletePointX = 0
+
     // 删除-鼠标按下事件
-    const handleMouseDown = (dom: any, e: any) => {
+    const handleMouseDown = (e: any) => {
       console.log("鼠标按下事件", e)
+      deletePointX = e.x
+      document.getElementById(e.target.id)?.addEventListener("mousemove", (event) => {
+        console.log("鼠标移动事件", event)
+        // 如果移动 x 小于 按下的 x ，出现删除
+        if (event.x < deletePointX) {
+          
+        }
+      })
     }
     // 删除-鼠标移动事件
     const handleMouseMove = (e: any) => {
@@ -109,6 +114,10 @@ export default defineComponent({
     // 删除-鼠标松开事件
     const handleMouseUp = (e: any) => {
       console.log("鼠标松开事件", e)
+      // 如果终点 - 起点 > 40 ，则显示删除，否则隐藏删除
+      if (e.x - deletePointX > 40) {
+        console.log("删除")
+      }
     }
 
     watch(
@@ -123,6 +132,6 @@ export default defineComponent({
         immediate: true
       }
     )
-    return { timeText, ...toRefs(data), fullScreen, todoList, handleDelete, handleMouseDown, handleMouseMove, handleMouseUp }
+    return { timeText, ...toRefs(data), fullScreen, todoList, handleMouseDown, handleMouseMove, handleMouseUp }
   }
 })

@@ -40,11 +40,13 @@
         <div
           v-for="(item, index) in todoList"
           :key="index"
-          :id="`${item}-${index}`"
-          class="bg-blue-300 m-2 p-3 rounded-md cursor-pointer flex relative overflow-hidden"
-          @click="handleDelete(`${item}-${index}`)"
+          :id="`${item.label}`"
+          class="bg-blue-300 m-2 rounded-md cursor-pointer flex relative overflow-hidden"
+          @mousedown="handleMouseDown"
+          @mouseup="handleMouseUp"
         >
-          <span class="flex-1">{{ item.label }}</span>
+          <!-- @mousemove="handleMouseMove" -->
+          <p class="flex pl-4 items-center" style="height: 40px">{{ item.label }}</p>
           <div class="delete bg-red-300 flex justify-center items-center rounded-md">删除</div>
         </div>
       </div>
