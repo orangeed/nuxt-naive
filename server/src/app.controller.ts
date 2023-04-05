@@ -1,9 +1,6 @@
-import { Controller, Post, Body, Get, Param, Query } from "@nestjs/common"
-import { ApiTags } from "@nestjs/swagger"
+import { Controller } from "@nestjs/common"
 import { AppService } from "./app.service"
-
-@ApiTags("ChatGPT")
-@Controller("openai")
+@Controller("")
 export class AppController {
   constructor(private readonly appService: AppService) {}
 }
