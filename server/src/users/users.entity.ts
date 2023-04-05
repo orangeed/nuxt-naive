@@ -33,6 +33,18 @@ export class User {
   @Column()
   delStatus: string;
 
+  // 知乎地址
+  @Column()
+  zhihuAddress:string
+
+  // 微信公众号地址
+  @Column()
+  wxAddress:string
+
+  // GitHub地址
+  @Column()
+  GitHubAddress:string
+
   @Column({
     select: false,
     nullable: true,

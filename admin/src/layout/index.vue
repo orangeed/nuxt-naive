@@ -2,12 +2,7 @@
 <template>
   <el-container class="main-color h-screen flex items-center">
     <el-aside class="asideWidth bg-color text-color ml-8 shadow-xl">
-      <el-menu
-        :collapse="isCollapse"
-        :unique-opened="false"
-        :collapse-transition="false"
-        class="el-menu-vertical-demo bg-color"
-      >
+      <el-menu :collapse="isCollapse" :unique-opened="false" :collapse-transition="false" class="el-menu-vertical-demo bg-color">
         <img src="../assets/logo.png" class="rounded-full" />
         <SidebarItem v-for="route in permission_routes" :key="route.path" :item="route" :base-path="route.path" :isCollapse="isCollapse" />
         <div class="fixed" style="bottom: 5vh; width: 64px">
@@ -20,8 +15,8 @@
             </div>
             <el-dropdown trigger="click">
               <div class="flex flex-col items-center justify-center">
-                <img src="https://img2.woyaogexing.com/2020/06/19/02d268db09ff4e8e9608fd64adbbeed8!400x400.jpeg" class="w-8 rounded" />
-                <span class="basis-text-color">orange</span>
+                <img src="https://img2.woyaogexing.com/2020/06/19/02d268db09ff4e8e9608fd64adbbeed8!400x400.jpeg" class="w-8 rounded mt-4" />
+                <span class="basis-text-color mt-4">{{ getStorge("USERINFO").name }}</span>
                 <i class="el-icon-arrow-down el-icon--right"></i>
               </div>
               <template #dropdown>

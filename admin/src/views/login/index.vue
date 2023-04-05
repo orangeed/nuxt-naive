@@ -8,13 +8,8 @@
  * Copyright (c) 2022 by orange, All Rights Reserved. 
 -->
 <template>
-  <div
-    id="login"
-    class="flex justify-center items-center h-screen w-screen bg-gradient-to-r from-indigo-500 to-orange-400"
-  >
-    <div
-      class="w-1/2 h-1/2 flex justify-center items-center shadow-xl p-5 bg-white rounded-2xl"
-    >
+  <div id="login" class="flex justify-center items-center h-screen w-screen bg-gradient-to-r from-indigo-500 to-orange-400">
+    <div class="w-1/2 h-1/2 flex justify-center items-center shadow-xl p-5 bg-white rounded-2xl">
       <div class="flex-1">
         <img src="../../assets/logo.png" alt="logo" />
       </div>
@@ -24,27 +19,12 @@
           <p class="w-24 bg-orange-400 pt-2 -mt-2 rounded"></p>
         </div>
         <div class="h-3/4 flex flex-col text-base">
-          <el-form
-            ref="form"
-            :model="loginForm"
-            label-width="80px"
-            size="large"
-            class="w-3/4 mt-10"
-          >
+          <el-form ref="form" :model="loginForm" label-width="80px" size="large" class="w-3/4 mt-10">
             <el-form-item label="用户名：">
-              <el-input
-                v-model="loginForm.username"
-                autofocus
-                placeholder="请输入用户名"
-              ></el-input>
+              <el-input v-model="loginForm.username" autofocus placeholder="请输入用户名"></el-input>
             </el-form-item>
             <el-form-item label="密码：">
-              <el-input
-                v-model="loginForm.password"
-                type="password"
-                show-password
-                placeholder="请输入密码"
-              ></el-input>
+              <el-input v-model="loginForm.password" type="password" show-password placeholder="请输入密码"></el-input>
             </el-form-item>
           </el-form>
           <div

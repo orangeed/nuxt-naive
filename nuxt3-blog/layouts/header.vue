@@ -86,7 +86,7 @@
         <template #footer>
           <div class="text-right">
             <n-button @click="handleClose"> 关闭</n-button>
-            <n-button type="primary" class="ml-3" @click="handlePass"> 确定 </n-button>
+            <n-button type="warning" class="ml-3" @click="handlePass"> 确定 </n-button>
           </div>
         </template>
       </n-card>

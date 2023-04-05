@@ -1,13 +1,3 @@
-/*
- * @Author: orange
- * @Date: 2022-10-25 20:40:23
- * @LastEditors: orange
- * @LastEditTime: 2022-11-29 22:42:32
- * @FilePath: \nuxt-naive\admin\src\views\dashboard\index.ts
- * @Description:
- *
- * Copyright (c) 2022 by orange, All Rights Reserved.
- */
 import axios from "axios"
 import { defineComponent, reactive, Ref, toRefs } from "vue"
 import { TimeArr, Dashboard, TodoList } from "../../types/views/dashboard.typs"
@@ -88,27 +78,105 @@ export default defineComponent({
     for (let i = 0; i < 10; i++) {
       todoList.value.push({
         label: `TODO-${i}`,
-        status: 1
+        status: 1,
+        deleteRight: -100
+      })
+    }
+
+    // 进行中
+    const doingList: Ref<TodoList[]> = ref([])
+    for (let i = 0; i < 10; i++) {
+      doingList.value.push({
+        label: `DOING-${i}`,
+        status: 1,
+        deleteRight: -100
+      })
+    }
+
+    // 已完成
+    const doList: Ref<TodoList[]> = ref([])
+    for (let i = 0; i < 10; i++) {
+      doList.value.push({
+        label: `DONE-${i}`,
+        status: 1,
+        deleteRight: -100
       })
     }
 
     // 删除
-    const handleDelete = (dom: any) => {
-      document.getElementById(dom)?.addEventListener("mousemove", (e) => {
-        console.log("删除", e)
-      })
-    }
+    const currentListItem: TodoList = reactive({
+      label: "",
+      status: 1,
+      deleteRight: -100
+    })
     // 删除-鼠标按下事件
-    const handleMouseDown = (dom: any, e: any) => {
-      console.log("鼠标按下事件", e)
-    }
-    // 删除-鼠标移动事件
-    const handleMouseMove = (e: any) => {
-      console.log("鼠标移动事件", e)
+    const handleMouseDown = (item: any) => {
+      Object.assign(currentListItem, item)
+      document.getElementById(item.label)?.addEventListener("mousemove", handerle, false)
     }
     // 删除-鼠标松开事件
     const handleMouseUp = (e: any) => {
-      console.log("鼠标松开事件", e)
+      document.getElementById(currentListItem.label)?.removeEventListener("mousemove", handerle, false)
+      const type = currentListItem.label.split("-")[0]
+      if (type === "TODO") {
+        todoList.value.forEach((v) => {
+          if (v.label === currentListItem.label) {
+            if (v.deleteRight < -10) {
+              v.deleteRight = -100
+            }
+          }
+        })
+      } else if (type === "DOING") {
+        doingList.value.forEach((v) => {
+          if (v.label === currentListItem.label) {
+            if (v.deleteRight < -10) {
+              v.deleteRight = -100
+            }
+          }
+        })
+      } else {
+        doList.value.forEach((v) => {
+          if (v.label === currentListItem.label) {
+            console.log('v',v);
+            if (v.deleteRight < -10) {
+              v.deleteRight = -100
+            }
+          }
+        })
+      }
+    }
+    // 移动事件
+    const handerle = (e: any) => {
+      const type = currentListItem.label.split("-")[0]
+      if (type === "TODO") {
+        const right = document.getElementById(currentListItem.label)?.clientWidth! - e.pageX + 20
+        todoList.value.forEach((v) => {
+          if (v.label === currentListItem.label) {
+            if (right <= 0) {
+              v.deleteRight = right
+            }
+          }
+        })
+      } else if (type === "DOING") {
+        const right = document.getElementById(currentListItem.label)?.clientWidth! - e.pageX / 2 + 20
+        doingList.value.forEach((v) => {
+          if (v.label === currentListItem.label) {
+            if (right <= 0) {
+              v.deleteRight = right
+            }
+          }
+        })
+      } else {
+        const right = document.getElementById(currentListItem.label)?.clientWidth! - e.pageX / 3 + 20
+        console.log('right',right);
+        doList.value.forEach((v) => {
+          if (v.label === currentListItem.label) {
+            if (right <= 0) {
+              v.deleteRight = right
+            }
+          }
+        })
+      }
     }
 
     watch(
@@ -123,6 +191,6 @@ export default defineComponent({
         immediate: true
       }
     )
-    return { timeText, ...toRefs(data), fullScreen, todoList, handleDelete, handleMouseDown, handleMouseMove, handleMouseUp }
+    return { timeText, ...toRefs(data), fullScreen, todoList, doingList, doList, handleMouseDown, handleMouseUp }
   }
 })

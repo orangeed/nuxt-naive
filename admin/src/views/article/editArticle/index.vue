@@ -25,7 +25,7 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="handleSave">保存</el-button>
+          <el-button type="warning" @click="handleSave">保存</el-button>
         </el-form-item>
       </el-form>
     </div>

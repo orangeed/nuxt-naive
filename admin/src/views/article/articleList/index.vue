@@ -18,7 +18,7 @@
           />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" :icon="Search" @click="handleSearch">查询</el-button>
+          <el-button type="warning" :icon="Search" @click="handleSearch">查询</el-button>
           <el-button :icon="Refresh" @click="handleReset">重置</el-button>
         </el-form-item>
       </el-form>
@@ -46,7 +46,7 @@
         <el-table-column prop="updateTime" label="创作时间" width="200" />
         <el-table-column label="操作" width="100">
           <template #default="scope">
-            <el-button type="primary" :icon="Edit" circle @click="handleEdit(scope.row)" />
+            <el-button type="warning" :icon="Edit" circle @click="handleEdit(scope.row)" />
             <el-button type="danger" :icon="Delete" circle @click="handleDelete(scope.row)" />
           </template>
         </el-table-column>

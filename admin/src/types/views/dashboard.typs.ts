@@ -35,4 +35,5 @@ export interface Dashboard {
 export interface TodoList {
   label: string
   status: number // 1todo, 2doing, 3done
+  deleteRight: number
 }

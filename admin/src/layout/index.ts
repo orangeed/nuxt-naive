@@ -144,7 +144,8 @@ export default defineComponent({
       ...toRefs(themeData),
       handleChangeThemes,
       handleLogout,
-      handleGotoPerson
+      handleGotoPerson,
+      getStorge
     }
   }
 })

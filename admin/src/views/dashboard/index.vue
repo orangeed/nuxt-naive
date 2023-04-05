@@ -1,13 +1,3 @@
-<!--
- * @Author: orange
- * @Date: 2022-10-24 15:56:57
- * @LastEditors: orange
- * @LastEditTime: 2022-11-30 14:22:40
- * @FilePath: \nuxt-naive\admin\src\views\dashboard\index.vue
- * @Description: 首页
- * 
- * Copyright (c) 2022 by orange, All Rights Reserved. 
--->
 <template>
   <div>
     <!-- 顶部天气 -->
@@ -17,7 +7,7 @@
           <img src="https://img2.woyaogexing.com/2020/06/19/02d268db09ff4e8e9608fd64adbbeed8!400x400.jpeg" class="w-20 rounded" />
           <p class="ml-3 flex items-center">{{ timeText }}，orange，开始您一天的工作吧！</p>
         </div>
-        <div class="flex justify-center items-end flex-1 mr-10">
+        <div class="flex justify-end items-end flex-1 mr-10">
           <div class="flex flex-col mr-10 text-center">
             <i :class="`qi-${weather.icon}`" class="text-6xl"> </i>
             <span class="mt-2">{{ weather.text }}</span>
@@ -36,23 +26,61 @@
     <!-- 今日待办 -->
     <div class="flex">
       <div class="flex-1 card-color shadow-xl rounded-lg mt-5 p-3" :style="{ height: `${fullScreen.fullHeight.value - 116 - 100}px` }">
-        <h1 class="text-xl">将要做</h1>
+        <h1 class="text-2xl font-bold text-blue-300">将要做</h1>
         <div
           v-for="(item, index) in todoList"
           :key="index"
-          :id="`${item}-${index}`"
+          :id="item.label"
           class="bg-blue-300 m-2 p-3 rounded-md cursor-pointer flex relative overflow-hidden"
-          @click="handleDelete(`${item}-${index}`)"
+          @mousedown="handleMouseDown(item)"
+          @mouseup="handleMouseUp"
         >
-          <span class="flex-1">{{ item.label }}</span>
-          <div class="delete bg-red-300 flex justify-center items-center rounded-md">删除</div>
+          <span class="flex-1 text-white">{{ item.label }}</span>
+          <div
+            :style="{ position: 'absolute', right: `${item.deleteRight}px` }"
+            class="delete bg-red-500 flex justify-center items-center rounded-md text-white"
+          >
+            删除
+          </div>
         </div>
       </div>
       <div class="flex-1 card-color shadow-xl rounded-lg mt-5 p-3 ml-4" :style="{ height: `${fullScreen.fullHeight.value - 116 - 100}px` }">
-        <h1 class="text-xl">正在做</h1>
+        <h1 class="text-2xl font-bold text-orange-300">正在做</h1>
+        <div
+          v-for="(item, index) in doingList"
+          :key="index"
+          :id="item.label"
+          class="bg-orange-300 m-2 p-3 rounded-md cursor-pointer flex relative overflow-hidden"
+          @mousedown="handleMouseDown(item)"
+          @mouseup="handleMouseUp"
+        >
+          <span class="flex-1 text-white">{{ item.label }}</span>
+          <div
+            :style="{ position: 'absolute', right: `${item.deleteRight}px` }"
+            class="delete bg-red-500 flex justify-center items-center rounded-md text-white"
+          >
+            删除
+          </div>
+        </div>
       </div>
       <div class="flex-1 card-color shadow-xl rounded-lg mt-5 p-3 ml-4" :style="{ height: `${fullScreen.fullHeight.value - 116 - 100}px` }">
-        <h1 class="text-xl">已完成</h1>
+        <h1 class="text-2xl font-bold text-green-300">已完成</h1>
+        <div
+          v-for="(item, index) in doList"
+          :key="index"
+          :id="item.label"
+          class="bg-green-300 m-2 p-3 rounded-md cursor-pointer flex relative overflow-hidden"
+          @mousedown="handleMouseDown(item)"
+          @mouseup="handleMouseUp"
+        >
+          <span class="flex-1 text-white">{{ item.label }}</span>
+          <div
+            :style="{ position: 'absolute', right: `${item.deleteRight}px` }"
+            class="delete bg-red-500 flex justify-center items-center rounded-md text-white"
+          >
+            删除
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -63,9 +91,10 @@
 <style lang="scss" scoped>
 .delete {
   position: absolute;
-  right: -100px;
   top: 0;
   width: 100px;
   height: 100%;
+  right: -100px;
+  position: all 1s;
 }
 </style>

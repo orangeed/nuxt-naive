@@ -8,8 +8,8 @@
           <el-input v-model="projectForm.name" placeholder="请输入项目名称"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" :icon="Plus" @click="handleCreate">新增</el-button>
-          <el-button type="primary" :icon="Search" @click="handleSearch">查询</el-button>
+          <el-button type="warning" :icon="Plus" @click="handleCreate">新增</el-button>
+          <el-button type="warning" :icon="Search" @click="handleSearch">查询</el-button>
           <el-button :icon="Refresh" @click="handleReset">重置</el-button>
         </el-form-item>
       </el-form>
@@ -29,8 +29,8 @@
         <el-table-column prop="createTime" label="时间" width="200" />
         <el-table-column label="操作" width="100">
           <template #default="scope">
-            <el-button type="primary" :icon="Edit" circle @click="handleEdit(scope.row)" />
-            <el-button type="danger" :icon="Delete" circle @click="handleDelete(scope.row)" />
+            <el-button type="warning" :icon="Edit" circle @click="handleEdit(scope.row)" />
+            <el-button type="warning" :icon="Delete" circle @click="handleDelete(scope.row)" />
           </template>
         </el-table-column>
       </el-table>
@@ -71,7 +71,7 @@
       <template #footer>
         <div style="flex: auto">
           <el-button @click="handleCancel">取消</el-button>
-          <el-button type="primary" @click="handleCreateEnter">添加</el-button>
+          <el-button type="warning" @click="handleCreateEnter">添加</el-button>
         </div>
       </template>
     </el-drawer>

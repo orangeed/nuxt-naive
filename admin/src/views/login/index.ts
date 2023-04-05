@@ -14,6 +14,7 @@ import { login } from "../../server/login"
 import { setStorge } from "../../utils/storage"
 import { LoginForm } from "../../types/views/login.type"
 import MD5 from "md5"
+import { getUserInfo } from "../../server/person"
 
 export default defineComponent({
   name: "",
@@ -32,9 +33,14 @@ export default defineComponent({
         password: MD5(loginForm.password)
       }).then((res) => {
         setStorge("TOKEN", res.data.token)
-        router.push("/")
+        // 获取用户信息
+        getUserInfo({ username: "orange" }).then((response) => {
+          setStorge("USERINFO", response.data)
+          router.push("/")
+        })
       })
     }
+
     return {
       loginForm,
       handleLogin

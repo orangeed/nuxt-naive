@@ -130,6 +130,7 @@ const handleGetTabsData = (val: string) => {
     pageConfig.total = res.data.total
   })
 }
+handleGetTabsData("")
 
 // 跳转至详情
 const router = useRouter()

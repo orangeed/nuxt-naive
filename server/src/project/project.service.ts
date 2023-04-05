@@ -71,7 +71,7 @@ export class ProjectService {
     if (data.affected > 0) {
       return { code: stateCode.success, message: "修改成功！", data: null }
     } else {
-      return { code: stateCode.findFail, message: "修改失败", data: null }
+      return { code: stateCode.cpdFail, message: "修改失败", data: null }
     }
   }
 
@@ -81,7 +81,7 @@ export class ProjectService {
     if (data.affected > 0) {
       return { code: stateCode.success, message: "删除成功！", data: null }
     } else {
-      return { code: stateCode.findFail, message: "删除失败", data: null }
+      return { code: stateCode.cpdFail, message: "删除失败", data: null }
     }
   }
 }

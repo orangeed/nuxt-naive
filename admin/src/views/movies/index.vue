@@ -14,8 +14,8 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" :icon="Plus" @click="handleCreate">上架</el-button>
-          <el-button type="primary" :icon="Search" @click="handleSearch">搜剧</el-button>
+          <el-button type="warning" :icon="Plus" @click="handleCreate">上架</el-button>
+          <el-button type="warning" :icon="Search" @click="handleSearch">搜剧</el-button>
           <el-button :icon="Refresh" @click="handleReset">重置</el-button>
         </el-form-item>
       </el-form>
@@ -41,7 +41,7 @@
         <el-table-column prop="time" label="观影时间" width="300" />
         <el-table-column label="操作" width="100">
           <template #default="scope">
-            <el-button type="primary" :icon="Edit" circle @click="handleEdit(scope.row)" />
+            <el-button type="warning" :icon="Edit" circle @click="handleEdit(scope.row)" />
             <el-button type="danger" :icon="Delete" circle @click="handleDelete(scope.row)" />
           </template>
         </el-table-column>
@@ -114,7 +114,7 @@
       <template #footer>
         <div style="flex: auto">
           <el-button @click="handleCancel">取消</el-button>
-          <el-button type="primary" @click="handleCreateEnter">上架</el-button>
+          <el-button type="warning" @click="handleCreateEnter">上架</el-button>
         </div>
       </template>
     </el-drawer>
