@@ -1,87 +1,105 @@
 <template>
   <div id="index">
-    <div class="index-box">
-      <div class="flex-1 about-me text-center">
-        <!-- <p class="text-2xl text-left">个人简介</p> -->
-        <n-image src="../assets/img/header.jpg" />
-        <p class="text-xl">橘子</p>
-        <p class="text-left">菜鸡小前端一个，本科毕业。这里的文章主要是记录工作、学习以及生活。还有个公众号：【橘子的分享】</p>
-        <div class="o-icon">
-          <n-icon :component="Zhihu" size="40" class="bg-gray-100 rounded-xl p-2.5 ml-1 mr-1 cursor-pointer" @click="handleGoto('zhihu')" />
-          <n-tooltip trigger="hover">
-            <template #trigger>
-              <n-icon
-                :component="Weixin"
-                size="40"
-                class="bg-gray-100 rounded-xl p-2.5 ml-1 mr-1 cursor-pointer"
-                @click="handleGoto('weixin')"
-              />
-            </template>
-            <img src="../assets/img/weixin.jpg" />
-          </n-tooltip>
-          <n-icon :component="Github" size="40" class="bg-gray-100 rounded-xl p-2.5 ml-1 mr-1 cursor-pointer" @click="handleGoto('git')" />
+    <!-- 非3d -->
+    <div class="nomal-box" :style="{ right: is3D ? '120%' : '0', height: is3D ? '60vh' : '100%' }">
+      <div class="index-box">
+        <div class="flex-1 about-me text-center">
+          <!-- <p class="text-2xl text-left">个人简介</p> -->
+          <n-image src="../assets/img/header.jpg" />
+          <p class="text-xl">橘子</p>
+          <p class="text-left">菜鸡小前端一个，本科毕业。这里的文章主要是记录工作、学习以及生活。还有个公众号：【橘子的分享】</p>
+          <div class="o-icon">
+            <n-icon
+              :component="Zhihu"
+              size="40"
+              class="bg-gray-100 rounded-xl p-2.5 ml-1 mr-1 cursor-pointer"
+              @click="handleGoto('zhihu')"
+            />
+            <n-tooltip trigger="hover">
+              <template #trigger>
+                <n-icon
+                  :component="Weixin"
+                  size="40"
+                  class="bg-gray-100 rounded-xl p-2.5 ml-1 mr-1 cursor-pointer"
+                  @click="handleGoto('weixin')"
+                />
+              </template>
+              <img src="../assets/img/weixin.jpg" />
+            </n-tooltip>
+            <n-icon
+              :component="Github"
+              size="40"
+              class="bg-gray-100 rounded-xl p-2.5 ml-1 mr-1 cursor-pointer"
+              @click="handleGoto('git')"
+            />
+          </div>
+          <div class="o-icon">
+            <p>
+              <span id="busuanzi_container_site_pv" class="block"
+                >本站访问量：<span id="busuanzi_value_site_pv" class="font-bold text-lg text-orange-400"></span> 次</span
+              >
+            </p>
+            <p>
+              <span id="busuanzi_container_site_uv" class="block"
+                >本站访客数：<span id="busuanzi_value_site_uv" class="font-bold text-lg text-orange-400"></span> 人</span
+              >
+            </p>
+          </div>
         </div>
-        <div class="o-icon">
-          <p>
-            <span id="busuanzi_container_site_pv" class="block"
-              >本站访问量：<span id="busuanzi_value_site_pv" class="font-bold text-lg text-orange-400"></span> 次</span
-            >
-          </p>
-          <p>
-            <span id="busuanzi_container_site_uv" class="block"
-              >本站访客数：<span id="busuanzi_value_site_uv" class="font-bold text-lg text-orange-400"></span> 人</span
-            >
-          </p>
+        <div class="content" style="flex: 3">
+          <p class="text-2xl font-familg-regular font-normal">最近文章</p>
+          <n-tabs type="line" animated size="large" :on-update:value="handleChangeTabs">
+            <n-tab-pane name="" tab="全部">
+              <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
+                <ArtCard :item="item" />
+              </div>
+            </n-tab-pane>
+            <n-tab-pane name="0" tab="JS/TS">
+              <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
+                <ArtCard :item="item" />
+              </div>
+            </n-tab-pane>
+            <n-tab-pane name="1" tab="Vue">
+              <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
+                <ArtCard :item="item" />
+              </div>
+            </n-tab-pane>
+            <n-tab-pane name="2" tab="Python">
+              <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
+                <ArtCard :item="item" />
+              </div>
+            </n-tab-pane>
+          </n-tabs>
+          <div class="flex justify-end" v-if="pageConfig.total > 0">
+            <n-pagination
+              v-model:page="pageConfig.pageNum"
+              v-model:page-size="pageConfig.pageSize"
+              :page-sizes="[10, 20, 30, 40]"
+              :page-count="Math.ceil(pageConfig.total / pageConfig.pageSize)"
+              size="large"
+              show-quick-jumper
+              show-size-picker
+              :on-update:page="handleChangePageNum"
+              :on-update:page-size="handleChangePageSize"
+            />
+          </div>
         </div>
       </div>
-      <div class="content" style="flex: 3">
-        <p class="text-2xl font-familg-regular font-normal">最近文章</p>
-        <n-tabs type="line" animated size="large" :on-update:value="handleChangeTabs">
-          <n-tab-pane name="" tab="全部">
-            <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
-              <ArtCard :item="item" />
-            </div>
-          </n-tab-pane>
-          <n-tab-pane name="0" tab="JS/TS">
-            <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
-              <ArtCard :item="item" />
-            </div>
-          </n-tab-pane>
-          <n-tab-pane name="1" tab="Vue">
-            <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
-              <ArtCard :item="item" />
-            </div>
-          </n-tab-pane>
-          <n-tab-pane name="2" tab="Python">
-            <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
-              <ArtCard :item="item" />
-            </div>
-          </n-tab-pane>
-        </n-tabs>
-        <div class="flex justify-end" v-if="pageConfig.total > 0">
-          <n-pagination
-            v-model:page="pageConfig.pageNum"
-            v-model:page-size="pageConfig.pageSize"
-            :page-sizes="[10, 20, 30, 40]"
-            :page-count="Math.ceil(pageConfig.total / pageConfig.pageSize)"
-            size="large"
-            show-quick-jumper
-            show-size-picker
-            :on-update:page="handleChangePageNum"
-            :on-update:page-size="handleChangePageSize"
-          />
-        </div>
-      </div>
+    </div>
+    <!-- 3d -->
+    <div class="threejs-box" :style="{ left: is3D ? '0' : '-120%' }">
+      <Three />
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-import { reactive } from "vue"
+import { Ref, reactive, ref } from "vue"
 import { useRouter } from "vue-router"
 import { Zhihu, Weixin, Github } from "@vicons/fa"
 import ArtCard from "../components/artCard.vue"
 import { getHomeArticleList } from "../server/home"
 import { emitter } from "../utils/mitt"
+import Three from "~~/components/three.vue"
 
 // login({ username: "orange", password: "c4ca4238a0b923820dcc509a6f75849b" }).then((res) => {
 //   window.sessionStorage.setItem("TOKEN", res.data.token)
@@ -181,6 +199,15 @@ const handleChangePageSize = (val: number) => {
     pageConfig.total = res.data.total
   })
 }
+
+// 接收3D
+const is3D: Ref<boolean> = ref(false)
+const handle3D = () => {
+  emitter.on("3DMODEL", (val: any) => {
+    is3D.value = val
+  })
+}
+handle3D()
 </script>
 
 <style lang="scss">
@@ -191,6 +218,18 @@ const handleChangePageSize = (val: number) => {
       height: 132px;
       border-radius: 9999px;
     }
+  }
+  .nomal-box {
+    position: relative;
+    overflow: hidden;
+    transition: all 1s;
+  }
+  .threejs-box {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    transition: all 1s;
+    overflow: hidden;
   }
 }
 #busuanzi_container_site_pv {

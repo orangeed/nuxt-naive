@@ -28,6 +28,7 @@
             <template #checked>浅</template>
             <template #unchecked>深</template>
           </n-switch>
+          <n-button strong secondary class="ml-4" @click="handleSelect3D"> 3D </n-button>
         </div>
       </div>
     </div>
@@ -270,6 +271,11 @@ const handleShowMenu = () => {
   } else {
     showDrawer.value = true
   }
+}
+
+// 显示3d模型
+const handleSelect3D = () => {
+  emitter.emit("3DMODEL", true)
 }
 </script>
 
