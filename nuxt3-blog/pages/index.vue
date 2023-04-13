@@ -1,7 +1,7 @@
 <template>
   <div id="index">
     <!-- 非3d -->
-    <div class="nomal-box" :style="{ right: is3D ? '120%' : '0', height: is3D ? '60vh' : '100%' }">
+    <div class="nomal-box" :style="{ right: is3D ? '120%' : '0', height: is3D ? '50vh' : '100%' }">
       <div class="index-box">
         <div class="flex-1 about-me text-center">
           <!-- <p class="text-2xl text-left">个人简介</p> -->
@@ -201,7 +201,7 @@ const handleChangePageSize = (val: number) => {
 }
 
 // 接收3D
-const is3D: Ref<boolean> = ref(false)
+const is3D: Ref<boolean> = ref(true)
 const handle3D = () => {
   emitter.on("3DMODEL", (val: any) => {
     is3D.value = val
