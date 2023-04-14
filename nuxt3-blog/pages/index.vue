@@ -150,6 +150,7 @@ const handleGetTabsData = (val: string) => {
 }
 handleGetTabsData("")
 
+
 // 跳转至详情
 const router = useRouter()
 const handleGotoDetail = (id: number) => {
