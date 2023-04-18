@@ -9,17 +9,16 @@ import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader"
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls"
 import { onMounted } from "vue"
 import TWEEN from "@tweenjs/tween.js"
-const clickList = ["pc01", "pc02", "board"]
 
 // 创建渲染器
 let renderer: any
 const handleCreateRender = () => {
   const element: any = document.getElementById("three")
-  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
+  renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, precision: "highp" })
   renderer.setSize(element.clientWidth, element.clientHeight) // 设置渲染区域尺寸
   renderer.shadowMap.enabled = true // 显示阴影
   renderer.shadowMap.type = THREE.PCFSoftShadowMap
-  renderer.setClearColor(0x000000, 1) // 设置背景颜色
+  // renderer.setClearColor(0x000000, 1) // 设置背景颜色
   element.appendChild(renderer.domElement)
 }
 
@@ -37,10 +36,7 @@ const handleLoad3DModel = () => {
         if (child.isMesh) {
           switch (child.name) {
             case "floor":
-              child.material = new THREE.MeshBasicMaterial({ color: 0xe9be93 })
-              child.addEventListener("click", () => {
-                console.log("eee")
-              })
+              child.material = new THREE.MeshBasicMaterial({ color: 0xcd6a15 })
               break
 
             default:
@@ -103,30 +99,37 @@ const onMouseClick = (event: any) => {
   //通过鼠标点击的位置计算出raycaster所需要的点的位置，以屏幕中心为原点，值的范围为-1到1.
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
-  console.log("mouse", mouse)
   raycaster.setFromCamera(mouse, camera)
   const intersects = raycaster.intersectObjects(scene.children)
   console.log("intersects", intersects)
   if (intersects.length > 0) {
     intersects.forEach((v) => {
-      if (clickList.includes(v.object.name)) {
-        handleAnimateCamera(camera, controls, v.point, 1600)
+      switch (v.object.name) {
+        case "pc01":
+          handleAnimateCamera(camera, { x: 100, y: 10, z: 0 }, 1600)
+          break
+        case "pc02":
+          handleAnimateCamera(camera, { x: 100, y: 10, z: 0 }, 1600)
+          break
+        case "board":
+          // 将相机定位到点击的位置
+          handleAnimateCamera(camera, { x: 50, y: 5, z: -10 }, 1600)
+          break
+        default:
+          break
       }
     })
   }
 }
 
 // 切换视角
-const handleAnimateCamera = (camera: any, controls: any, newP: any, time: any) => {
+const handleAnimateCamera = (camera: any, newP: any, time: any) => {
   new TWEEN.Tween(camera.position)
     .to(
       {
-        x: newP.x + 60,
-        y: newP.y + 10,
-        z: newP.z - 20
-        // x: newP.x + 500,
-        // y: newP.y + 100,
-        // z: newP.z - 110
+        x: newP.x,
+        y: newP.y,
+        z: newP.z
       },
       time
     )
@@ -139,6 +142,7 @@ const handleAnimateCamera = (camera: any, controls: any, newP: any, time: any) =
     .start()
   animate()
   function animate() {
+    // mesh.rotation.x += 0.01
     requestAnimationFrame(animate)
     TWEEN.update()
   }
@@ -159,5 +163,6 @@ onMounted(() => {
 #three {
   height: 100vh;
   width: 100vw;
+  background-image: linear-gradient(rgb(0, 0, 1), rgb(119, 119, 237));
 }
 </style>
