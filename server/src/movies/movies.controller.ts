@@ -27,6 +27,7 @@ export class MoviesController {
   @ApiOperation({ summary: "根据id查询某一个影视信息" })
   @Get(":id")
   findOne(@Param() id: string) {
+    console.log(id);
     return this.moviesService.findOne(id)
   }
 

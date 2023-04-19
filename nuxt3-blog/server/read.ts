@@ -20,8 +20,7 @@ export const getReadList = (params: GetReadList): Promise<any> => {
 
 export const getRead = (params: GetRead): Promise<any> => {
   return request({
-    url: "/read",
+    url: `/read/${params.id}`,
     method: "GET",
-    params
   })
 }

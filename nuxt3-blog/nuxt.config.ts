@@ -52,8 +52,8 @@ export default defineNuxtConfig({
         }
       ],
       meta: [
-        // <meta name="description" content="My amazing site">
-        { name: "description", content: "My amazing site." }
+        // { name: "description", content: "My amazing site." }
+        { name: "referrer", content: "no-referrer" }
       ],
       script: [
         {
@@ -63,7 +63,7 @@ export default defineNuxtConfig({
         }
       ]
     }
-  },
+  }
   // index: {
   //   head: {
   //     title: "在线Excel文件转换成数组json格式数据-六月初工具站",

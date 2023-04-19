@@ -21,8 +21,7 @@ export const getMovieList = (params: GetMovieList): Promise<any> => {
 
 export const getMovie = (params: GetMovie): Promise<any> => {
   return request({
-    url: "/movie",
+    url: `/movies/${params.id}`,
     method: "GET",
-    params
   })
 }

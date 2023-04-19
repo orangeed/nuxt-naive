@@ -53,7 +53,7 @@
     <el-drawer v-model="showDrawer" :title="drawerTitle">
       <el-form :model="createForm" label-width="90px">
         <el-form-item label="名称：" required>
-          <el-input v-model="createForm.name" placeholder="请输入图书名称" />
+          <el-input v-model="createForm.name" placeholder="请输入电影/电视剧名称" />
         </el-form-item>
         <el-form-item label="类型：" required class="mt-4">
           <el-select class="w-full" v-model="createForm.type" placeholder="请选择类型">
@@ -74,13 +74,13 @@
               :precision="1"
               :step="0.1"
               v-model="createForm.score"
-              placeholder="请输入图书名称"
+              placeholder="请输入电影/电视剧名称"
             />
             <el-rate class="ml-4" v-model="createForm.score" disabled show-score text-color="#ff9900" score-template="{value} 分" />
           </div>
         </el-form-item>
         <el-form-item label="封面：" class="mt-4" required>
-          <el-input v-model="createForm.img" placeholder="请输入图书封面" />
+          <el-input v-model="createForm.img" placeholder="请输入电影/电视剧封面" />
           <el-image
             style="width: 100px"
             class="mt-4"
@@ -93,17 +93,17 @@
         <el-form-item label="简介：" class="mt-4" required>
           <el-input
             v-model="createForm.introduction"
-            placeholder="请输入图书简介"
+            placeholder="请输入电影/电视剧简介"
             maxlength="300"
             :autosize="{ minRows: 5 }"
             type="textarea"
             show-word-limit
           />
         </el-form-item>
-        <el-form-item label="读后感：" class="mt-4">
+        <el-form-item label="观后感：" class="mt-4">
           <el-input
             v-model="createForm.content"
-            placeholder="请输入读后感"
+            placeholder="请输入观后感"
             maxlength="1000"
             :autosize="{ minRows: 10 }"
             type="textarea"

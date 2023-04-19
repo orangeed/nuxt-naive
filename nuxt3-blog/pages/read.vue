@@ -3,8 +3,7 @@
   <div id="movies">
     <div class="flex flex-wrap movie-card">
       <div v-for="(item, index) in moviesList" :key="index" class="movie-item" @click="handleShowContent(item.id)">
-        <!-- <img :src="item.img" :alt="item.name" class="w-36 h-52 rounded-md" /> -->
-        <img src="../assets/img/a.webp" class="w-36 h-52 rounded-md" />
+        <img :src="item.img" :alt="item.name" class="w-36 h-52 rounded-md" />
         <p class="flex justify-start w-full">
           <span class="font-semibold ml-2 truncate">{{ item.name }}</span>
         </p>
@@ -22,14 +21,17 @@
     <n-drawer v-model:show="showContent" class="movie-drawer" placement="right">
       <n-drawer-content>
         <div class="flex">
-          <img src="../assets/img/a.webp" class="w-2/5" />
-          <!-- <img :src="movieInfo.img" :alt="movieInfo.name" class="w-2/5 /> -->
+          <img :src="movieInfo.img" class="w-2/5" />
           <div class="ml-3 movie-info">
             <p class="text-xl font-bold truncate">{{ movieInfo.name }}</p>
             <p class="font-sm text-slate-500">{{ movieInfo.time }}</p>
           </div>
         </div>
-        <MarkdownEditor :editorText="movieInfo.content" style="height: auto" />
+        <p>简介：</p>
+        <p class="text-sm">{{ movieInfo.introduction }}</p>
+        <p>读后感：</p>
+        <p class="text-sm">{{ movieInfo.content }}</p>
+        <!-- <MarkdownEditor :editorText="movieInfo.content" style="height: auto" /> -->
       </n-drawer-content>
     </n-drawer>
   </div>
@@ -47,6 +49,7 @@ interface moviesList {
   name: string // 书籍名称
   time: string // 观看时间
   content: string // 观后感
+  introduction: string
 }
 
 interface PageConfig {
@@ -72,7 +75,8 @@ const movieInfo: MovieInfo = reactive({
   img: "",
   name: "",
   time: "",
-  content: ""
+  content: "",
+  introduction: ""
 })
 
 // 获取影视列表

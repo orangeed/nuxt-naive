@@ -71,6 +71,7 @@ export class MoviesService {
   async findOne(id: string) {
     if (!id) return { code: stateCode.findFail, message: "id不能为空", data: null }
     const data = await this.moviesRepository.findOne(id)
+    data.time = dayjs(data.time).format("YYYY-MM-DD")
     return { code: stateCode.success, message: "查询成功", data: data ? data : null }
   }
 

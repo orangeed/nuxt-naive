@@ -7,13 +7,18 @@
         <n-tab-pane name="0" tab="电视剧"></n-tab-pane>
       </n-tabs>
       <div v-for="(item, index) in moviesList" :key="index" class="movie-item" @click="handleShowContent(item.id)">
-        <!-- <img :src="item.img" :alt="item.name" class="w-36 h-52 rounded-md" /> -->
-        <img src="../assets/img/a.webp" class="w-36 h-52 rounded-md" />
+        <img :src="item.img" class="w-36 h-52 rounded-md" />
         <p class="flex justify-start w-full">
           <n-tag type="warning" round size="small"
             ><span class="text-xs">{{ item.type === 1 ? "电影" : "电视剧" }}</span></n-tag
           >
-          <span class="font-semibold ml-2 truncate">{{ item.name }}</span>
+
+          <n-tooltip trigger="hover">
+            <template #trigger>
+              <span class="font-semibold ml-2 truncate">{{ item.name }}</span>
+            </template>
+            <span> {{ item.name }} </span>
+          </n-tooltip>
         </p>
       </div>
       <div class="w-full flex justify-end mt-10">
@@ -28,20 +33,24 @@
     </div>
     <n-drawer v-model:show="showContent" class="movie-drawer" placement="right">
       <n-drawer-content>
-        <!-- <img :src="movieInfo.img" :alt="movieInfo.name" class="w-full" /> -->
         <div class="flex">
-          <img src="../assets/img/a.webp" class="w-2/5" />
+          <img :src="movieInfo.img" class="w-2/5" />
           <div class="ml-3 movie-info">
             <p>
               <n-tag type="warning" round size="small"
                 ><span class="text-xs">{{ movieInfo.type === 1 ? "电影" : "电视剧" }}</span></n-tag
               >
             </p>
-            <p class="text-xl font-bold truncate">{{ movieInfo.name }}</p>
-            <p class="font-sm text-slate-500">{{ movieInfo.time }}</p>
+            <p class="text-xl font-bold">{{ movieInfo.name }}</p>
+            <p>评分：<n-rate readonly :default-value="Number(movieInfo.score)" allow-half /></p>
+            <p class="font-sm text-slate-500">上架时间：{{ movieInfo.time }}</p>
           </div>
         </div>
-        <MarkdownEditor :editorText="movieInfo.content" style="height: auto" />
+        <p>简介：</p>
+        <p class="text-sm">{{ movieInfo.introduction }}</p>
+        <p>观后感：</p>
+        <p class="text-sm">{{ movieInfo.content }}</p>
+        <!-- <MarkdownEditor :editorText="movieInfo.content" style="height: auto" /> -->
       </n-drawer-content>
     </n-drawer>
   </div>
@@ -60,6 +69,8 @@ interface moviesList {
   type: number // 0为电视剧 1为电影
   time: string // 观看时间
   content: string // 观后感
+  score: number
+  introduction: string
 }
 
 interface PageConfig {
@@ -88,7 +99,9 @@ const movieInfo: MovieInfo = reactive({
   name: "",
   type: 0,
   time: "",
-  content: ""
+  content: "",
+  score: 0,
+  introduction: ""
 })
 
 // 获取影视列表
