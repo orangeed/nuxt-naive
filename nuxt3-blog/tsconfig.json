@@ -22,6 +22,7 @@
     "./**/*.d.ts",
     "./**/*.tsx",
     "./**/*.vue",
+    "./components/*.vue",
     "tailwind.config.js"
   ],
   "references": [{ "path": "./tsconfig.node.json" }]

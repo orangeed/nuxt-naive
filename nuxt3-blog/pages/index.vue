@@ -50,7 +50,7 @@
           <p class="text-2xl font-familg-regular font-normal">最近文章</p>
           <n-tabs type="line" animated size="large" :on-update:value="handleChangeTabs">
             <n-tab-pane name="" tab="全部">
-              <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
+              <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 mr-4 cursor-pointer ccard" @click="handleGotoDetail(item.id)">
                 <ArtCard :item="item" />
               </div>
             </n-tab-pane>
@@ -150,7 +150,6 @@ const handleGetTabsData = (val: string) => {
 }
 handleGetTabsData("")
 
-
 // 跳转至详情
 const router = useRouter()
 const handleGotoDetail = (id: number) => {
@@ -238,5 +237,28 @@ handle3D()
 }
 #busuanzi_container_site_uv {
   display: block !important;
+}
+.ccard > #artCard::before {
+  content: "";
+  position: absolute;
+  left: 0px;
+  width: 2px;
+  height: 60px;
+  background-color: #fd5800;
+  top: 50%;
+  transform: translate(0, -50%);
+  opacity: 0;
+}
+.ccard > #artCard:hover::before {
+  content: "";
+  position: absolute;
+  left: 0px;
+  width: 2px;
+  height: 60px;
+  background-color: #fd5800;
+  top: 50%;
+  transform: translate(0, -50%);
+  transition: all 0.7s;
+  opacity: 1;
 }
 </style>

@@ -1,6 +1,6 @@
 <!-- artCard -->
 <template>
-  <div class="flex" id="artCard">
+  <div class="flex pl-2" id="artCard">
     <!-- 图片 -->
     <div class="img mr-4 rounded-lg">
       <n-image :src="item.img" class="acr-img" />
@@ -23,8 +23,8 @@
 </template>
 
 <!-- <script lang="ts" src="./artCard.ts" /> -->
-<script>
-import { defineComponent, reactive, toRefs } from "vue"
+<script lang="ts">
+import { defineComponent, reactive, toRefs, PropType } from "vue"
 import { stateList } from "../utils/state"
 
 export default defineComponent({
@@ -32,7 +32,7 @@ export default defineComponent({
   components: {},
   props: {
     item: {
-      type: Object,
+      type: Object as PropType<any>,
       default: () => {
         return {}
       }
@@ -53,11 +53,13 @@ export default defineComponent({
 //     border-radius: 10px;
 //   }
 // }
-
 </style>
 
 <style lang="scss">
 #artCard {
+  position: relative;
+  display: flex;
+  align-items: center;
   img {
     border-radius: 10px;
   }
