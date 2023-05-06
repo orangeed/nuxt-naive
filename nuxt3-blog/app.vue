@@ -1,14 +1,3 @@
-<!--
- * @Author: orange
- * @Date: 2022-10-11 21:56:20
- * @LastEditors: orange
- * @LastEditTime: 2022-11-20 21:25:40
- * @FilePath: \nuxt-naive\nuxt3-blog\app.vue
- * @Description: 
- * 
- * Copyright (c) 2022 by orange, All Rights Reserved. 
--->
-
 <template>
   <n-config-provider
     :theme="theme"

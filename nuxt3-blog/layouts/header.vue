@@ -28,7 +28,7 @@
             <template #checked>浅</template>
             <template #unchecked>深</template>
           </n-switch>
-          <n-button strong secondary class="ml-4" @click="handleSelect3D"> 3D </n-button>
+          <n-button strong secondary class="ml-4" @click.stop="handleSelect3D"> 3D </n-button>
         </div>
       </div>
     </div>
@@ -52,11 +52,12 @@
       <n-drawer-content>
         <template #header>
           <span>菜单</span>
-          <span class="mr-6 cursor-pointer flex flex-3 justify-end">
+          <span class="mr-6 cursor-pointer flex flex-3 justify-end items-center">
             <n-switch size="medium" v-model:value="active" @update:value="handleChangeTheme" :rail-style="railStyle">
               <template #checked>浅</template>
               <template #unchecked>深</template>
             </n-switch>
+            <n-button strong secondary class="ml-4" @click.stop="handleSelect3D"> 3D </n-button>
           </span>
         </template>
 

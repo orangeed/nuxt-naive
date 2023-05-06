@@ -1,18 +1,7 @@
-/*
- * @Author: orange
- * @Date: 2022-10-11 21:56:20
- * @LastEditors: orange
- * @LastEditTime: 2022-12-04 17:13:10
- * @FilePath: \nuxt-naive\nuxt3-blog\nuxt.config.ts
- * @Description:
- *
- * Copyright (c) 2022 by orange, All Rights Reserved.
- */
 import { defineNuxtConfig } from "nuxt"
 import Components from "unplugin-vue-components/vite"
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers"
 
-// https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   build: {
     transpile:
@@ -26,7 +15,7 @@ export default defineNuxtConfig({
           autoprefixer: {}
         }
       }
-    }
+    },
   },
   vite: {
     optimizeDeps: {
@@ -51,10 +40,7 @@ export default defineNuxtConfig({
           href: "./assets/ico/logo.ico"
         }
       ],
-      meta: [
-        // { name: "description", content: "My amazing site." }
-        { name: "referrer", content: "no-referrer" }
-      ],
+      meta: [{ name: "referrer", content: "no-referrer" }],
       script: [
         {
           type: "text/javascript",
@@ -64,22 +50,4 @@ export default defineNuxtConfig({
       ]
     }
   }
-  // index: {
-  //   head: {
-  //     title: "在线Excel文件转换成数组json格式数据-六月初工具站",
-  //     meta: [
-  //       {
-  //         name: "keywords",
-  //         content: "在线excle数据1"
-  //       }
-  //     ],
-  //     script: [
-  //       {
-  //         type: "text/javascript",
-  //         src: "https://code.jquery.com/jquery-3.1.1.min.js",
-  //         body: true //<script>是否在body中
-  //       }
-  //     ]
-  //   }
-  // }
 })

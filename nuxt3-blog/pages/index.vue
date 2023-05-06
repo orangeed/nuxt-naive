@@ -4,7 +4,6 @@
     <div class="nomal-box" :style="{ right: is3D ? '120%' : '0', height: is3D ? '50vh' : '100%' }">
       <div class="index-box">
         <div class="flex-1 about-me text-center">
-          <!-- <p class="text-2xl text-left">个人简介</p> -->
           <n-image src="../assets/img/header.jpg" />
           <p class="text-xl">橘子</p>
           <p class="text-left">菜鸡小前端一个，本科毕业。这里的文章主要是记录工作、学习以及生活。还有个公众号：【橘子的分享】</p>
@@ -46,44 +45,7 @@
             </p>
           </div>
         </div>
-        <div class="content" style="flex: 3">
-          <p class="text-2xl font-familg-regular font-normal">最近文章</p>
-          <n-tabs type="line" animated size="large" :on-update:value="handleChangeTabs">
-            <n-tab-pane name="" tab="全部">
-              <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 mr-4 cursor-pointer ccard" @click="handleGotoDetail(item.id)">
-                <ArtCard :item="item" />
-              </div>
-            </n-tab-pane>
-            <n-tab-pane name="0" tab="JS/TS">
-              <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
-                <ArtCard :item="item" />
-              </div>
-            </n-tab-pane>
-            <n-tab-pane name="1" tab="Vue">
-              <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
-                <ArtCard :item="item" />
-              </div>
-            </n-tab-pane>
-            <n-tab-pane name="2" tab="Python">
-              <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click="handleGotoDetail(item.id)">
-                <ArtCard :item="item" />
-              </div>
-            </n-tab-pane>
-          </n-tabs>
-          <div class="flex justify-end" v-if="pageConfig.total > 0">
-            <n-pagination
-              v-model:page="pageConfig.pageNum"
-              v-model:page-size="pageConfig.pageSize"
-              :page-sizes="[10, 20, 30, 40]"
-              :page-count="Math.ceil(pageConfig.total / pageConfig.pageSize)"
-              size="large"
-              show-quick-jumper
-              show-size-picker
-              :on-update:page="handleChangePageNum"
-              :on-update:page-size="handleChangePageSize"
-            />
-          </div>
-        </div>
+        <Article :is3D="is3D" />
       </div>
     </div>
     <!-- 3d -->
@@ -94,67 +56,10 @@
 </template>
 <script lang="ts" setup>
 import { Ref, reactive, ref } from "vue"
-import { useRouter } from "vue-router"
 import { Zhihu, Weixin, Github } from "@vicons/fa"
-import ArtCard from "../components/artCard.vue"
-import { getHomeArticleList } from "../server/home"
 import { emitter } from "../utils/mitt"
 import Three from "~~/components/three.vue"
-
-// login({ username: "orange", password: "c4ca4238a0b923820dcc509a6f75849b" }).then((res) => {
-//   window.sessionStorage.setItem("TOKEN", res.data.token)
-//   handleGetTabsData("")
-// })
-
-// 切换tabs的事件
-const handleChangeTabs = (val: string) => {
-  // 通过val去查询对应字段的数据
-  pageConfig.pageNum = 1
-  handleGetTabsData(val)
-}
-
-interface ArtDara {
-  id: number
-  img: string
-  title: string
-  tag: string[]
-  updataTime: string
-}
-
-interface Data {
-  artData: ArtDara[]
-}
-interface PageConfig {
-  pageNum: number
-  pageSize: number
-  total: number
-}
-
-// 分页的数据
-const pageConfig: PageConfig = reactive({
-  pageNum: 1,
-  pageSize: 10,
-  total: 0
-})
-
-// 获取tabs下面的数据
-const data: Data = reactive({ artData: [] })
-let currentIndex: string = ""
-const handleGetTabsData = (val: string) => {
-  currentIndex = val
-  data.artData = []
-  getHomeArticleList({ pageNum: pageConfig.pageNum, pageSize: pageConfig.pageSize, tag: val ? val : "" }).then((res) => {
-    data.artData = res.data.list
-    pageConfig.total = res.data.total
-  })
-}
-handleGetTabsData("")
-
-// 跳转至详情
-const router = useRouter()
-const handleGotoDetail = (id: number) => {
-  router.push({ path: "/details", query: { id } })
-}
+import Article from "~~/components/article.vue"
 
 // 跳转至网站
 const handleGoto = (val: string) => {
@@ -173,35 +78,8 @@ const handleGoto = (val: string) => {
   }
 }
 
-// 获取查询的信息
-emitter.on("SEARCH_DATA", (val: any) => {
-  data.artData = val.list
-  pageConfig.total = val.total
-})
-
-// 当前页发生改变时的回调函数
-const handleChangePageNum = (val: number) => {
-  data.artData = []
-  pageConfig.pageNum = val
-  getHomeArticleList({ pageNum: pageConfig.pageNum, pageSize: pageConfig.pageSize, tag: currentIndex ? currentIndex : "" }).then((res) => {
-    data.artData = res.data.list
-    pageConfig.total = res.data.total
-  })
-}
-
-// 当前分页大小发生改变时的回调函数
-const handleChangePageSize = (val: number) => {
-  pageConfig.pageNum = 1
-  data.artData = []
-  pageConfig.pageSize = val
-  getHomeArticleList({ pageNum: pageConfig.pageNum, pageSize: pageConfig.pageSize, tag: currentIndex ? currentIndex : "" }).then((res) => {
-    data.artData = res.data.list
-    pageConfig.total = res.data.total
-  })
-}
-
 // 接收3D
-const is3D: Ref<boolean> = ref(false)
+const is3D: Ref<boolean> = ref(true)
 const handle3D = () => {
   emitter.on("3DMODEL", (val: any) => {
     is3D.value = val

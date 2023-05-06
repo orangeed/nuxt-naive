@@ -14,7 +14,7 @@
     }
 
     .index-box {
-        @apply flex flex-wrap flex-col pl-10 pr-10;
+        @apply flex flex-col pl-10 pr-10;
     }
 
     .o-icon {
