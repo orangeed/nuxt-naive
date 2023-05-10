@@ -25,8 +25,12 @@
         </div>
         <div class="flex-1 flex items-center justify-center">
           <n-switch size="medium" v-model:value="active" @update:value="handleChangeTheme" :rail-style="railStyle">
-            <template #checked>浅</template>
-            <template #unchecked>深</template>
+            <template #checked>
+              <n-icon size="20" color="#fff"> <Moon /> </n-icon>
+            </template>
+            <template #unchecked>
+              <n-icon size="20" color="#ffa500"> <Sunny /> </n-icon>
+            </template>
           </n-switch>
           <n-button strong secondary class="ml-4" @click.stop="handleSelect3D"> 3D </n-button>
         </div>
@@ -52,10 +56,14 @@
       <n-drawer-content>
         <template #header>
           <span>菜单</span>
-          <span class="mr-6 cursor-pointer flex flex-3 justify-end items-center">
+          <span class="mr-6 cursor-pointer flex flex-3 justify-end items-center ml-4">
             <n-switch size="medium" v-model:value="active" @update:value="handleChangeTheme" :rail-style="railStyle">
-              <template #checked>浅</template>
-              <template #unchecked>深</template>
+              <template #checked>
+                <n-icon size="20" color="#fff"> <Moon /> </n-icon>
+              </template>
+              <template #unchecked>
+                <n-icon size="20" color="#ffa500"> <Sunny /> </n-icon>
+              </template>
             </n-switch>
             <n-button strong secondary class="ml-4" @click.stop="handleSelect3D"> 3D </n-button>
           </span>
@@ -97,7 +105,7 @@
 </template>
 
 <script setup lang="ts">
-import { SearchOutline, GlassesOutline, Glasses, Menu } from "@vicons/ionicons5"
+import { SearchOutline, GlassesOutline, Glasses, Menu, Moon, Sunny } from "@vicons/ionicons5"
 import { ref, reactive, CSSProperties, watch, Ref } from "vue"
 import { darkTheme, useMessage } from "naive-ui"
 import { emitter } from "../utils/mitt"
@@ -170,14 +178,14 @@ const handleChangeTheme = () => {
 const railStyle = ({ focused, checked }: { focused: boolean; checked: boolean }) => {
   const style: CSSProperties = {}
   if (checked) {
-    style.background = "#ffa500"
-    if (focused) {
-      style.boxShadow = "0 0 0 2px #d0305040"
-    }
-  } else {
-    style.background = "#101014"
+    style.background = "#323232"
     if (focused) {
       style.boxShadow = "0 0 0 2px #2080f040"
+    }
+  } else {
+    style.background = "#e3e3e3"
+    if (focused) {
+      style.boxShadow = "0 0 0 2px #d0305040"
     }
   }
   return style

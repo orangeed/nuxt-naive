@@ -1,13 +1,3 @@
-<!--
- * @Author: orange
- * @Date: 2022-10-11 21:56:20
- * @LastEditors: orange
- * @LastEditTime: 2022-11-20 15:00:55
- * @FilePath: \nuxt-naive\nuxt3-blog\pages\about.vue
- * @Description: 
- * 
- * Copyright (c) 2022 by orange, All Rights Reserved. 
--->
 <template>
   <div class="about-box" id="about">
     <n-image src="../assets/img/header.jpg" width="100" />
@@ -49,6 +39,9 @@ aboutMe.content = " 菜鸡小前端一个，本科毕业。这里的文章主要
 
   .n-image > img {
     border-radius: 9999px;
+  }
+  .update{
+    @apply text-left;
   }
 }
 @media screen and (max-width: 1240px) {
