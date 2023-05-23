@@ -24,6 +24,6 @@
     "./**/*.vue",
     "./components/*.vue",
     "tailwind.config.js"
-  ],
+, "plugins/nossr.js"  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

@@ -4,7 +4,8 @@
     <p class="text-3xl font-semibold">{{ pagesInfo.title }}</p>
     <div class="text-sm font-semibold" style="color: #5a5a5a">
       <p class="flex">
-        <n-tag :bordered="false" type="warning" v-for="(tag, index) in pagesInfo.tags" :key="index" class="mr-2" size="small" round>
+        <n-tag :bordered="false" type="warning" v-for="(tag, index) in pagesInfo.tags" :key="index" class="mr-2"
+          size="small" round>
           {{ stateList[index].label }}
         </n-tag>
         <span id="busuanzi_container_page_pv" class="block">
@@ -13,9 +14,7 @@
         </span>
       </p>
       <p class="mt-2">
-        <span class="mr-2"
-          >作者：<span>{{ pagesInfo.author }}</span></span
-        >
+        <span class="mr-2">作者：<span>{{ pagesInfo.author }}</span></span>
         <span>时间：{{ pagesInfo.updateTime }}</span>
       </p>
     </div>
@@ -23,16 +22,21 @@
     <div class="text-base leading-8">
       <MarkdownEditor :editorText="pagesInfo.content" />
     </div>
+    <!-- 评论 -->
+    <!-- <no-ssr>
+      <Comment></Comment>
+    </no-ssr> -->
   </div>
 </template>
 
 <script lang="ts" setup name="pageDetails">
-import { reactive } from "vue"
+import { reactive, onMounted, ref, Ref } from "vue"
 import { useRoute } from "vue-router"
 import { getHomeFindDetails } from "~~/server/home"
 import { stateList } from "../utils/state"
 import MarkdownEditor from "../components/MarkdownEditor.vue"
 import { BookmarkOutline } from "@vicons/ionicons5"
+// import Comment from '../components/comment.vue'
 
 interface PagesInfo {
   author: string
@@ -70,6 +74,18 @@ const handleGetData = () => {
   //   "Lorem ipsum dolor sit amet, consectetur adipiscing elit. In mollis sagittis sem ac porta. Sed commodo ligula vitae mollis tristique. Maecenas egestas semper mauris. Duis tempus blandit ultrices. Proin elit nulla, viverra id suscipit quis, tristique a dolor. Sed dapibus, orci ac luctus tincidunt, massa erat porttitor odio, non imperdiet dui risus et elit."
 }
 handleGetData()
+
+// onMounted(() => {
+//   const comment = ref()
+//   const artalk = Artalk.init({
+//     el: comment.value,
+//     pageKey: '',
+//     pageTitle: pagesInfo.title,
+//     server: 'https://www.orangecj.cn:8080',
+//     site: '橘子的分享',
+//     reqTimeout: 10,
+//   })
+// })
 </script>
 
 <style lang="scss" scoped>

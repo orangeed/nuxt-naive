@@ -1,7 +1,11 @@
 import { defineNuxtConfig } from "nuxt"
 import Components from "unplugin-vue-components/vite"
 import { NaiveUiResolver } from "unplugin-vue-components/resolvers"
+let remove_console = []
 
+if (process.env.NODE_ENV === "production") {
+  remove_console.push("transform-remove-console")
+}
 export default defineNuxtConfig({
   build: {
     transpile:
@@ -16,6 +20,9 @@ export default defineNuxtConfig({
         }
       }
     },
+    babel: {
+      plugins: remove_console
+    }
   },
   vite: {
     optimizeDeps: {
