@@ -2,6 +2,15 @@
   <div id="update">
     <n-h1>更新日志</n-h1>
     <div class="update-box">
+      <n-h2>2023.06.01</n-h2>
+      <n-h3>🍻 修改</n-h3>
+      <n-ul>
+        <n-li>修复3D模式下文章永远是同一篇的bug</n-li>
+        <n-li>修复在2D模式下，其他页面打不开3D的bug</n-li>
+        <n-li>优化动画</n-li>
+      </n-ul>
+    </div>
+    <div class="update-box">
       <n-h2>2023.05.22</n-h2>
       <n-h3>🪄 新增</n-h3>
       <n-ul>

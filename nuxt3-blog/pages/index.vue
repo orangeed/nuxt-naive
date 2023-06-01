@@ -1,7 +1,6 @@
 <template>
   <div id="index">
-    <!-- 非3d -->
-    <div class="nomal-box" :style="{ right: is3D ? '120%' : '0', height: is3D ? '50vh' : '100%' }">
+    <div class="nomal-box">
       <div class="index-box">
         <div class="flex-1 about-me text-center">
           <n-image src="../assets/img/header.jpg" />
@@ -47,10 +46,6 @@
         </div>
         <Article :is3D="is3D" />
       </div>
-    </div>
-    <!-- 3d -->
-    <div class="threejs-box" :style="{ left: is3D ? '0' : '-120%' }">
-      <Three />
     </div>
   </div>
 </template>
@@ -101,13 +96,6 @@ handle3D()
     position: relative;
     overflow: hidden;
     transition: all 1s;
-  }
-  .threejs-box {
-    position: absolute;
-    top: 0;
-    left: -100%;
-    transition: all 1s;
-    overflow: hidden;
   }
 }
 #busuanzi_container_site_pv {

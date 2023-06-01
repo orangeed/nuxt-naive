@@ -112,6 +112,7 @@ import { emitter } from "../utils/mitt"
 import { setStorage } from "~~/utils/storage"
 import { useRouter, useRoute } from "vue-router"
 import { getHomeArticleList } from "../server/home"
+import { cacheEnum } from "../utils/enum"
 
 const search = ref("")
 
@@ -159,17 +160,15 @@ const headerData = reactive({
 const active = ref(false)
 const theme = ref<typeof darkTheme | null>(null)
 const handleChangeTheme = () => {
-  console.log("切换晚上和白天模式", active.value)
   if (active.value) {
     theme.value = darkTheme
   } else {
     theme.value = null
   }
-  console.log("theme.value ", theme.value)
   if (theme.value) {
-    setStorage("THEME", "dark")
+    setStorage(cacheEnum.theme, "dark")
   } else {
-    setStorage("THEME", "light")
+    setStorage(cacheEnum.theme, "light")
   }
   emitter.emit("theme", theme.value)
 }
@@ -193,9 +192,7 @@ const railStyle = ({ focused, checked }: { focused: boolean; checked: boolean })
 
 // 查询
 const handleSubmit = () => {
-  console.log("查询", search.value)
   getHomeArticleList({ pageNum: 1, pageSize: 10, title: search.value }).then((res) => {
-    console.log("获取tabs下面的数据", res)
     // emit("SEARCH_DATA", res.data)
     emitter.emit("SEARCH_DATA", res.data)
   })
@@ -206,7 +203,6 @@ const handleSubmit = () => {
 const currentIndex: Ref<number> = ref(0)
 let idNumber: number
 const handleClickMenu = (id: number, lock: boolean) => {
-  console.log(id)
   if (lock) {
     idNumber = id
   } else {

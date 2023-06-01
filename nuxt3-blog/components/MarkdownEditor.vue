@@ -27,7 +27,6 @@ export default defineComponent({
     const color: Ref<string> = ref("")
     nextTick(() => {
       theme.value = window.localStorage.getItem("THEME")
-      console.log("theme", theme.value)
     })
     emitter.on("theme", (themeItem: any) => {
       if (themeItem) {

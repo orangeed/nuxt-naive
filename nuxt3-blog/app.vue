@@ -8,17 +8,24 @@
     <n-global-style />
     <n-message-provider>
       <div id="app-nuxt">
-        <NuxtLayout name="header"> </NuxtLayout>
-        <NuxtPage :key="$route.fullPath"></NuxtPage>
-        <NuxtLayout name="footer"> </NuxtLayout>
-        <n-back-top :right="20" />
-        <div>
-          <Head>
-            <Title>
-              {{ title }}
-            </Title>
-            <Meta name="description" :content="title" />
-          </Head>
+        <!-- 非3d -->
+        <div class="page-main" :style="{ right: is3D ? '120%' : '0', height: is3D ? '50vh' : '100%' }">
+          <NuxtLayout name="header"> </NuxtLayout>
+          <NuxtPage :key="$route.fullPath"></NuxtPage>
+          <NuxtLayout name="footer"> </NuxtLayout>
+          <n-back-top :right="20" />
+          <div>
+            <Head>
+              <Title>
+                {{ title }}
+              </Title>
+              <Meta name="description" :content="title" />
+            </Head>
+          </div>
+        </div>
+        <!-- 3d -->
+        <div class="threejs-box" :style="{ left: is3D ? '0' : '-120%' }">
+          <Three />
         </div>
       </div>
     </n-message-provider>
@@ -33,7 +40,9 @@ export default {
 import { darkTheme, zhCN, dateZhCN } from "naive-ui"
 import { emitter } from "./utils/mitt"
 import { getStorage } from "./utils/storage"
-import { ref, reactive, onMounted, nextTick } from "vue"
+import { ref, reactive, onMounted, nextTick, Ref } from "vue"
+import { cacheEnum } from "./utils/enum"
+
 const title = "橘子的分享"
 
 const theme = ref<typeof darkTheme | null>(null)
@@ -51,17 +60,23 @@ const darkThemeOverrides = {
 }
 
 emitter.on("theme", (themeItem: any) => {
-  console.log("emitterTheme", themeItem)
   theme.value = themeItem
 })
 
 onMounted(() => {
-  if (getStorage("THEME") === "dark") {
+  if (getStorage(cacheEnum.theme) === "dark") {
     theme.value = darkTheme
   }
 })
+// 接收3D
+const is3D: Ref<boolean> = ref(false)
+const handle3D = () => {
+  emitter.on("3DMODEL", (val: any) => {
+    is3D.value = val
+  })
+}
+handle3D()
 </script>
-<!-- <script  src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script> -->
 <style lang="scss">
 #app-nuxt {
   font-family: Roboto Mono-Regular, Roboto Mono;
@@ -70,6 +85,18 @@ onMounted(() => {
 
   a {
     text-decoration: none;
+  }
+  .page-main {
+    position: relative;
+    overflow: hidden;
+    transition: all 1s;
+  }
+  .threejs-box {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    transition: all 1s;
+    overflow: hidden;
   }
 }
 </style>

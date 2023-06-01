@@ -105,7 +105,6 @@ const handleChangePageSize = (val: number) => {
 const handleShowContent = (id: string) => {
   showContent.value = true
   getRead({ id }).then((res) => {
-    console.log("点击封面的时候", res)
     Object.assign(movieInfo, res.data)
   })
 }

@@ -48,10 +48,12 @@
 </template>
 
 <script lang="ts" setup name="articleCom">
-import { Ref, ref, reactive, defineProps } from "vue"
+import { Ref, ref, reactive } from "vue"
 import { getHomeArticleList } from "../server/home"
 import { useRouter } from "vue-router"
 import Detail from "../pages/details.vue"
+import { setSessStorage } from "../utils/storage"
+import { cacheEnum } from "../utils/enum"
 
 interface ArtDara {
   id: number
@@ -127,9 +129,9 @@ const handleChangePageSize = (val: number) => {
 const router = useRouter()
 const isShowArticleDetail: Ref<boolean> = ref(false)
 const handleGotoDetail = (id: number) => {
-  console.log("xxx", props.is3D)
   if (props.is3D === undefined) {
     isShowArticleDetail.value = true
+    setSessStorage(cacheEnum.articleId, id)
   } else {
     router.push({ path: "/details", query: { id } })
   }

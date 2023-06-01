@@ -170,7 +170,6 @@ const handleAnimateCamera = (camera: any, newP: any, time: any) => {
 
 // 返回平面
 const handleSelectFlat = () => {
-  console.log("返回平面")
   emitter.emit("3DMODEL", false)
 }
 
