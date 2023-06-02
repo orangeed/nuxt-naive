@@ -1,7 +1,7 @@
 <template>
   <footer class="mt-16 h-24 flex flex-col justify-center items-center">
     <slot />
-    <p class="cursor-pointer text-hover" @click="handleToGov">蜀ICP备2022021714号-1 </p>
+    <p class="cursor-pointer text-hover" @click.stop="handleToGov">蜀ICP备2022021714号-1 </p>
     <p> Copyright © 2022-2023 by orange <span class="cursor-pointer text-hover" @click.stop="isUpdateCom = true">更新说明
       </span>
     </p>

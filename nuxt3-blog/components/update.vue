@@ -2,6 +2,16 @@
   <div id="update">
     <n-h1>更新日志</n-h1>
     <div class="update-box">
+      <n-h2>2023.06.02</n-h2>
+      <n-h3>🍻 新增</n-h3>
+      <n-ul>
+        <n-li>优化3D模式下，点击模型的事件</n-li>
+        <n-li>增加了点击模型打开影视的功能</n-li>
+        <n-li>增加了点击模型打开书籍的功能</n-li>
+        <n-li>增加了点击模型打开关于的功能</n-li>
+      </n-ul>
+    </div>
+    <div class="update-box">
       <n-h2>2023.06.01</n-h2>
       <n-h3>🍻 修改</n-h3>
       <n-ul>

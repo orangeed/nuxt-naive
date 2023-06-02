@@ -11,7 +11,7 @@
               :component="Zhihu"
               size="40"
               class="bg-gray-100 rounded-xl p-2.5 ml-1 mr-1 cursor-pointer"
-              @click="handleGoto('zhihu')"
+              @click.stop="handleGoto('zhihu')"
             />
             <n-tooltip trigger="hover">
               <template #trigger>
@@ -19,7 +19,7 @@
                   :component="Weixin"
                   size="40"
                   class="bg-gray-100 rounded-xl p-2.5 ml-1 mr-1 cursor-pointer"
-                  @click="handleGoto('weixin')"
+                  @click.stop="handleGoto('weixin')"
                 />
               </template>
               <img src="../assets/img/weixin.jpg" />
@@ -28,7 +28,7 @@
               :component="Github"
               size="40"
               class="bg-gray-100 rounded-xl p-2.5 ml-1 mr-1 cursor-pointer"
-              @click="handleGoto('git')"
+              @click.stop="handleGoto('git')"
             />
           </div>
           <div class="o-icon">

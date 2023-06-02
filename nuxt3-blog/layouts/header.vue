@@ -2,23 +2,23 @@
   <header class="sticky w-full">
     <div class="header flex items-center header-pc">
       <div class="logo flex-1 text-center text-2xl">
-        <span class="cursor-pointer" @click="handleGotoHome"> 橘子的分享</span>
+        <span class="cursor-pointer" @click.stop="handleGotoHome"> 橘子的分享</span>
       </div>
       <div class="flex-1 text-center text-base">
         <span
           v-for="item in headerData.menuList"
           :key="item.id"
           :class="['ml-6 mr-6 cursor-pointer', currentIndex === item.id ? 'active' : '']"
-          @click="handleClickMenu(item.id, item.lock)"
+          @click.stop="handleClickMenu(item.id, item.lock)"
         >
-          <span v-if="item.path" @click="handleGotoPage(item.path, item.lock)">{{ item.name }}</span>
+          <span v-if="item.path" @click.stop="handleGotoPage(item.path, item.lock)">{{ item.name }}</span>
         </span>
       </div>
       <div class="flex-1 flex">
         <div class="flex-1 flex justify-end items-end">
           <n-input-group>
             <n-input v-model:value="search" placeholder="搜索" size="medium"></n-input>
-            <n-input-group-label class="bg-orange-300 text-white border-none cursor-pointer" @click="handleSubmit()">
+            <n-input-group-label class="bg-orange-300 text-white border-none cursor-pointer" @click.stop="handleSubmit()">
               <n-icon :component="SearchOutline" />
             </n-input-group-label>
           </n-input-group>
@@ -38,13 +38,13 @@
     </div>
     <div class="header flex items-center header-mobile">
       <div class="flex-1 text-center text-2xl">
-        <n-icon :size="16" :component="Menu" class="cursor-pointer" @click="handleShowMenu" />
+        <n-icon :size="16" :component="Menu" class="cursor-pointer" @click.stop="handleShowMenu" />
       </div>
       <div class="flex mr-6" style="flex: 3">
         <div class="flex-1 flex justify-end items-end">
           <n-input-group>
             <n-input v-model:value="search" placeholder="搜索" size="medium"></n-input>
-            <n-input-group-label class="bg-orange-300 text-white border-none cursor-pointer" @click="handleSubmit()">
+            <n-input-group-label class="bg-orange-300 text-white border-none cursor-pointer" @click.stop="handleSubmit()">
               <n-icon :component="SearchOutline" />
             </n-input-group-label>
           </n-input-group>
@@ -73,9 +73,9 @@
           v-for="item in headerData.menuList"
           :key="item.id"
           :class="['ml-6 mr-6 cursor-pointer']"
-          @click="handleClickMenu(item.id, item.lock)"
+          @click.stop="handleClickMenu(item.id, item.lock)"
         >
-          <span :class="[currentIndex === item.id ? 'active' : '']" v-if="item.path" @click="handleGotoPage(item.path, item.lock)">{{
+          <span :class="[currentIndex === item.id ? 'active' : '']" v-if="item.path" @click.stop="handleGotoPage(item.path, item.lock)">{{
             item.name
           }}</span>
         </p>
@@ -95,8 +95,8 @@
         </n-input>
         <template #footer>
           <div class="text-right">
-            <n-button @click="handleClose"> 关闭</n-button>
-            <n-button type="warning" class="ml-3" @click="handlePass"> 确定 </n-button>
+            <n-button @click.stop="handleClose"> 关闭</n-button>
+            <n-button type="warning" class="ml-3" @click.stop="handlePass"> 确定 </n-button>
           </div>
         </template>
       </n-card>

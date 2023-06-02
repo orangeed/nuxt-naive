@@ -12,8 +12,21 @@
     aria-modal="true"
     style="width: 70%; margin: 40px auto"
     @click="handleClickModel"
+    :on-after-leave="handleAfterCloseModel"
   >
-    <Article />
+    <Article v-if="modelType === threeModel.article" />
+    <div v-if="modelType === threeModel.about">
+      <p class="text-2xl font-familg-regular font-normal">关于我</p>
+      <About />
+    </div>
+    <div v-if="modelType === threeModel.movie">
+      <p class="text-2xl font-familg-regular font-normal">影视</p>
+      <Movie />
+    </div>
+    <div v-if="modelType === threeModel.read">
+      <p class="text-2xl font-familg-regular font-normal">书籍</p>
+      <About />
+    </div>
   </n-modal>
 </template>
 
@@ -26,6 +39,9 @@ import TWEEN from "@tweenjs/tween.js"
 import { emitter } from "../utils/mitt"
 import { Ref, ref } from "vue"
 import Article from "./article.vue"
+import About from "../pages/about.vue"
+import Movie from '../pages/movies.vue'
+import { threeModel } from "../utils/enum"
 
 // 创建渲染器
 let renderer: any
@@ -109,7 +125,12 @@ const handleCreateControls = () => {
 // 点击模型
 const raycaster = new THREE.Raycaster()
 const mouse = new THREE.Vector2()
-const onMouseClick = (event: any) => {
+const modelType: Ref<string> = ref("")
+const clickEvent: Ref<boolean> = ref(false)
+const onMouseClick = async (event: any) => {
+  // 防止多次点击
+  if (clickEvent.value) return
+  clickEvent.value = true
   //通过鼠标点击的位置计算出raycaster所需要的点的位置，以屏幕中心为原点，值的范围为-1到1.
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1
@@ -117,26 +138,36 @@ const onMouseClick = (event: any) => {
   const intersects = raycaster.intersectObjects(scene.children)
   console.log("intersects", intersects)
   if (intersects.length > 0) {
+    console.log(111)
     intersects.forEach((v) => {
-      switch (v.object.name) {
-        case "pc01":
-          handleAnimateCamera(camera, { x: 100, y: 10, z: 0 }, 1600)
-          if (!isShowArticle.value) {
-            hanleOpenArticle()
-          }
-          break
-        case "pc02":
-          handleAnimateCamera(camera, { x: 100, y: 10, z: 0 }, 1600)
-          if (!isShowArticle.value) {
-            hanleOpenArticle()
-          }
-          break
-        case "board":
-          // 将相机定位到点击的位置
-          handleAnimateCamera(camera, { x: 50, y: 5, z: -10 }, 1600)
-          break
-        default:
-          break
+      // 将相机定位到点击的位置
+      if (v.object.name.includes("pc")) {
+        handleAnimateCamera(camera, { x: 100, y: 10, z: 0 }, 1600)
+        modelType.value = threeModel.movie
+        if (!isShowArticle.value) {
+          hanleOpenArticle()
+        }
+      } else if (v.object.name.includes("book")) {
+        handleAnimateCamera(camera, { x: 10, y: 100, z: -200 }, 1600)
+        modelType.value = threeModel.read
+        if (!isShowArticle.value) {
+          hanleOpenArticle()
+        }
+      } else if (v.object.name.includes("article")) {
+        handleAnimateCamera(camera, { x: 150, y: 10, z: 0 }, 1600)
+        modelType.value = threeModel.article
+        if (!isShowArticle.value) {
+          hanleOpenArticle()
+        }
+      } else if (v.object.name.includes("bed")) {
+        handleAnimateCamera(camera, { x: 100, y: 60, z: -10 }, 1600)
+        modelType.value = threeModel.about
+        if (!isShowArticle.value) {
+          hanleOpenArticle()
+        }
+      } else if (v.object.name.includes("board")) {
+        handleAnimateCamera(camera, { x: 50, y: 5, z: -10 }, 1600)
+      } else {
       }
     })
   }
@@ -174,13 +205,19 @@ const handleSelectFlat = () => {
 }
 
 /**
- * 文章相关
+ * 弹窗相关
  */
 const isShowArticle: Ref<boolean> = ref(false)
 const hanleOpenArticle = () => {
   setTimeout(() => {
     isShowArticle.value = true
   }, 1400)
+}
+
+// 关闭弹窗后
+const handleAfterCloseModel = () => {
+  modelType.value = ""
+  clickEvent.value = false
 }
 
 const handleClickModel = (event: any) => {
@@ -194,7 +231,8 @@ onMounted(() => {
   handleCreateRender()
   handleCreateControls()
   render()
-  window.addEventListener("click", onMouseClick, false)
+  // window.addEventListener("click", onMouseClick, false)
+  document.getElementsByClassName("threejs-box")[0].addEventListener("click", onMouseClick, false)
 })
 </script>
 

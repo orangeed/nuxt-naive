@@ -6,7 +6,7 @@
         <n-tab-pane name="1" tab="电影"></n-tab-pane>
         <n-tab-pane name="0" tab="电视剧"></n-tab-pane>
       </n-tabs>
-      <div v-for="(item, index) in moviesList" :key="index" class="movie-item" @click="handleShowContent(item.id)">
+      <div v-for="(item, index) in moviesList" :key="index" class="movie-item" @click.stop="handleShowContent(item.id)">
         <img :src="item.img" class="w-36 h-52 rounded-md" />
         <p class="flex justify-start w-full">
           <n-tag type="warning" round size="small"

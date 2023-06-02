@@ -2,7 +2,7 @@
 <template>
   <div id="movies">
     <div class="flex flex-wrap movie-card">
-      <div v-for="(item, index) in moviesList" :key="index" class="movie-item" @click="handleShowContent(item.id)">
+      <div v-for="(item, index) in moviesList" :key="index" class="movie-item" @click.stop="handleShowContent(item.id)">
         <img :src="item.img" :alt="item.name" class="w-36 h-52 rounded-md" />
         <p class="flex justify-start w-full">
           <span class="font-semibold ml-2 truncate">{{ item.name }}</span>
