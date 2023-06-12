@@ -15,37 +15,7 @@ import { MoviesModule } from "./movies/movies.module"
 import { ReadModule } from "./read/read.module"
 import { ProjectModule } from './project/project.module';
 
-// 线上
-// const dbInfo = {
-//   host: "127.0.0.1",
-//   //   host: '43.136.136.106',
-//   port: 3306,
-//   username: "orange",
-//   password: "orangecj.1"
-// }
 
-// 本地
-const ENV = process.env.NODE_ENV;
-const dbInfo = {
-  host: 'localhost',
-  port: 3306,
-  username: 'root',
-  password: 'orange123456.',
-};
-// if (ENV === 'prod') {
-//   dbInfo.host = '10.0.224.4';
-//   dbInfo.port = 25532 || 3306;
-//   dbInfo.username = 'root';
-//   dbInfo.password = '';
-// }
-
-// 公司
-// const dbInfo = {
-//   host: 'localhost',
-//   port: 3306,
-//   username: 'root',
-//   password: 'cj123456',
-// };
 
 const { host, port, username, password } = dbInfo
 
