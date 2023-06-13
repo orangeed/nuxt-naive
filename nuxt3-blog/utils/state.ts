@@ -10,5 +10,13 @@ export const stateList = [
   {
     value: 2,
     label: "Python"
+  },
+  {
+    value: 3,
+    label: "移动端"
+  },
+  {
+    value: 4,
+    label: "其他"
   }
 ]

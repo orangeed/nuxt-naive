@@ -2,6 +2,14 @@
   <div id="update">
     <n-h1>更新日志</n-h1>
     <div class="update-box">
+      <n-h2>2023.06.13</n-h2>
+      <n-h3>🍻 新增</n-h3>
+      <n-ul>
+        <n-li>后台新增文章类别</n-li>
+        <n-li>前台首页新增类别</n-li>
+      </n-ul>
+    </div>
+    <div class="update-box">
       <n-h2>2023.06.02</n-h2>
       <n-h3>🍻 新增</n-h3>
       <n-ul>
@@ -31,7 +39,9 @@
       <n-h2>2023.05.20</n-h2>
       <n-h3>📄 软著</n-h3>
       <n-ul>
-        <n-li>寄出软著材料，等待软著，同时写了一篇<n-a href="https://www.orangecj.cn/details?id=31" target="_blank">软著申请教程</n-a></n-li>
+        <n-li
+          >寄出软著材料，等待软著，同时写了一篇<n-a href="https://www.orangecj.cn/details?id=31" target="_blank">软著申请教程</n-a></n-li
+        >
       </n-ul>
     </div>
     <div class="update-box">

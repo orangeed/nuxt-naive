@@ -27,6 +27,16 @@
           <ArtCard :item="item" />
         </div>
       </n-tab-pane>
+      <n-tab-pane name="3" tab="移动端">
+        <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click.stop="handleGotoDetail(item.id)">
+          <ArtCard :item="item" />
+        </div>
+      </n-tab-pane>
+      <n-tab-pane name="4" tab="其他">
+        <div v-for="item in data.artData" :key="item.id" class="mt-4 mb-4 cursor-pointer" @click.stop="handleGotoDetail(item.id)">
+          <ArtCard :item="item" />
+        </div>
+      </n-tab-pane>
     </n-tabs>
     <div class="flex justify-center" v-if="pageConfig.total > 0">
       <n-pagination

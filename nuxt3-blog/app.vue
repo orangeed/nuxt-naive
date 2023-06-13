@@ -69,7 +69,7 @@ onMounted(() => {
   }
 })
 // 接收3D
-const is3D: Ref<boolean> = ref(true)
+const is3D: Ref<boolean> = ref(false)
 const handle3D = () => {
   emitter.on("3DMODEL", (val: any) => {
     is3D.value = val
