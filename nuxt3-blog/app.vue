@@ -6,29 +6,31 @@
     :theme-overrides="theme === null ? lightThemeOverrides : darkThemeOverrides"
   >
     <n-global-style />
-    <n-message-provider>
-      <div id="app-nuxt">
-        <!-- 非3d -->
-        <div class="page-main" :style="{ right: is3D ? '120%' : '0', height: is3D ? '50vh' : '100%' }">
-          <NuxtLayout name="header"> </NuxtLayout>
-          <NuxtPage :key="$route.fullPath"></NuxtPage>
-          <NuxtLayout name="footer"> </NuxtLayout>
-          <n-back-top :right="20" />
-          <div>
-            <Head>
-              <Title>
-                {{ title }}
-              </Title>
-              <Meta name="description" :content="title" />
-            </Head>
+    <n-dialog-provider>
+      <n-message-provider>
+        <div id="app-nuxt">
+          <!-- 非3d -->
+          <div class="page-main" :style="{ right: is3D ? '120%' : '0', height: is3D ? '50vh' : '100%' }">
+            <NuxtLayout name="header"> </NuxtLayout>
+            <NuxtPage :key="$route.fullPath"></NuxtPage>
+            <NuxtLayout name="footer"> </NuxtLayout>
+            <n-back-top :right="20" />
+            <div>
+              <Head>
+                <Title>
+                  {{ title }}
+                </Title>
+                <Meta name="description" :content="title" />
+              </Head>
+            </div>
+          </div>
+          <!-- 3d -->
+          <div class="threejs-box" :style="{ left: is3D ? '0' : '-120%' }">
+            <Three />
           </div>
         </div>
-        <!-- 3d -->
-        <div class="threejs-box" :style="{ left: is3D ? '0' : '-120%' }">
-          <Three />
-        </div>
-      </div>
-    </n-message-provider>
+      </n-message-provider>
+    </n-dialog-provider>
   </n-config-provider>
 </template>
 <script lang="ts">

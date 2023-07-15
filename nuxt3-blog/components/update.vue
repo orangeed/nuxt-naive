@@ -2,6 +2,13 @@
   <div id="update">
     <n-h1>更新日志</n-h1>
     <div class="update-box">
+      <n-h2>2023.07.15</n-h2>
+      <n-h3>🍻 新增</n-h3>
+      <n-ul>
+        <n-li>连夜新增导航功能，软件分类增加软件</n-li>
+      </n-ul>
+    </div>
+    <div class="update-box">
       <n-h2>2023.06.13</n-h2>
       <n-h3>🍻 新增</n-h3>
       <n-ul>

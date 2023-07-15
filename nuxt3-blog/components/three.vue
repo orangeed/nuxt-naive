@@ -266,8 +266,8 @@ onMounted(() => {
   }
 }
 </style>
-<style>
+<!-- <style>
 .n-dialog__title {
   display: none !important;
 }
-</style>
+</style> -->

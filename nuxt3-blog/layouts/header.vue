@@ -149,6 +149,12 @@ const headerData = reactive({
       name: "影视",
       path: "/movies",
       lock: false
+    },
+    {
+      id: 5,
+      name: "导航",
+      path: "/nav",
+      lock: false
     }
 
     // Moon,
