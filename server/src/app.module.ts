@@ -14,6 +14,7 @@ import { ArticleModule } from "./article/article.module"
 import { MoviesModule } from "./movies/movies.module"
 import { ReadModule } from "./read/read.module"
 import { ProjectModule } from './project/project.module';
+import { ToolsModule } from "./tools/tools.module"
 
 
 
@@ -44,7 +45,8 @@ const { host, port, username, password } = dbInfo
     ArticleModule,
     MoviesModule,
     ReadModule,
-    ProjectModule
+    ProjectModule,
+    ToolsModule
   ],
   controllers: [AppController],
   providers: [AppService]

@@ -30,11 +30,13 @@ export class ProjectController {
     return this.projectService.findOne(+id)
   }
 
+  @UseGuards(JwtAuthGuardUser)
   @Patch(":id")
   update(@Param("id") id: string, @Body() updateProjectDto: UpdateProjectDto) {
     return this.projectService.update(+id, updateProjectDto)
   }
 
+  @UseGuards(JwtAuthGuardUser)
   @Delete(":id")
   remove(@Param("id") id: string) {
     return this.projectService.remove(+id)

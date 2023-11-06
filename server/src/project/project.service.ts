@@ -23,6 +23,7 @@ export class ProjectService {
       author: createProjectDto.author,
       img: createProjectDto.img,
       introduction: createProjectDto.introduction,
+      type:createProjectDto.type,
       createTime: dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss")
     })
     return this.projectRepository

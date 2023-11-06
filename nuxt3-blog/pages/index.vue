@@ -1,5 +1,5 @@
 <template>
-  <div id="index">
+  <div class="index">
     <div class="nomal-box">
       <div class="index-box">
         <div class="flex-1 about-me text-center">
@@ -84,7 +84,7 @@ handle3D()
 </script>
 
 <style lang="scss">
-#index {
+.index {
   .about-me {
     .n-image > img {
       width: 132px;

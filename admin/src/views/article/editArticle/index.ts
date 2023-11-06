@@ -4,6 +4,7 @@ import { useRoute } from "vue-router"
 import MarkdownEditor from "../../../components/MarkdownEditor"
 import { createActicle, findDetails, patchArticle } from "../../../server/article"
 import { Data } from "../../../types/views/article.type"
+import { stateList } from "../../../utils/enum"
 export default defineComponent({
   name: "EditArticle",
   components: { MarkdownEditor },
@@ -19,29 +20,6 @@ export default defineComponent({
       editorText: " "
     })
 
-    const tagList = [
-      {
-        value: 0,
-        label: "JS/TS"
-      },
-      {
-        value: 1,
-        label: "Vue"
-      },
-      {
-        value: 2,
-        label: "Python"
-      },
-      {
-        value: 3,
-        label: "移动端"
-      },
-      {
-        value: 4,
-        label: "其他"
-      }
-    ]
-
     // 如果编辑的话,请求接口，获取数据
     const route = useRoute()
     const handleGetMarkdownInfo = () => {
@@ -53,7 +31,7 @@ export default defineComponent({
         data.markDownInfo.author = res.data.author
         data.markDownInfo.img = res.data.img
         res.data.tags.forEach((v: number) => {
-          tagList.forEach((item: any) => {
+          stateList.forEach((item: any) => {
             if (item.value == v) {
               data.markDownInfo.tags.push(item.label)
             }
@@ -110,7 +88,7 @@ export default defineComponent({
       markdownEditor,
       handleSave,
       handleGetHtml,
-      tagList
+      stateList
     }
   }
 })

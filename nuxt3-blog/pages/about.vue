@@ -7,14 +7,20 @@
     <div class="pt-20">
       <span class="text-xl active">个人作品</span>
       <div class="flex flex-wrap justify-center">
-        <n-card class="w-52 h-52 m-8 cursor-pointer" hoverable v-for="i in 4" :key="i">
-          <div class="flex items-center justify-center h-full">待添加作品{{ i }}</div>
+        <n-card class="w-52 h-52 m-8 cursor-pointer" hoverable v-for="(item, index) in personList" :key="index">
+          <div class="flex flex-col items-center justify-center w-full h-full">
+            <img :src="item.img" :alt="item.name" class="w-40 h-40" />
+            <span> {{ item.name }}</span>
+          </div>
         </n-card>
       </div>
       <span class="text-xl active">参与项目</span>
       <div class="flex flex-wrap justify-center">
-        <n-card class="w-52 h-52 m-8 cursor-pointer" hoverable v-for="i in 5" :key="i">
-          <div class="flex items-center justify-center h-full">待添加项目{{ i }}</div>
+        <n-card class="w-52 h-52 m-8 cursor-pointer" hoverable v-for="(item, index) in participateList" :key="index">
+          <div class="flex flex-col items-center justify-center w-full h-full">
+            <img :src="item.img" :alt="item.name" class="w-40 h-40" />
+            <span> {{ item.name }}</span>
+          </div>
         </n-card>
       </div>
     </div>
@@ -22,11 +28,33 @@
 </template>
 
 <script lang="ts" setup name="about">
-import { reactive } from "vue"
+import { reactive, ref, Ref } from "vue"
+import { getProjectList } from "~~/server/project"
 const aboutMe = reactive({
   content: ""
 })
 aboutMe.content = " 菜鸡小前端一个，本科毕业。这里的文章主要是记录工作、学习以及生活。还有个公众号：【橘子的分享】"
+
+// 个人项目
+const personList: Ref<any[]> = ref([])
+
+// 参与项目
+const participateList: Ref<any[]> = ref([])
+
+// 获取项目列表
+const handleGetList = () => {
+  getProjectList({ pageNum: 1, pageSize: 10 }).then((res: any) => {
+    console.log("res", res)
+    res.data.list.forEach((v: any) => {
+      if (v.type === "1") {
+        personList.value.push(v)
+      } else {
+        participateList.value.push(v)
+      }
+    })
+  })
+}
+handleGetList()
 </script>
 
 <style lang="scss">
@@ -40,7 +68,7 @@ aboutMe.content = " 菜鸡小前端一个，本科毕业。这里的文章主要
   .n-image > img {
     border-radius: 9999px;
   }
-  .update{
+  .update {
     @apply text-left;
   }
 }

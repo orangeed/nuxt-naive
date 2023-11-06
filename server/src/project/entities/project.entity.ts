@@ -9,6 +9,9 @@ export class Project {
   name: string
 
   @Column()
+  type: string
+
+  @Column()
   img: string
 
   @Column()

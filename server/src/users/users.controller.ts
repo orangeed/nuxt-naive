@@ -32,4 +32,16 @@ export class UsersController {
   async getUserInfo(@Query() username: { username: string }) {
     return this.usersService.getUserInfo(username)
   }
+
+  @ApiOperation({ summary: "新增一个用户" })
+  @Post("create")
+  createWXuser(@Body() userInfo: any) {
+    return this.usersService.createUserInfo(userInfo)
+  }
+
+  @ApiOperation({ summary: "查询一个微信用户信息是否注册过" })
+  @Get("wxInfo")
+  findWXInfo(@Query() searchInfo: { openid: string }){
+    return this.usersService.findWXUserInfo(searchInfo)
+  }
 }

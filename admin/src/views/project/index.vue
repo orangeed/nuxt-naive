@@ -24,6 +24,11 @@
           </template>
         </el-table-column>
         <el-table-column prop="name" label="名称" width="120" />
+        <el-table-column prop="type" label="分类" width="120">
+          <template #default="scope">
+            {{ scope.row.type === "1" ? "个人项目" : "参与项目" }}
+          </template>
+        </el-table-column>
         <el-table-column prop="introduction" label="简介" />
         <el-table-column prop="author" label="作者" width="100" />
         <el-table-column prop="createTime" label="时间" width="200" />
@@ -42,6 +47,12 @@
       <el-form :model="createForm" label-width="90px">
         <el-form-item label="项目名称：">
           <el-input v-model="createForm.name" placeholder="请输入项目名称" />
+        </el-form-item>
+        <el-form-item label="项目分类：" class="mt-4">
+          <el-select v-model="createForm.type" class="w-full" placeholder="请选择项目分类">
+            <el-option label="个人作品" value="1" />
+            <el-option label="参与作品" value="参与" />
+          </el-select>
         </el-form-item>
         <el-form-item label="作者：" class="mt-4">
           <el-input v-model="createForm.author" placeholder="请输入项目作者" />

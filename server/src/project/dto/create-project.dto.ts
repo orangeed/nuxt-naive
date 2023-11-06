@@ -12,6 +12,11 @@ export class CreateProjectDto {
   @IsNotEmpty()
   @IsString()
   @ApiProperty()
+  type: string
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty()
   author: string
 
   @IsNotEmpty()

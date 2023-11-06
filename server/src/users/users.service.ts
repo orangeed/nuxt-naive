@@ -1,8 +1,8 @@
 import { Injectable, Inject, forwardRef } from "@nestjs/common"
 import { CreateUserDto } from "./dto/create-user.dto"
 import { User } from "./users.entity"
-import { InjectRepository } from "@nestjs/typeorm"
 import { Repository, Like, Raw, In } from "typeorm"
+import { InjectRepository } from "@nestjs/typeorm"
 import { cryptoString } from "../libs/lib"
 import * as generator from "generate-password"
 import { stateCode } from "src/utils/enum"
@@ -84,5 +84,22 @@ export class UsersService {
     const data = await this.usersRepository.findOne({ name: username.username })
     delete data.password
     return { code: stateCode.success, message: "查询成功！", data: data ? data : null }
+  }
+
+  // 新增一个用户
+  async createUserInfo(userInfo: any): Promise<any> {
+    let params = {
+      openid: userInfo.openid,
+      name: `临时名称${new Date().getTime()}`,
+      password: "123456"
+    }
+    return this.usersRepository.save(params).then(() => {})
+  }
+
+  // 获取微信用户信息
+  async findWXUserInfo(searchInfo: { openid: string }): Promise<any> {
+    const data = await this.usersRepository.findOne({ openid: searchInfo.openid })
+    console.log('data',data);
+    return { code: stateCode.success, message: "查询成功！", data: data ? { username: data.name, avatar: data.avatar } : null }
   }
 }

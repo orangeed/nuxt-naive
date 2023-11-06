@@ -27,7 +27,10 @@ export class User {
   intro: string;
 
   @Column()
-  status: boolean;
+  status: string;
+
+  @Column()
+  openid: string;
 
   // 1正常，2注销
   @Column()

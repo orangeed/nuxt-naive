@@ -21,7 +21,7 @@
             placeholder="请输入创作时间"
           /> -->
           <el-select v-model="markDownInfo.tags" multiple placeholder="请选择分类" style="width: 240px">
-            <el-option v-for="item in tagList" :key="item.value" :label="item.label" :value="item.value" />
+            <el-option v-for="item in stateList" :key="item.value" :label="item.label" :value="item.value" />
           </el-select>
         </el-form-item>
         <el-form-item>

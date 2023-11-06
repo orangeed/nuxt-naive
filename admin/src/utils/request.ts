@@ -13,7 +13,7 @@ const service = axios.create({
 });
 
 service.interceptors.request.use(
-  (config: AxiosRequestConfig) => {
+  (config: any) => {
     // @ts-ignore
     config.headers["Authorization"] = `Bearer ${getStorge(
       storageEnum.Authorization

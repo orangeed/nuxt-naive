@@ -8,4 +8,5 @@ export interface CreateProject {
   author: string
   img: string
   introduction: string
+  type: string | number
 }

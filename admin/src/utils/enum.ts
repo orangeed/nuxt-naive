@@ -22,5 +22,21 @@ export const stateList = [
   {
     value: 4,
     label: "其他"
+  },
+  {
+    value: 5,
+    label: "AI"
+  },
+  {
+    value: 6,
+    label: "软件"
+  },
+  {
+    value: 7,
+    label: "生活"
+  },
+  {
+    value: 8,
+    label: "历史"
   }
 ]

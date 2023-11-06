@@ -26,7 +26,8 @@ export default defineComponent({
       name: "",
       author: "",
       img: "",
-      introduction: ""
+      introduction: "",
+      type: ""
     })
 
     // 表格数据
@@ -139,6 +140,7 @@ export default defineComponent({
       createForm.name = ""
       createForm.img = ""
       createForm.introduction = ""
+      createForm.type = ""
     }
 
     return {
